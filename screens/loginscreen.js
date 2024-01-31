@@ -4,6 +4,7 @@ import { View, Text, TextInput, TouchableOpacity } from "react-native"
 import { widthPercentageToDP } from "react-native-responsive-screen";
 import { ip_address, userID } from "../config";
 import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const url = ip_address+'/getuser'
@@ -31,17 +32,17 @@ export default function LoginScreen(){
         
         fetch(ip_address+'/getuser', requestOptions)
           .then(response => response.text())
-          .then(result => {
+          .then(async result => {
             console.log(result)
-            userID = result
-            console.error(userID)
+            await AsyncStorage.setItem("userID",result)
+          
         })
           .catch(error => console.log('error', error));
     } 
 
     return(
         <View className="w-full h-full" style={{
-paddingTop:widthPercentageToDP(10)
+            paddingTop:widthPercentageToDP(10)
         }}>
             <Text>
                 pole 1
