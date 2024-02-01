@@ -7,7 +7,6 @@ import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const url = ip_address+'/getuser'
 
 export default function LoginScreen(){
     const navigation = useNavigation()
@@ -19,8 +18,8 @@ export default function LoginScreen(){
         myHeaders.append("Content-Type", "application/json");
         
         var raw = JSON.stringify({
-          "login": login,
-          "password": password
+          "login": "test3",
+          "password": "test3"
         });
         
         var requestOptions = {
@@ -31,10 +30,13 @@ export default function LoginScreen(){
         };
         
         fetch(ip_address+'/getuser', requestOptions)
-          .then(response => response.text())
+          .then(response => response.json())
           .then(async result => {
-            console.log(result)
-            await AsyncStorage.setItem("userID",result)
+            console.log('id',result.id)
+            console.log('fio',result.fio)
+
+            global.id = result.id
+            global.fio = result.fio
           
         })
           .catch(error => console.log('error', error));
