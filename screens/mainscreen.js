@@ -2,27 +2,23 @@ import { StatusBar } from 'expo-status-bar';
 import { FlatList, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { widthPercentageToDP } from 'react-native-responsive-screen';
 import ObjectCard from '../components/card_of_object';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ip_address } from '../config';
 import { useEffect, useState } from 'react';
+import TaskCard from '../components/card_of_task';
+import { useNavigation } from '@react-navigation/core';
 
 
 export default function MainScreen() {
+  const navigation = useNavigation()
 
   const [object_data,setObject_data] = useState([]);
   const [task_data,setTask_data] = useState([]);
-  // const [id,setID] = useState(-1)
     
   const referss=()=>{
-    console.log("refresh")
     getObjectsForUser()
     getTaskForUser()
   }
 
-
-    // useEffect(() =>{
-       
-    // })
 
     const getObjectsForUser = () =>{
         var myHeaders = new Headers();
@@ -96,7 +92,7 @@ export default function MainScreen() {
         <Text className="text-2xl" style={{}}>
           Объекты
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={navigation.navigate('Список объектов')}>
           <Text className="text-xl" style={{right:-widthPercentageToDP(60)}}>
           Ещё
         </Text>
@@ -111,7 +107,7 @@ export default function MainScreen() {
           className="w-full bg-red-500"
           contentContainerStyle={{alignContent:'center'}}
           renderItem={({item})=> (
-            // console.log('item',item),
+
             <ObjectCard name={item.name} image={item.image}/>
           )}
           ItemSeparatorComponent={() => {
@@ -135,7 +131,7 @@ export default function MainScreen() {
         <Text className="text-2xl" style={{}}>
           Заявки
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={navigation.navigate('Список Заявок')}>
           <Text className="text-xl" style={{right:-widthPercentageToDP(60)}}>
           Ещё
         </Text>
@@ -150,8 +146,7 @@ export default function MainScreen() {
           className="w-full bg-red-500"
           contentContainerStyle={{alignContent:'center'}}
           renderItem={({item})=> (
-            // console.log('item',item),
-            <ObjectCard name={item.name} image={item.image}/>
+            <TaskCard name={item.name} stage ={item.stage} image={item.image}/>
           )}
           ItemSeparatorComponent={() => {
             return (
@@ -166,7 +161,6 @@ export default function MainScreen() {
           />
         
       </View>
-      <Text>Open up App.js to start working on your app!</Text>
       <StatusBar style="auto" />
     </SafeAreaView>
   );

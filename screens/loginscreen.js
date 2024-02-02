@@ -60,7 +60,7 @@ export default function LoginScreen(){
             <TextInput
              onChangeText={setPassword}
              value={password}/>
-            <TouchableOpacity onPress={()=>{sendData(); navigation.navigate('Главный экран')}}>
+            <TouchableOpacity onPress={()=>{sendData(); navigation.navigate('ee')}}>
                 <View  className="bg-red-500" style={{width:widthPercentageToDP(30),height:widthPercentageToDP(10)}}>
                     <Text>
                         Вход
