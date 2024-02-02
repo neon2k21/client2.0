@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/core';
 
 
 export default function MainScreen() {
-  const navigation = useNavigation()
+  const {navigate} = useNavigation()
 
   const [object_data,setObject_data] = useState([]);
   const [task_data,setTask_data] = useState([]);
@@ -19,6 +19,10 @@ export default function MainScreen() {
     getTaskForUser()
   }
 
+  // useEffect(()=>{
+  //   getObjectsForUser()
+  //   getTaskForUser()
+  // },[])
 
     const getObjectsForUser = () =>{
         var myHeaders = new Headers();
@@ -60,10 +64,10 @@ export default function MainScreen() {
         redirect: 'follow'
       };
       
-      fetch(ip_address+'/gettasks', requestOptions)
+      fetch(ip_address+'/getUsertask', requestOptions)
         .then( response => response.json())
         .then( result => {
-          
+          console.log(result)
           setTask_data(result)
 
       })
@@ -80,7 +84,7 @@ export default function MainScreen() {
              {global.fio}
             </Text>
             <Text style={{marginHorizontal:widthPercentageToDP(10)}} className="text-base">
-            Перейти в профиль 
+          Нажмите чтобы обновить
             </Text>
         </TouchableOpacity>
         
@@ -89,18 +93,16 @@ export default function MainScreen() {
 
       <View style={{paddingTop:widthPercentageToDP(50)}}>
         <View className="flex-row bg-red-500" style={{width: widthPercentageToDP(95), height:widthPercentageToDP(10), margin:widthPercentageToDP(2),alignItems:'center'}}>
-        <Text className="text-2xl" style={{}}>
+        <Text className="text-2xl">
           Объекты
         </Text>
-        <TouchableOpacity onPress={navigation.navigate('Список объектов')}>
-          <Text className="text-xl" style={{right:-widthPercentageToDP(60)}}>
+        <TouchableOpacity style={{right:-widthPercentageToDP(60)}} className="bg-red-400" onPress={()=>{navigate('Список объектов');console.log('5')} }>
+          <Text className="text-xl" >
           Ещё
         </Text>
         </TouchableOpacity>
         
         </View>
-        
-         
           <FlatList
           data={object_data}
           horizontal={true}
@@ -128,11 +130,11 @@ export default function MainScreen() {
  {/* карусель заявок */}
   <View style={{paddingTop:widthPercentageToDP(5)}}>
         <View className="flex-row bg-red-500" style={{width: widthPercentageToDP(95), height:widthPercentageToDP(10), margin:widthPercentageToDP(2),alignItems:'center'}}>
-        <Text className="text-2xl" style={{}}>
+        <Text className="text-2xl">
           Заявки
         </Text>
-        <TouchableOpacity onPress={navigation.navigate('Список Заявок')}>
-          <Text className="text-xl" style={{right:-widthPercentageToDP(60)}}>
+        <TouchableOpacity style={{right:-widthPercentageToDP(65)}} onPress={()=>{navigate('Список Заявок')}}>
+          <Text className="text-xl" >
           Ещё
         </Text>
         </TouchableOpacity>
@@ -146,7 +148,7 @@ export default function MainScreen() {
           className="w-full bg-red-500"
           contentContainerStyle={{alignContent:'center'}}
           renderItem={({item})=> (
-            <TaskCard name={item.name} stage ={item.stage} image={item.image}/>
+            <TaskCard name={item.object_name} stage ={item.task_stage} image={item.object_image}/>
           )}
           ItemSeparatorComponent={() => {
             return (
