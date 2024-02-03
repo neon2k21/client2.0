@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { FlatList, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
-import { widthPercentageToDP } from 'react-native-responsive-screen';
+import { FlatList, Image, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import ObjectCard from '../components/card_of_object';
 import { ip_address } from '../config';
 import { useEffect, useState } from 'react';
@@ -76,38 +76,57 @@ export default function MainScreen() {
   }
 
   return (
-    <SafeAreaView style={{paddingTop:widthPercentageToDP(10)}}>
+    <SafeAreaView  style={{paddingTop:widthPercentageToDP(10)}}>
+      <Image style={{width:widthPercentageToDP(100),height:heightPercentageToDP(100)}} className= "absolute" source={{uri: 'https://w.forfun.com/fetch/50/5053c1ca9fef0b39b9e04bbcbf7a6ad0.jpeg'}}/>
       {/* Шапка профиля */}
-      <View className="bg-red-500 w-full rounded-b-lg" style={{height:widthPercentageToDP(20)}}>
+      <View className=" rounded-b-lg border-2" style={{width:widthPercentageToDP(95),height:widthPercentageToDP(20),alignItems:'center', borderColor:'white',backgroundColor: 'rgba(144,144,144,0.4)'}}>
         <TouchableOpacity onPress={()=>{referss()}}>
             <Text style={{marginHorizontal:widthPercentageToDP(10),paddingTop:widthPercentageToDP(3),fontSize:widthPercentageToDP(5)}}>
              {global.fio}
             </Text>
             <Text style={{marginHorizontal:widthPercentageToDP(10)}} className="text-base">
-          Нажмите чтобы обновить
+              Нажмите чтобы обновить
             </Text>
         </TouchableOpacity>
-        
       </View>
-            {/* карусель объектов */}
 
-      <View style={{paddingTop:widthPercentageToDP(50)}}>
-        <View className="flex-row bg-red-500" style={{width: widthPercentageToDP(95), height:widthPercentageToDP(10), margin:widthPercentageToDP(2),alignItems:'center'}}>
-        <Text className="text-2xl">
-          Объекты
-        </Text>
-        <TouchableOpacity style={{right:-widthPercentageToDP(60)}} className="bg-red-400" onPress={()=>{navigate('Список объектов');console.log('5')} }>
-          <Text className="text-xl" >
-          Ещё
-        </Text>
+      <View className="rounded-2xl border-2 flex-row" style={{borderColor:"white",width:widthPercentageToDP(95),height:widthPercentageToDP(40)}}>
+        <View className="w-1/2 bg-red-500 h-full">
+
+        </View>
+        <View className="w-1/2 bg-red-700 h-full">
+            <Text>
+              ФИО мастера:
+            </Text>
+            <Text>
+              ФИО мастера:
+            </Text>
+            <Text>
+             Номер телефона:
+            </Text>
+            <Text>
+              ыфафыаыф
+            </Text>
+        </View>
+      </View>
+
+            {/* карусель объектов */}
+      <View className=" border-2 rounded-2xl" style={{borderColor:"white", backgroundColor:'green',width:widthPercentageToDP(95)}}>
+        <View className="flex-row" >
+          <Text className="text-2xl">
+            Объекты
+          </Text>
+          <TouchableOpacity style={{right:-widthPercentageToDP(60)}} onPress={()=>{navigate('Список объектов');console.log('5')} }>
+            <Text className="text-xl" >
+            Ещё
+          </Text>
         </TouchableOpacity>
         
         </View>
-          <FlatList
+        <View style={{height:widthPercentageToDP(40)}}>
+        <FlatList
           data={object_data}
-          horizontal={true}
-          className="w-full bg-red-500"
-          contentContainerStyle={{alignContent:'center'}}
+          horizontal={true}        
           renderItem={({item})=> (
 
             <ObjectCard name={item.name} image={item.image}/>
@@ -116,21 +135,24 @@ export default function MainScreen() {
             return (
                 <View
                     style={{
-                    height: "100%",
+                      backgroundColor:'green',
+                    height: "10%",
                     width: widthPercentageToDP(2),
                     }}
                 />
             );
         }}
           />
+        </View>
+          
     </View>
 
 
 
  {/* карусель заявок */}
-  <View style={{paddingTop:widthPercentageToDP(5)}}>
-        <View className="flex-row bg-red-500" style={{width: widthPercentageToDP(95), height:widthPercentageToDP(10), margin:widthPercentageToDP(2),alignItems:'center'}}>
-        <Text className="text-2xl">
+ <View className=" border-2 rounded-2xl" style={{borderColor:"white", backgroundColor:'green',width:widthPercentageToDP(95)}}>
+        <View className="flex-row" >
+          <Text className="text-2xl">
           Заявки
         </Text>
         <TouchableOpacity style={{right:-widthPercentageToDP(65)}} onPress={()=>{navigate('Список Заявок')}}>

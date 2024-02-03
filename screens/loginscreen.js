@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/core"
 import { useState } from "react"
-import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native"
-import { widthPercentageToDP } from "react-native-responsive-screen";
+import { View, Text, TextInput, TouchableOpacity, Alert,Image } from "react-native"
+import { heightPercentageToDP, widthPercentageToDP } from "react-native-responsive-screen";
 import { ip_address, userID } from "../config";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -55,29 +55,38 @@ export default function LoginScreen(){
 
     return(
         <View className="w-full h-full" style={{
-            paddingTop:widthPercentageToDP(10)
+           marginTop:widthPercentageToDP(10)
         }}>
-            <Text>
-                pole 1
+            <Image style={{width:widthPercentageToDP(100),height:heightPercentageToDP(100)}} className= "absolute" source={{uri: 'https://w.forfun.com/fetch/50/5053c1ca9fef0b39b9e04bbcbf7a6ad0.jpeg'}}/>
+            <View className="rounded-2xl border-2" style={{ width:widthPercentageToDP(80),height:widthPercentageToDP(80),
+            justifyContent:'center',alignItems:'center',alignSelf:'center',marginTop:widthPercentageToDP(50), borderColor:'white',backgroundColor: 'rgba(144,144,144,0.4)'}}>
+            
+            <Text className="text-2xl" style={{color:'white'}}>
+               Логин
             </Text>
             <TextInput
+            style={{paddingHorizontal:widthPercentageToDP(3), color:'white', borderColor:'white',height:widthPercentageToDP(10)}}
+            className="w-3/4  border-2 rounded-2xl"
             onChangeText={setLogin}
             value={login}
             />
 
-            <Text>
-                pole 2
+            <Text className="text-2xl" style={{color:'white'}}>
+               Пароль
             </Text>
             <TextInput
+             style={{paddingHorizontal:widthPercentageToDP(3),color:'white', borderColor:'white',height:widthPercentageToDP(10)}}
+             className="w-3/4  border-2 rounded-2xl"
              onChangeText={setPassword}
              value={password}/>
-            <TouchableOpacity onPress={()=>{sendData()}}>
-                <View  className="bg-red-500" style={{width:widthPercentageToDP(30),height:widthPercentageToDP(10)}}>
-                    <Text>
+            <TouchableOpacity  style={{paddingTop:widthPercentageToDP(3),borderColor:'white',height:widthPercentageToDP(10), alignItems:'center'}}
+            className="w-1/4  border-2 rounded-2xl" onPress={()=>{sendData()}}>
+               <Text style={{alignContent:'center',color:'white'}}>
                         Вход
                     </Text>
-                </View>
             </TouchableOpacity>
+            </View>
+            
         </View>
     )
 
