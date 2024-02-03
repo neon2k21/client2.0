@@ -41,6 +41,7 @@ export default function MainScreen() {
         fetch(ip_address+'/get_object', requestOptions)
           .then( response => response.json())
           .then( result => {
+            console.log(result[0])
             // console.log(result[0])
             // console.log(typeof(Number(global.id)))
             setObject_data(result)
@@ -67,7 +68,7 @@ export default function MainScreen() {
       fetch(ip_address+'/getUsertask', requestOptions)
         .then( response => response.json())
         .then( result => {
-          console.log(result)
+          //console.log(result)
           setTask_data(result)
 
       })

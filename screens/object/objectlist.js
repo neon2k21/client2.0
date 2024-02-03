@@ -38,6 +38,7 @@ export default function ObjectList(){
           .then( result => {
             // console.log(result[0])
             // console.log(typeof(Number(global.id)))
+            console.log(result)
             setObject_data(result)
 
         })
@@ -46,7 +47,7 @@ export default function ObjectList(){
     }
     <TouchableOpacity onPress={()=>{navigate('Создание заявки')}} className = "absolute" style={{right:widthPercentageToDP(5), bottom:widthPercentageToDP(6)}}>
               <PlusCircleIcon color={'black'} size ={widthPercentageToDP(17)}/>
-</TouchableOpacity>
+    </TouchableOpacity>
     return(
         <View>
             <FlatList
@@ -55,8 +56,8 @@ export default function ObjectList(){
           className="w-full bg-red-500"
           contentContainerStyle={{alignItems:'center', justifyContent:'center'}}
           renderItem={({item})=> (
-
-            <ObjectCard name={item.name} image={item.image}/>
+            
+            <ObjectCard name={item.name} image={item.image} address ={item.object_address} inn={item.object_inn} category={item.object_category}/>
           )}
           ItemSeparatorComponent={() => {
             return (
