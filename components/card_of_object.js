@@ -8,8 +8,8 @@ import { widthPercentageToDP } from "react-native-responsive-screen"
 export default function ObjectCard(props){
     const {name, image} = props
     return(
-        <TouchableOpacity className="flex-1" style={{width:widthPercentageToDP(60),height:widthPercentageToDP(40)}}>
-            <View className="rounded-2xl">
+        <TouchableOpacity>
+            <View style={{width:widthPercentageToDP(60),height:widthPercentageToDP(40)}} className="rounded-2xl">
                 <Image source={{uri: image}} className=" rounded-2xl w-full h-full "/>
                 <View className="rounded-b-2xl w-full absolute flex-row" style={{alignItems:'center',backgroundColor: 'rgba(144,144,144,0.7)' ,bottom:-widthPercentageToDP(0.2),height:widthPercentageToDP(15)}}>
                     <View  style={{width:widthPercentageToDP(45)}}>

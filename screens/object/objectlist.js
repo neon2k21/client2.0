@@ -1,20 +1,79 @@
-import { useState } from "react";
-import { View, Text } from "react-native";
+import { useEffect, useState } from "react";
+import { View, Text,FlatList, TouchableOpacity } from "react-native";
+import { ip_address } from "../../config";
+import ObjectCard from "../../components/card_of_object";
+import { widthPercentageToDP } from "react-native-responsive-screen";
+import { PlusCircleIcon } from "react-native-heroicons/solid";
+import { useNavigation } from "@react-navigation/core";
+import TaskCard from "../../components/card_of_task";
+
+
 
 
 
 export default function ObjectList(){
+    const {navigate} = useNavigation()
+    const [object_data,setObject_data] = useState([])
+    useEffect(()=>{
+        getObjectsForUser()
+    },[])
 
-    const {data,setData} = useState([])
 
+    const getObjectsForUser = () =>{
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        
+        var raw = JSON.stringify({
+          "contact": Number(global.id)
+        });
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        };
+        
+        fetch(ip_address+'/get_object', requestOptions)
+          .then( response => response.json())
+          .then( result => {
+            // console.log(result[0])
+            // console.log(typeof(Number(global.id)))
+            setObject_data(result)
+
+        })
+          .catch(error => console.log('error', error));
+
+    }
+    <TouchableOpacity onPress={()=>{navigate('Создание заявки')}} className = "absolute" style={{right:widthPercentageToDP(5), bottom:widthPercentageToDP(6)}}>
+              <PlusCircleIcon color={'black'} size ={widthPercentageToDP(17)}/>
+</TouchableOpacity>
     return(
         <View>
-            <Text>
-                sdsadsadsadas
-            </Text>
+            <FlatList
+          data={object_data}
+          vertical={true}
+          className="w-full bg-red-500"
+          contentContainerStyle={{alignItems:'center', justifyContent:'center'}}
+          renderItem={({item})=> (
+
+            <ObjectCard name={item.name} image={item.image}/>
+          )}
+          ItemSeparatorComponent={() => {
+            return (
+                <View
+                    style={{
+                    height: "0.1%",
+                    width: widthPercentageToDP(2),
+                    }}
+                />
+            );
+        }}
+        />
+        <TouchableOpacity onPress={()=>{navigate('Создание заявки')}} className = "absolute" style={{right:widthPercentageToDP(5), bottom:widthPercentageToDP(6)}}>
+            <PlusCircleIcon color={'black'} size ={widthPercentageToDP(17)}/>
+        </TouchableOpacity>
         </View>
+        
     )
-
-
 
 }
