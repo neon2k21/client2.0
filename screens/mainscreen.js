@@ -4,8 +4,8 @@ import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsi
 import ObjectCard from '../components/User/card_of_object';
 import { ip_address } from '../config';
 import { useEffect, useState } from 'react';
-import TaskCard from '../components/User/card_of_task';
 import { useNavigation } from '@react-navigation/core';
+import { EllipsisHorizontalCircleIcon } from 'react-native-heroicons/outline';
 
 
 export default function MainScreen() {
@@ -54,53 +54,28 @@ export default function MainScreen() {
 
   return (
     <SafeAreaView  style={{paddingTop:widthPercentageToDP(10)}}>
-      <Image style={{width:widthPercentageToDP(100),height:heightPercentageToDP(100)}} className= "absolute" source={{uri: 'https://w.forfun.com/fetch/50/5053c1ca9fef0b39b9e04bbcbf7a6ad0.jpeg'}}/>
       {/* Шапка профиля */}
-      <View className=" rounded-b-lg border-2" style={{width:widthPercentageToDP(95),height:widthPercentageToDP(20),alignItems:'center', borderColor:'white',backgroundColor: 'rgba(144,144,144,0.4)'}}>
-        <TouchableOpacity onPress={()=>{referss()}}>
-            <Text style={{marginHorizontal:widthPercentageToDP(10),paddingTop:widthPercentageToDP(3),fontSize:widthPercentageToDP(5)}}>
+      <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(15),alignItems:'center', backgroundColor: 'rgba(144,144,144,0.4)'}}>
+       
+            <Text style={{marginHorizontal:widthPercentageToDP(10),fontSize:widthPercentageToDP(5)}}>
              {global.fio}
             </Text>
-            <Text style={{marginHorizontal:widthPercentageToDP(10)}} className="text-base">
-              Нажмите чтобы обновить
-            </Text>
-        </TouchableOpacity>
       </View>
 
-      <View className="rounded-2xl border-2 flex-row" style={{borderColor:"white",width:widthPercentageToDP(95),height:widthPercentageToDP(40)}}>
-        <View className="w-1/2 bg-red-500 h-full">
-
-        </View>
-        <View className="w-1/2 bg-red-700 h-full">
-            <Text>
-              ФИО мастера:
-            </Text>
-            <Text>
-              ФИО мастера:
-            </Text>
-            <Text>
-             Номер телефона:
-            </Text>
-            <Text>
-              ыфафыаыф
-            </Text>
-        </View>
-      </View>
+     
 
             {/* карусель объектов */}
-      <View className=" border-2 rounded-2xl" style={{borderColor:"white", backgroundColor:'green',width:widthPercentageToDP(95)}}>
+      <View  style={{width:widthPercentageToDP(100)}}>
         <View className="flex-row" >
-          <Text className="text-2xl">
-            Объекты
+          <Text className="text-2xl" style={{paddingLeft:widthPercentageToDP(3),width:widthPercentageToDP(85)}}>
+            Мои Объекты
           </Text>
-          <TouchableOpacity style={{right:-widthPercentageToDP(60)}} onPress={()=>{navigate('Список объектов');console.log('5')} }>
-            <Text className="text-xl" >
-            Ещё
-          </Text>
+          <TouchableOpacity onPress={()=>{navigate('Список объектов');console.log('5')} }>
+            <EllipsisHorizontalCircleIcon size={widthPercentageToDP(10)} color={'black'}/>
         </TouchableOpacity>
         
         </View>
-        <View style={{height:widthPercentageToDP(40)}}>
+        <View style={{height:widthPercentageToDP(51)}}>
         <FlatList
           data={object_data}
           horizontal={true}        
@@ -111,7 +86,6 @@ export default function MainScreen() {
             return (
                 <View
                     style={{
-                      backgroundColor:'green',
                     height: "10%",
                     width: widthPercentageToDP(2),
                     }}
@@ -123,44 +97,25 @@ export default function MainScreen() {
           
     </View>
 
+    <Text style={{paddingTop:widthPercentageToDP(3),paddingLeft:widthPercentageToDP(3),fontSize:widthPercentageToDP(5)}}>
+      О компании
+    </Text>
 
+    <View style={{height:widthPercentageToDP(20),width:widthPercentageToDP(40), backgroundColor:'black'}}/>
 
- {/* карусель заявок */}
- <View className=" border-2 rounded-2xl" style={{borderColor:"white", backgroundColor:'green',width:widthPercentageToDP(95)}}>
-        <View className="flex-row" >
-          <Text className="text-2xl">
-          Заявки
-        </Text>
-        <TouchableOpacity style={{right:-widthPercentageToDP(65)}} onPress={()=>{navigate('Список Заявок')}}>
-          <Text className="text-xl" >
-          Ещё
-        </Text>
-        </TouchableOpacity>
-        
-        </View>
-        
-         
-          <FlatList
-          data={task_data}
-          horizontal={true}
-          className="w-full bg-red-500"
-          contentContainerStyle={{alignContent:'center'}}
-          renderItem={({item})=> (
-            <TaskCard name={item.object_name} stage ={item.task_stage} image={item.object_image}/>
-          )}
-          ItemSeparatorComponent={() => {
-            return (
-                <View
-                    style={{
-                    height: "100%",
-                    width: widthPercentageToDP(2),
-                    }}
-                />
-            );
-        }}
-          />
-        
-      </View>
+    <Text>
+    Компания «Монтаж охранно-пожарной
+    сигнализации» с 2006 года успешно занимается
+проектированием, монтажом, пуско-наладкой,
+техническим и сервисным обслуживанием:
+автоматических систем охранно-пожарной
+сигнализации,
+автоматических установок пожаротушения,
+систем оповещения при пожаре.
+Кратчайшие сроки
+Разработка рабочих проектов
+    </Text>
+
       <StatusBar style="auto" />
     </SafeAreaView>
   );

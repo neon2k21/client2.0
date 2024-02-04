@@ -4,7 +4,7 @@ import { FlatList, SafeAreaView,Text, View, Image, TouchableOpacity } from "reac
 import { ip_address } from "../../config";
 import TaskCard from "../../components/User/card_of_task";
 import { widthPercentageToDP } from "react-native-responsive-screen";
-import { CogIcon,MapPinIcon } from "react-native-heroicons/solid";
+import { CogIcon,MapPinIcon, ClockIcon,PlusCircleIcon } from "react-native-heroicons/solid";
 
 
 
@@ -54,37 +54,37 @@ const ObjectScreen=()=>{
     
 
     return(
-        <View className="flex-1" style={{backgroundColor: 'rgba(144,144,144,0.7)',width:widthPercentageToDP(100),height:widthPercentageToDP(100)}}>
+        <View className="flex-1" style={{backgroundColor: 'rgba(255,229,204,0.7)',width:widthPercentageToDP(100),height:widthPercentageToDP(100)}}>
 
            <View  style={{paddingVertical:widthPercentageToDP(40)}}>
            <Image className="absolute" source={{uri: global.object_image}} style={{ width:widthPercentageToDP(100),height:widthPercentageToDP(50)}}/>
-           <View className="flex-row" style={{alignItems:'center'}}>
-           <Text className="text-2xl" style={{paddingLeft:widthPercentageToDP(1),color:'white',backgroundColor:'red',width:widthPercentageToDP(80)}}>
+           <View className="flex-row" style={{alignItems:'center',backgroundColor: 'rgba(255,229,204,0.7)'}}>
+           <Text  style={{fontSize:widthPercentageToDP(5), paddingLeft:widthPercentageToDP(1),color:'black',width:widthPercentageToDP(80)}}>
                 {global.object_name}
            </Text>
-           <CogIcon size={widthPercentageToDP(20)} color={'black'} style={{}}/>
+           <CogIcon size={widthPercentageToDP(15)} color={'black'} style={{}}/>
            </View>
 
-           <View style={{alignSelf:'center',alignItems:'center',backgroundColor:'red',
+           <View style={{alignSelf:'center',alignItems:'center',
             width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-        gap:widthPercentageToDP(3)}}
+            gap:widthPercentageToDP(3)}}
             className="border-l-2 flex-row">
-                <MapPinIcon size={widthPercentageToDP(10)} color={'black'}/>
-                <Text style={{fontSize:widthPercentageToDP(5)}}>
+                <MapPinIcon size={widthPercentageToDP(7)} color={'black'}/>
+                <Text style={{fontSize:widthPercentageToDP(4)}}>
                     {global.object_address}
                 </Text>
            </View>
 
            <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(1)}}/>
 
-           <View style={{alignSelf:'center',alignItems:'center',backgroundColor:'red', 
+           <View style={{alignSelf:'center',alignItems:'center', 
            width:widthPercentageToDP(80),height:widthPercentageToDP(12),
            gap:widthPercentageToDP(3)}}
             className="border-l-2 flex-row">
-                <Text style={{fontSize:widthPercentageToDP(5)}}>
+                <Text style={{fontSize:widthPercentageToDP(4)}}>
                     ИНН
                 </Text> 
-                <Text style={{fontSize:widthPercentageToDP(5)}}>
+                <Text style={{fontSize:widthPercentageToDP(4)}}>
                     {global.object_inn}
                 </Text>
            </View>
@@ -92,14 +92,20 @@ const ObjectScreen=()=>{
            <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(3)}}/>
 
             <View>
-                <Text>
+                <View className="flex-row">
+                <Text style={{fontSize:widthPercentageToDP(6),paddingLeft:widthPercentageToDP(3),width:widthPercentageToDP(80)}}>
                     Заявки
                 </Text>
+                <ClockIcon size={widthPercentageToDP(9)} color={'black'}/>
+                <PlusCircleIcon size={widthPercentageToDP(9)} color={'black'}/>
 
+                </View>
+                
                 <FlatList
             data={data}
             vertical={true}
-            className="w-full bg-red-500"
+            className="w-full"
+            style={{height:widthPercentageToDP(95)}}
             contentContainerStyle={{alignItems:'center', justifyContent:'center'}}
             renderItem={({item})=> (
 
@@ -117,15 +123,10 @@ const ObjectScreen=()=>{
             }}
             />
             </View>
+            
+            
 
-            <TouchableOpacity style={{backgroundColor:'black',width:widthPercentageToDP(80),height:widthPercentageToDP(10),alignSelf:'center'}}>
-                <View style={{alignItems:'center'}}>
-                    <Text className="text-xl" style={{color:'white'}}>
-                        + Новая Заявка
-                    </Text>
-                </View>
-                
-            </TouchableOpacity>
+           
                
            </View>
            

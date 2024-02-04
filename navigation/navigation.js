@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../screens/loginscreen';
 import MainScreen from '../screens/mainscreen';
 import ObjectList from '../screens/object/objectlist';
-import TaskList from '../screens/task/tasklist';
 import AddTask from '../screens/task/addtask';
 import ObjectScreen from '../screens/object/objectscreen';
 
