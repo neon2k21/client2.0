@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { View, Text,FlatList, TouchableOpacity } from "react-native";
 import { ip_address } from "../../config";
-import ObjectCard from "../../components/card_of_object";
 import { widthPercentageToDP } from "react-native-responsive-screen";
 import { PlusCircleIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/core";
-import TaskCard from "../../components/card_of_task";
+import ObjectCard from "../../components/User/card_of_object";
 
 
 

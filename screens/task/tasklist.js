@@ -3,7 +3,7 @@ import { useReducer, useState, useEffect } from "react";
 import { View,FlatList, StyleSheet, TouchableWithoutFeedback, Icon, TouchableOpacity} from "react-native";
 import { Colors, DebugInstructions} from "react-native/Libraries/NewAppScreen";
 import { ip_address } from "../../config";
-import TaskCard from "../../components/card_of_task";
+import TaskCard from "../../components/User/card_of_task";
 import { PlusCircleIcon } from "react-native-heroicons/solid";
 import { widthPercentageToDP } from "react-native-responsive-screen";
 import { useNavigation } from "@react-navigation/core";

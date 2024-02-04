@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { FlatList, Image, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
-import ObjectCard from '../components/card_of_object';
+import ObjectCard from '../components/User/card_of_object';
 import { ip_address } from '../config';
 import { useEffect, useState } from 'react';
-import TaskCard from '../components/card_of_task';
+import TaskCard from '../components/User/card_of_task';
 import { useNavigation } from '@react-navigation/core';
 
 
@@ -16,13 +16,12 @@ export default function MainScreen() {
     
   const referss=()=>{
     getObjectsForUser()
-    getTaskForUser()
   }
 
-  // useEffect(()=>{
-  //   getObjectsForUser()
-  //   getTaskForUser()
-  // },[])
+  useEffect(()=>{
+    getObjectsForUser()
+    
+  },[])
 
     const getObjectsForUser = () =>{
         var myHeaders = new Headers();
@@ -51,30 +50,7 @@ export default function MainScreen() {
 
     }
 
-    const getTaskForUser = () =>{
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-      
-      var raw = JSON.stringify({
-        "id": Number(global.id)
-      });
-      var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-      };
-      
-      fetch(ip_address+'/getUsertask', requestOptions)
-        .then( response => response.json())
-        .then( result => {
-          //console.log(result)
-          setTask_data(result)
-
-      })
-        .catch(error => console.log('error', error));
-
-  }
+   
 
   return (
     <SafeAreaView  style={{paddingTop:widthPercentageToDP(10)}}>
@@ -129,8 +105,7 @@ export default function MainScreen() {
           data={object_data}
           horizontal={true}        
           renderItem={({item})=> (
-
-            <ObjectCard name={item.name} image={item.image}/>
+            <ObjectCard inn = {item.inn} address = {item.address} id = {item.id} name={item.name} image={item.image}/>
           )}
           ItemSeparatorComponent={() => {
             return (

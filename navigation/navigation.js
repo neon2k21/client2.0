@@ -5,6 +5,7 @@ import MainScreen from '../screens/mainscreen';
 import ObjectList from '../screens/object/objectlist';
 import TaskList from '../screens/task/tasklist';
 import AddTask from '../screens/task/addtask';
+import ObjectScreen from '../screens/object/objectscreen';
 
 const Login_Stack = createNativeStackNavigator()
 const MainScreen_Stack = createNativeStackNavigator()
@@ -29,6 +30,7 @@ function MainScreenNavigator(){
     <MainScreen_Stack.Navigator>
         <MainScreen_Stack.Screen name="ee" options={{headerShown: false}} component={MainScreen}/>
         <MainScreen_Stack.Screen name="Список объектов"   component={ObjectList}/>
+        <MainScreen_Stack.Screen name="Карточка объекта"   component={ObjectScreen}/>
         <MainScreen_Stack.Screen name="Список Заявок"   component={TaskScreenNavigator}/>
   </MainScreen_Stack.Navigator>
   )
