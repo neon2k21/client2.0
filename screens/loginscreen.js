@@ -37,6 +37,7 @@ export default function LoginScreen(){
             global.id = result.id
             global.fio = result.fio
             global.role = result.role
+            global.phone = result.phone
             if(result!="Данные не совпадают! Проверьте и повторите попытку") {
                 navigate('Главный экран')
             }

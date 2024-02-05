@@ -17,7 +17,6 @@ const UserObjectScreen=()=>{
     useEffect(()=>{
         getTaskForUser()
       
-       
     },[])
     
 
@@ -39,7 +38,7 @@ const UserObjectScreen=()=>{
         fetch(ip_address+'/getUserObjecttask', requestOptions)
           .then( response => response.json())
           .then( result => {
-            console.log(result)
+            console.log(result.length)
             setData(result)
   
         })
@@ -63,7 +62,7 @@ const UserObjectScreen=()=>{
            <Text  style={{fontSize:widthPercentageToDP(5), paddingLeft:widthPercentageToDP(1),color:'black',width:widthPercentageToDP(80)}}>
                 {global.object_name}
            </Text>
-           <CogIcon size={widthPercentageToDP(15)} color={'black'} style={{}}/>
+           <CogIcon size={widthPercentageToDP(15)} color={'black'} style={{}} onPress={()=>{getTaskForUser()}}/>
            </View>
 
            <View style={{alignSelf:'center',alignItems:'center',
@@ -97,13 +96,16 @@ const UserObjectScreen=()=>{
                 <Text style={{fontSize:widthPercentageToDP(6),paddingLeft:widthPercentageToDP(3),width:widthPercentageToDP(80)}}>
                     Заявки
                 </Text>
-                <ClockIcon size={widthPercentageToDP(9)} color={'black'}/>
-                <PlusCircleIcon size={widthPercentageToDP(9)} color={'black'}/>
+              <TouchableOpacity onPress={()=>{navigate('Создание заявки')}}>
+                  <PlusCircleIcon size={widthPercentageToDP(9)} color={'black'}/>
+              </TouchableOpacity>
+              
 
                 </View>
                 
                 <FlatList
             data={data}
+            extraData={data}
             vertical={true}
             className="w-full"
             style={{height:widthPercentageToDP(95)}}

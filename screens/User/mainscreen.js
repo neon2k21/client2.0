@@ -41,6 +41,7 @@ export default function UserMainScreen() {
           .then( response => response.json())
           .then( result => {
             console.log(result[0])
+            
             // console.log(result[0])
             // console.log(typeof(Number(global.id)))
             setObject_data(result)

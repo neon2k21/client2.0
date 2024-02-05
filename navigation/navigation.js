@@ -21,7 +21,7 @@ function UserObjectScreenNavigator(){
     
     <Object_stack.Navigator>
         <Object_stack.Screen name="dd" options={{headerShown: false}} component={UserObjectScreen}/>
-        <Object_stack.Screen name="Создание заявки"   component={AddTask}/>
+        <Object_stack.Screen name="Создание заявки" options={{headerShown: false}}  component={AddTask}/>
   </Object_stack.Navigator>
   )
 }

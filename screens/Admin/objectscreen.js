@@ -4,7 +4,7 @@ import { FlatList, SafeAreaView,Text, View, Image, TouchableOpacity } from "reac
 import { ip_address } from "../../config";
 import TaskCard from "../../components/Admin/card_of_task";
 import { widthPercentageToDP } from "react-native-responsive-screen";
-import { CogIcon,MapPinIcon, ClockIcon,PlusCircleIcon, Bars2Icon,UserCircleIcon, PhoneIcon } from "react-native-heroicons/solid";
+import { CogIcon,MapPinIcon,UserCircleIcon, PhoneIcon } from "react-native-heroicons/solid";
 
 
 
