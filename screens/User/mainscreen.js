@@ -1,14 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { FlatList, Image, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
-import ObjectCard from '../components/User/card_of_object';
-import { ip_address } from '../config';
+import ObjectCard from '../../components/User/card_of_object';
+import { ip_address } from '../../config';
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { EllipsisHorizontalCircleIcon } from 'react-native-heroicons/outline';
 
 
-export default function MainScreen() {
+export default function UserMainScreen() {
   const {navigate} = useNavigation()
 
   const [object_data,setObject_data] = useState([]);

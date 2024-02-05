@@ -2,21 +2,19 @@ import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { FlatList, SafeAreaView,Text, View, Image, TouchableOpacity } from "react-native"
 import { ip_address } from "../../config";
-import TaskCard from "../../components/User/card_of_task";
+import TaskCard from "../../components/Admin/card_of_task";
 import { widthPercentageToDP } from "react-native-responsive-screen";
-import { CogIcon,MapPinIcon, ClockIcon,PlusCircleIcon } from "react-native-heroicons/solid";
+import { CogIcon,MapPinIcon, ClockIcon,PlusCircleIcon, Bars2Icon,UserCircleIcon, PhoneIcon } from "react-native-heroicons/solid";
 
 
 
-const ObjectScreen=()=>{
+const AdminObjectScreen=()=>{
 
     const [data,setData] = useState([])
 
 
     useEffect(()=>{
         getTaskForUser()
-      
-       
     },[])
     
 
@@ -25,7 +23,6 @@ const ObjectScreen=()=>{
         myHeaders.append("Content-Type", "application/json");
         
         var raw = JSON.stringify({
-          "id": Number(global.id),
           "object" : global.object_card
         });
         var requestOptions = {
@@ -35,7 +32,7 @@ const ObjectScreen=()=>{
           redirect: 'follow'
         };
         
-        fetch(ip_address+'/getUserObjecttask', requestOptions)
+        fetch(ip_address+'/getAdmintask', requestOptions)
           .then( response => response.json())
           .then( result => {
             console.log(result)
@@ -51,8 +48,11 @@ const ObjectScreen=()=>{
     // global.object_address = address;
     // global.object_image = image;
     // global.object_inn = inn;
+    // global.object_category = category;
+    // global.object_owner = owner;
+    // global.object_phone = phone;
     
-
+console.log(global.object_card)
     return(
         <View className="flex-1" style={{backgroundColor: 'rgba(255,229,204,0.7)',width:widthPercentageToDP(100),height:widthPercentageToDP(100)}}>
 
@@ -89,6 +89,34 @@ const ObjectScreen=()=>{
                 </Text>
            </View>
 
+           <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(1)}}/>
+
+           <View style={{alignSelf:'center',alignItems:'center', 
+           width:widthPercentageToDP(80),height:widthPercentageToDP(12),
+           gap:widthPercentageToDP(3)}}
+            className="border-l-2 flex-row">
+                <UserCircleIcon size={widthPercentageToDP(7)} color={'black'}/> 
+                <Text style={{fontSize:widthPercentageToDP(4)}}>
+                    {global.object_owner}
+                </Text>
+           </View>
+
+           <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(1)}}/>
+
+            <View style={{alignSelf:'center',alignItems:'center', 
+            width:widthPercentageToDP(80),height:widthPercentageToDP(12),
+            gap:widthPercentageToDP(3)}}
+            className="border-l-2 flex-row">
+                <PhoneIcon size={widthPercentageToDP(7)} color={'black'}/>
+                <Text style={{fontSize:widthPercentageToDP(4)}}>
+                    {global.object_phone}
+                </Text>
+            </View>
+
+
+
+
+
            <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(3)}}/>
 
             <View>
@@ -96,8 +124,6 @@ const ObjectScreen=()=>{
                 <Text style={{fontSize:widthPercentageToDP(6),paddingLeft:widthPercentageToDP(3),width:widthPercentageToDP(80)}}>
                     Заявки
                 </Text>
-                <ClockIcon size={widthPercentageToDP(9)} color={'black'}/>
-                <PlusCircleIcon size={widthPercentageToDP(9)} color={'black'}/>
 
                 </View>
                 
@@ -123,14 +149,8 @@ const ObjectScreen=()=>{
             }}
             />
             </View>
-            
-            
-
-           
-               
-           </View>
-           
-            
+                           
+           </View>           
             
         </View>
     )
@@ -138,5 +158,5 @@ const ObjectScreen=()=>{
 
 }
 
-export default ObjectScreen
+export default AdminObjectScreen
 

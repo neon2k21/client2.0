@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { View, Text,FlatList, TouchableOpacity } from "react-native";
-import { ip_address } from "../../config";
+import { ip_address } from "../../../config";
 import { widthPercentageToDP } from "react-native-responsive-screen";
 import { PlusCircleIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/core";
-import ObjectCard from "../../components/User/card_of_object";
+import ObjectCard from "../../../components/User/card_of_object";
 
 
 
@@ -35,8 +35,7 @@ export default function ObjectList(){
         fetch(ip_address+'/get_object', requestOptions)
           .then( response => response.json())
           .then( result => {
-            // console.log(result[0])
-            // console.log(typeof(Number(global.id)))
+
             console.log(result)
             setObject_data(result)
 
