@@ -145,13 +145,11 @@ console.log(global.object_card)
                         width: widthPercentageToDP(2),
                         }}
                     />
-                );
+                ); 
             }}
             />
             </View>
-                           
            </View>           
-            
         </View>
     )
 

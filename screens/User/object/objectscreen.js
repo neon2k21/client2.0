@@ -1,4 +1,4 @@
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { FlatList, SafeAreaView,Text, View, Image, TouchableOpacity } from "react-native"
 import { ip_address } from "../../../config";
@@ -11,6 +11,7 @@ import { CogIcon,MapPinIcon, ClockIcon,PlusCircleIcon } from "react-native-heroi
 const UserObjectScreen=()=>{
 
     const [data,setData] = useState([])
+    const {navigate} = useNavigation()
 
 
     useEffect(()=>{
