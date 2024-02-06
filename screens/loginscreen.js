@@ -18,8 +18,8 @@ export default function LoginScreen(){
         myHeaders.append("Content-Type", "application/json");
         
         var raw = JSON.stringify({
-          "login": "test3",
-          "password": "test3"
+          "login": 'admin',
+          "password": 'admin'
         });
         
         var requestOptions = {
@@ -34,10 +34,10 @@ export default function LoginScreen(){
           .then(async result => {
             console.log(result)
 
-            global.id = result.id
-            global.fio = result.fio
-            global.role = result.role
-            global.phone = result.phone
+            global.id = result[0].id
+            global.fio = result[0].fio
+            global.role = result[0].role
+            global.phone = result[0].phone
             if(result!="Данные не совпадают! Проверьте и повторите попытку") {
                 navigate('Главный экран')
             }
