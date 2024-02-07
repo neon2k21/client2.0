@@ -1,11 +1,11 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { FlatList, SafeAreaView,Text, View, Image, TouchableOpacity } from "react-native"
 import { ip_address } from "../../../config";
 import TaskCard from "../../../components/User/card_of_task";
 import { widthPercentageToDP } from "react-native-responsive-screen";
 import { CogIcon,MapPinIcon, ClockIcon,PlusCircleIcon } from "react-native-heroicons/solid";
-
+import {useFocusEffect} from "@react-navigation/native";
 
 
 const UserObjectScreen=()=>{
@@ -13,11 +13,13 @@ const UserObjectScreen=()=>{
     const [data,setData] = useState([])
     const {navigate} = useNavigation()
 
-
-    useEffect(()=>{
-        getTaskForUser()
-      
-    },[])
+    useFocusEffect(
+        useCallback(() => {
+            getTaskForUser()
+        }, [])
+      );
+    
+   
     
 
     const getTaskForUser = () =>{
@@ -38,19 +40,36 @@ const UserObjectScreen=()=>{
         fetch(ip_address+'/getUserObjecttask', requestOptions)
           .then( response => response.json())
           .then( result => {
-            console.log(result.length)
+            console.log(result[0])
             setData(result)
   
         })
           .catch(error => console.log('error', error));
-  
     }
 
-    // global.object_card = id;
-    // global.object_name = name;
-    // global.object_address = address;
-    // global.object_image = image;
-    // global.object_inn = inn;
+    {/*
+    "date_of_creation": "2024-02-07", 
+    "date_of_deadline": "2024-02-12", 
+    "description": "", 
+    "object_address": "ул. Гагарина, 15, Северодвинск, Архангельская обл., 164501", 
+    "object_category": "Школа", 
+    "object_category_master": 2, 
+    "object_contact": 4, 
+    "object_id": 2, 
+    "object_image": "http://sevschool12.edu.ru/wp-content/uploads/2020/05/YkiXX5aTbdc-300x197.jpg", 
+    "object_inn": "2902040703", 
+    "object_name": "МАОУ СОШ № 12", 
+    "task_id": 4, 
+    "task_stage": "Выполняется", 
+    "task_stage_id": 2, 
+    "type_of_work_id": "Монтаж", 
+    "user_fio": "Оглобля Константин Андреевич", 
+    "user_id": 4, 
+    "user_phone": "+79867662958", 
+    "work_category_id": 2, 
+    "work_category_name": "Пожарная сигнализация", 
+    "worker": 2
+    */}
     
 
     return(
@@ -112,7 +131,20 @@ const UserObjectScreen=()=>{
             contentContainerStyle={{alignItems:'center', justifyContent:'center'}}
             renderItem={({item})=> (
 
-                <TaskCard name={item.object_name} stage ={item.task_stage} image={item.object_image}/>
+                <TaskCard 
+                object_name = {item.object_name} 
+                object_image = {item.object_image}
+                object_address = {item.object_address}
+                date_of_deadline = {item.date_of_deadline}
+                user_fio = {item.user_fio}
+                user_phone = {item.user_phone}
+                task_stage_id = {item.task_stage_id}
+                task_stage_name = {item.task_stage}
+                type_of_work = {item.type_of_work}
+                work_category = {item.work_category}
+                task_id = {item.task_id}
+                description = {item.description}
+               />
             )}
             ItemSeparatorComponent={() => {
                 return (

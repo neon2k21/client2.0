@@ -9,11 +9,26 @@ import UserObjectScreen from '../screens/User/object/objectscreen';
 //Admin
 import AdminMainScreen from '../screens/Admin/mainscreen';
 import AdminObjectScreen from '../screens/Admin/objectscreen';
+import MasterMainScreen from '../screens/Master/mainscreen';
+import MasterObjectScreen from '../screens/Master/objectscreen';
+import TaskInfo from '../screens/User/task/taskscreen';
 
 
 const Login_Stack = createNativeStackNavigator()
 const MainScreen_Stack = createNativeStackNavigator()
 const Object_stack = createNativeStackNavigator()
+const Task_stack = createNativeStackNavigator()
+
+function UserTaskScreenNavigator(){
+ 
+  return(
+    
+    <Task_stack.Navigator>
+        <Task_stack.Screen name="dd" options={{headerShown: false}} component={UserObjectScreen}/>
+        <Task_stack.Screen name="Заявка" options={{headerShown: false}}  component={AddTask}/>
+  </Task_stack.Navigator>
+  )
+}
 
 function UserObjectScreenNavigator(){
  
@@ -22,9 +37,12 @@ function UserObjectScreenNavigator(){
     <Object_stack.Navigator>
         <Object_stack.Screen name="dd" options={{headerShown: false}} component={UserObjectScreen}/>
         <Object_stack.Screen name="Создание заявки" options={{headerShown: false}}  component={AddTask}/>
+        <Object_stack.Screen name="Заявка" options={{headerShown: false}}  component={TaskInfo}/>
   </Object_stack.Navigator>
   )
 }
+
+
 function UserMainScreenNavigator(){
  console.log('role', global.role)
 
@@ -46,9 +64,8 @@ function UserMainScreenNavigator(){
   return(
     
     <MainScreen_Stack.Navigator>
-        <MainScreen_Stack.Screen name="ee" options={{headerShown: false}} component={UserMainScreen}/>
-        <MainScreen_Stack.Screen name="Список объектов"  component={ObjectList}/>
-        <MainScreen_Stack.Screen name="Карточка объекта" component={UserObjectScreenNavigator}/>
+        <MainScreen_Stack.Screen name="ee" options={{headerShown: false}} component={MasterMainScreen}/>
+        <MainScreen_Stack.Screen name="Карточка объекта" component={MasterObjectScreen}/>
 
   </MainScreen_Stack.Navigator>
   )

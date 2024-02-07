@@ -14,9 +14,7 @@ export default function UserMainScreen() {
   const [object_data,setObject_data] = useState([]);
   const [task_data,setTask_data] = useState([]);
     
-  const referss=()=>{
-    getObjectsForUser()
-  }
+  
 
   useEffect(()=>{
     getObjectsForUser()
@@ -71,9 +69,7 @@ export default function UserMainScreen() {
           <Text className="text-2xl" style={{paddingLeft:widthPercentageToDP(3),width:widthPercentageToDP(85)}}>
             Мои Объекты
           </Text>
-          <TouchableOpacity onPress={()=>{navigate('Список объектов');console.log('5')} }>
-            <EllipsisHorizontalCircleIcon size={widthPercentageToDP(10)} color={'black'}/>
-        </TouchableOpacity>
+          
         
         </View>
         <View style={{height:widthPercentageToDP(51)}}>
