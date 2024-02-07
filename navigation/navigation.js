@@ -12,20 +12,20 @@ import AdminObjectScreen from '../screens/Admin/objectscreen';
 import MasterMainScreen from '../screens/Master/mainscreen';
 import MasterObjectScreen from '../screens/Master/objectscreen';
 import TaskInfo from '../screens/User/task/taskscreen';
-
+import AdminTaskInfo from '../screens/Admin/taskscreen';
 
 const Login_Stack = createNativeStackNavigator()
 const MainScreen_Stack = createNativeStackNavigator()
 const Object_stack = createNativeStackNavigator()
 const Task_stack = createNativeStackNavigator()
 
-function UserTaskScreenNavigator(){
+function AdminTaskScreenNavigator(){
  
   return(
     
     <Task_stack.Navigator>
-        <Task_stack.Screen name="dd" options={{headerShown: false}} component={UserObjectScreen}/>
-        <Task_stack.Screen name="Заявка" options={{headerShown: false}}  component={AddTask}/>
+        <Task_stack.Screen name="dd" options={{headerShown: false}} component={AdminObjectScreen}/>
+        <Task_stack.Screen name="Заявка"  options={{headerShown: false}} component={AdminTaskInfo}/>
   </Task_stack.Navigator>
   )
 }
@@ -44,7 +44,7 @@ function UserObjectScreenNavigator(){
 
 
 function UserMainScreenNavigator(){
- console.log('role', global.role)
+
 
  //User
  if(global.role===1){
@@ -78,9 +78,8 @@ function UserMainScreenNavigator(){
     <MainScreen_Stack.Navigator>
         <MainScreen_Stack.Screen name="ee" options={{headerShown: false}} component={AdminMainScreen}/>
         <MainScreen_Stack.Screen name="Список объектов"  component={ObjectList}/>
-        <MainScreen_Stack.Screen name="Карточка объекта" component={AdminObjectScreen}/>
-
-  </MainScreen_Stack.Navigator>
+        <MainScreen_Stack.Screen name="Карточка объекта" component={AdminTaskScreenNavigator}/>
+    </MainScreen_Stack.Navigator>
   )
  }
   

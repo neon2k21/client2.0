@@ -48,7 +48,8 @@ const MasterObjectScreen=()=>{
            <Text  style={{fontSize:widthPercentageToDP(5), paddingLeft:widthPercentageToDP(1),color:'black',width:widthPercentageToDP(80)}}>
                 {global.master_object_name}
            </Text>
-           
+           <CogIcon size={widthPercentageToDP(15)} color={'transparent'} style={{}}/>
+
            </View>
 
            <View style={{alignSelf:'center',alignItems:'center',
@@ -189,7 +190,8 @@ const MasterObjectScreen=()=>{
            <Text  style={{fontSize:widthPercentageToDP(5), paddingLeft:widthPercentageToDP(1),color:'black',width:widthPercentageToDP(80)}}>
                 {global.master_object_name}
            </Text>
-           
+           <CogIcon size={widthPercentageToDP(15)} color={'transparent'} style={{}}/>
+
            </View>
 
            <View style={{alignSelf:'center',alignItems:'center',

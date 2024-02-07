@@ -43,16 +43,8 @@ const AdminObjectScreen=()=>{
   
     }
 
-    // global.object_card = id;
-    // global.object_name = name;
-    // global.object_address = address;
-    // global.object_image = image;
-    // global.object_inn = inn;
-    // global.object_category = category;
-    // global.object_owner = owner;
-    // global.object_phone = phone;
+   
     
-console.log(global.object_card)
     return(
         <View className="flex-1" style={{backgroundColor: 'rgba(255,229,204,0.7)',width:widthPercentageToDP(100),height:widthPercentageToDP(100)}}>
 
@@ -62,7 +54,7 @@ console.log(global.object_card)
            <Text  style={{fontSize:widthPercentageToDP(5), paddingLeft:widthPercentageToDP(1),color:'black',width:widthPercentageToDP(80)}}>
                 {global.object_name}
            </Text>
-           <CogIcon size={widthPercentageToDP(15)} color={'black'} style={{}}/>
+           <CogIcon size={widthPercentageToDP(15)} color={'transparent'} style={{}}/>
            </View>
 
            <View style={{alignSelf:'center',alignItems:'center',
@@ -135,7 +127,20 @@ console.log(global.object_card)
             contentContainerStyle={{alignItems:'center', justifyContent:'center'}}
             renderItem={({item})=> (
 
-                <TaskCard name={item.object_name} stage ={item.task_stage} image={item.object_image}/>
+                <TaskCard 
+                object_name = {item.object_name} 
+                object_image = {item.object_image}
+                object_address = {item.object_address}
+                date_of_deadline = {item.date_of_deadline}
+                user_fio = {item.user_fio}
+                user_phone = {item.user_phone}
+                task_stage_id = {item.task_stage_id}
+                task_stage_name = {item.task_stage}
+                type_of_work = {item.type_of_work_id}
+                work_category = {item.work_category_name}
+                task_id = {item.task_id}
+                description = {item.description}
+                />
             )}
             ItemSeparatorComponent={() => {
                 return (
