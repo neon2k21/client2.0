@@ -36,8 +36,8 @@ export default function TaskCard(props){
             global.admin_description = description;
             navigate('Заявка')
         }}>
-            <View style={styles.externalView} className="flex-row border-t-2">
-                <Image source={{uri: object_image}} className="rounded"style={styles.image}/>
+            <View style={styles.externalView} className={classnames[0].externalView}>
+                <Image source={{uri: object_image}} className={classnames[0].image} style={styles.image}/>
                 <Text style={styles.text_name}>
                     {object_name}
                 </Text>               
@@ -51,6 +51,15 @@ export default function TaskCard(props){
 
 
 }
+
+const classnames = 
+[
+  {
+    "externalView": "flex-row border-t-2",
+    "image": "rounded"
+
+  }
+]
 
 
 const styles = StyleSheet.create({

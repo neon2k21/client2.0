@@ -1,14 +1,76 @@
 import { useNavigation } from "@react-navigation/core"
 import { useState } from "react"
-import { View, Text, TextInput, TouchableOpacity, Alert,Image } from "react-native"
+import { View, Text, TextInput, TouchableOpacity, Alert,Image, StyleSheet } from "react-native"
 import { heightPercentageToDP, widthPercentageToDP } from "react-native-responsive-screen";
 import { ip_address, userID } from "../config";
-import axios from "axios";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const url = 'https://w.forfun.com/fetch/50/5053c1ca9fef0b39b9e04bbcbf7a6ad0.jpeg'
+
+const styles = StyleSheet.create({
+  maincontainer:
+    {
+      marginTop:widthPercentageToDP(10)
+    },
+    image:
+    {
+      width:widthPercentageToDP(100),
+      height:heightPercentageToDP(100)
+    },
+    formcontainer:
+    {
+      width:widthPercentageToDP(80),
+      height:widthPercentageToDP(80),
+      justifyContent:'center',
+      alignItems:'center',
+      alignSelf:'center',
+      marginTop:widthPercentageToDP(50),
+      borderColor:'white',
+      backgroundColor: 'rgba(144,144,144,0.4)'
+    },
+    text:
+    {
+      color:'white'
+    },
+    textinput:
+    {
+      paddingHorizontal:widthPercentageToDP(3), 
+      color:'white', 
+      borderColor:'white',
+      height:widthPercentageToDP(10)
+    },
+    touchableopacity:
+    {
+      paddingTop:widthPercentageToDP(3),
+      borderColor:'white',
+      height:widthPercentageToDP(10),
+      alignItems:'center'
+    },
+    texttouchableopacity:
+    {
+      alignContent:'center',
+      color:'white'
+    }
+
+    
+
+})
+
+const classnames = 
+[
+  {
+    "image": "absolute",
+    "formcontainer": "rounded-2xl border-2",
+    "textinput": "w-3/4  border-2 rounded-2xl",
+    "text": "text-2xl",
+    "touchableopacity": "w-1/4  border-2 rounded-2xl"
+
+  }
+]
 
 
 
 export default function LoginScreen(){
+
     const {navigate} = useNavigation()
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
@@ -18,8 +80,8 @@ export default function LoginScreen(){
         myHeaders.append("Content-Type", "application/json");
         
         var raw = JSON.stringify({
-          "login": login,
-          "password": password
+          "login": 'admin',
+          "password": 'admin'
         });
         
         var requestOptions = {
@@ -55,37 +117,39 @@ export default function LoginScreen(){
     } 
 
     return(
-        <View className="w-full h-full" style={{
-           marginTop:widthPercentageToDP(10)
-        }}>
-            <Image style={{width:widthPercentageToDP(100),height:heightPercentageToDP(100)}} className= "absolute" source={{uri: 'https://w.forfun.com/fetch/50/5053c1ca9fef0b39b9e04bbcbf7a6ad0.jpeg'}}/>
-            <View className="rounded-2xl border-2" style={{ width:widthPercentageToDP(80),height:widthPercentageToDP(80),
-            justifyContent:'center',alignItems:'center',alignSelf:'center',marginTop:widthPercentageToDP(50), borderColor:'white',backgroundColor: 'rgba(144,144,144,0.4)'}}>
-            
-            <Text className="text-2xl" style={{color:'white'}}>
-               Логин
-            </Text>
-            <TextInput
-            style={{paddingHorizontal:widthPercentageToDP(3), color:'white', borderColor:'white',height:widthPercentageToDP(10)}}
-            className="w-3/4  border-2 rounded-2xl"
-            onChangeText={setLogin}
-            value={login}
-            />
+        <View style={styles.maincontainer}>
 
-            <Text className="text-2xl" style={{color:'white'}}>
-               Пароль
-            </Text>
-            <TextInput
-             style={{paddingHorizontal:widthPercentageToDP(3),color:'white', borderColor:'white',height:widthPercentageToDP(10)}}
-             className="w-3/4  border-2 rounded-2xl"
-             onChangeText={setPassword}
-             value={password}/>
-            <TouchableOpacity  style={{paddingTop:widthPercentageToDP(3),borderColor:'white',height:widthPercentageToDP(10), alignItems:'center'}}
-            className="w-1/4  border-2 rounded-2xl" onPress={()=>{sendData()}}>
-               <Text style={{alignContent:'center',color:'white'}}>
-                        Вход
-                    </Text>
-            </TouchableOpacity>
+            <Image style={styles.image} className={classnames[0].image} source={{uri: url}}/>
+
+            <View className={classnames[0].formcontainer} style={styles.formcontainer}>
+            
+              <Text className={classnames[0].text} style={styles.text}>
+                Логин
+              </Text>
+
+              <TextInput
+              style={styles.textinput}
+              className={classnames[0].textinput}
+              onChangeText={setLogin}
+              value={login}
+              />
+
+              <Text className={classnames[0].text} style={styles.text}>
+                Пароль
+              </Text>
+
+              <TextInput
+              style={styles.textinput}
+              className={classnames[0].textinput}
+              onChangeText={setPassword}
+              value={password}/>
+
+              <TouchableOpacity  style={styles.touchableopacity} className={classnames[0].touchableopacity} onPress={()=>{sendData()}}>
+                <Text style={styles.texttouchableopacity}>
+                  Вход
+                </Text>
+              </TouchableOpacity>
+              
             </View>
             
         </View>

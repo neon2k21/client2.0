@@ -28,14 +28,6 @@ export default function MasterMainScreen() {
     }, [])
   );
 
-
-  // useEffect(()=>{
-
-    
-  //   getAllTasksForMaster()
-    
-  // },[])
-
   
 
   const getAllTasksForMaster = ()=>{
@@ -56,7 +48,7 @@ export default function MasterMainScreen() {
     fetch(ip_address+'/getMastertask', requestOptions)
       .then( response => response.json())
       .then( result => {
-        console.log(result)
+        console.log(result[0])
         setTask_data(result)
 
     })

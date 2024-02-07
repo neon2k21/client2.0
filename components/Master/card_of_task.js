@@ -36,17 +36,25 @@ export default function TaskCard(props){
             global.master_description = description;
             navigate('Карточка объекта')
         }}>
-             <View  className="rounded" style={styles.externalView}>
-                <Image source={{uri: object_image}} className="rounded w-full h-full "/>
-                <View className="rounded-b w-full absolute" style={styles.grayView}>
-                        <Text style={styles.text_name} >
-                            {object_name}
-                        </Text>
-                        <Text style={styles.text_deadline} >
-                          До: {date_of_deadline}
-                        </Text>
-                    </View>
+             <View  className={classnames[0].externalView} style={styles.externalView}>
+
+                <Image source={{uri: object_image}} className={classnames[0].image}/>
+
+                <View className={classnames[0].grayView} style={styles.grayView}>
+                    
+                    <Text style={styles.text_name} >
+                        {object_name}
+                    </Text>
+                    
+                    <Text style={styles.text_deadline} >
+                        До: {date_of_deadline}
+                    
+                    </Text>
+                
+                </View>
+            
             </View>
+        
         </TouchableOpacity>
            
     )
@@ -54,6 +62,15 @@ export default function TaskCard(props){
 
 }
 
+const classnames = 
+[
+  {
+    "externalView": "rounded",
+    "image": "rounded w-full h-full",
+    "grayView": "rounded-b w-full absolute"
+
+  }
+]
 
 const styles = StyleSheet.create({
 

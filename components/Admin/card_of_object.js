@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/core"
-import { View, Text, TouchableOpacity, Image } from "react-native"
+import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native"
 import {ArrowRightCircleIcon} from "react-native-heroicons/solid"
 import { widthPercentageToDP } from "react-native-responsive-screen"
 
@@ -7,21 +7,8 @@ import { widthPercentageToDP } from "react-native-responsive-screen"
 
 export default function ObjectCard(props){
     const {navigate} = useNavigation()
-    {/*
-  
-    {"object_address": "test", 
-    "object_category": "Супермаркет", 
-    "object_category_master": null, 
-    "object_contact": 2, 
-    "object_id": 1, 
-    "object_image": "test", 
-    "object_inn": "test", 
-    "object_name": "testsss", 
-    "user_fio": "Новокрещенов Максим Викторович", 
-    "user_id": 2, 
-    "user_phone": "+7 963 090-37-33"}
-  */}
     const {id, name, address, image, category, inn, owner, phone } = props
+
     return(
         <TouchableOpacity  
             onPress={()=>{
@@ -35,19 +22,52 @@ export default function ObjectCard(props){
             global.object_owner = owner;
             global.object_phone = phone;
             }}
-            style={{width:widthPercentageToDP(45),height:widthPercentageToDP(30),margin:widthPercentageToDP(3)}}>
-            <View  className="rounded-2xl">
-                <Image source={{uri: image}} className=" rounded-2xl w-full h-full "/>
-                <View className="rounded-b-2xl w-full absolute flex-row" style={{alignItems:'center',backgroundColor: 'rgba(144,144,144,0.7)' ,bottom:-widthPercentageToDP(0.2),height:widthPercentageToDP(13)}}>
-                    <View className="w-full">
-                        <Text style={{alignSelf:'center',color:'white',fontSize:widthPercentageToDP(2.5)}} >
+            style={styles.external}>
+            <View  className={classnames[0]}>
+
+                <Image source={{uri: image}} className={classnames[1]}/>
+
+                <View className={classnames[2]} style={styles.internal}>
+                    <View className={classnames[3]}>
+                        <Text style={styles.text} >
                             {name}
                         </Text>
                     </View>
                 </View>
+                
             </View>
         </TouchableOpacity>
     )
 
-
 }
+
+const classnames = [
+    "rounded-2xl",
+    "rounded-2xl w-full h-full",
+    "rounded-b-2xl w-full absolute flex-row",
+    "w-full"
+]
+
+
+const styles = StyleSheet.create({
+ external:
+    {
+        width:widthPercentageToDP(45),
+        height:widthPercentageToDP(30),
+        margin:widthPercentageToDP(3)
+    },
+ internal:
+    {
+        alignItems:'center',
+        backgroundColor: 'rgba(144,144,144,0.7)',
+        bottom:-widthPercentageToDP(0.2),
+        height:widthPercentageToDP(13)
+    },
+ text:
+    {
+        alignSelf:'center',
+        color:'white',
+        fontSize:widthPercentageToDP(2.5)
+    }
+
+})

@@ -17,7 +17,7 @@ const UserObjectScreen=()=>{
         useCallback(() => {
             getTaskForUser()
         }, [])
-      );
+    );
     
    
     
@@ -73,104 +73,158 @@ const UserObjectScreen=()=>{
     
 
     return(
-        <View className="flex-1" style={{backgroundColor: 'rgba(255,229,204,0.7)',width:widthPercentageToDP(100),height:widthPercentageToDP(100)}}>
+        <View className={classnames[0].externalView} style={styles.externalView}>
 
            <View  style={{paddingVertical:widthPercentageToDP(40)}}>
-           <Image className="absolute" source={{uri: global.object_image}} style={{ width:widthPercentageToDP(100),height:widthPercentageToDP(50)}}/>
-           <View className="flex-row" style={{alignItems:'center',backgroundColor: 'rgba(255,229,204,0.7)'}}>
-           <Text  style={{fontSize:widthPercentageToDP(5), paddingLeft:widthPercentageToDP(1),color:'black',width:widthPercentageToDP(80)}}>
-                {global.object_name}
-           </Text>
-           <CogIcon size={widthPercentageToDP(15)} color={'black'} style={{}} onPress={()=>{getTaskForUser()}}/>
-           </View>
+           
+            <Image className={classnames[0].image} source={{uri: global.object_image}} style={styles.image}/>
+           
+            <View className={classnames[0].object_name} style={styles.object_name_view}>
+            
+                <Text  style={styles.object_name_text}>
+                        {global.object_name}
+                </Text>
+                
+                <CogIcon size={widthPercentageToDP(15)} color={'black'} onPress={()=>{getTaskForUser()}}/>
+            
+            </View>
 
-           <View style={{alignSelf:'center',alignItems:'center',
-            width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-            gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
+           <View style={styles.componentView} className={classnames[0].componentView}>
+                
                 <MapPinIcon size={widthPercentageToDP(7)} color={'black'}/>
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
+                
+                <Text style={styles.componentViewText}>
                     {global.object_address}
                 </Text>
+           
            </View>
 
-           <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(1)}}/>
+           <View style={styles.spaceView}/>
 
-           <View style={{alignSelf:'center',alignItems:'center', 
-           width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-           gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
+           <View style={styles.componentView} className={classnames[0].componentView}>
+                
+                <Text style={styles.componentViewText}>
                     ИНН
                 </Text> 
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
+                
+                <Text style={styles.componentViewText}>
                     {global.object_inn}
                 </Text>
+           
            </View>
 
-           <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(3)}}/>
+           <View style={styles.spaceView}/>
 
-            <View>
-                <View className="flex-row">
-                <Text style={{fontSize:widthPercentageToDP(6),paddingLeft:widthPercentageToDP(3),width:widthPercentageToDP(80)}}>
-                    Заявки
-                </Text>
-              <TouchableOpacity onPress={()=>{navigate('Создание заявки')}}>
-                  <PlusCircleIcon size={widthPercentageToDP(9)} color={'black'}/>
-              </TouchableOpacity>
-              
+                <View>
+                    
+                    <View className={classnames[0].object_name}>
+                    
+                        <Text style={styles.taskText}>
+                            Заявки
+                        </Text>
+                        
+                        <TouchableOpacity onPress={()=>{navigate('Создание заявки')}}>
+                            <PlusCircleIcon size={widthPercentageToDP(9)} color={'black'}/>
+                        </TouchableOpacity>
+
+                    </View>
+                    
+                    <FlatList
+                    data={data}
+                    extraData={data}
+                    vertical={true}
+                    className="w-full"
+                    contentContainerStyle={styles.flatlistcontainer}
+                    renderItem={({item})=> (
+
+                        <TaskCard 
+                        object_name = {item.object_name} 
+                        object_image = {item.object_image}
+                        object_address = {item.object_address}
+                        date_of_deadline = {item.date_of_deadline}
+                        user_fio = {item.user_fio}
+                        user_phone = {item.user_phone}
+                        task_stage_id = {item.task_stage_id}
+                        task_stage_name = {item.task_stage}
+                        type_of_work = {item.type_of_work}
+                        work_category = {item.work_category}
+                        task_id = {item.task_id}
+                        description = {item.description}
+                        />
+                    )}
+                    ItemSeparatorComponent={() => {return (<View style={styles.itemseparator}/>);}}
+                    />
 
                 </View>
-                
-                <FlatList
-            data={data}
-            extraData={data}
-            vertical={true}
-            className="w-full"
-            style={{height:widthPercentageToDP(95)}}
-            contentContainerStyle={{alignItems:'center', justifyContent:'center'}}
-            renderItem={({item})=> (
-
-                <TaskCard 
-                object_name = {item.object_name} 
-                object_image = {item.object_image}
-                object_address = {item.object_address}
-                date_of_deadline = {item.date_of_deadline}
-                user_fio = {item.user_fio}
-                user_phone = {item.user_phone}
-                task_stage_id = {item.task_stage_id}
-                task_stage_name = {item.task_stage}
-                type_of_work = {item.type_of_work}
-                work_category = {item.work_category}
-                task_id = {item.task_id}
-                description = {item.description}
-               />
-            )}
-            ItemSeparatorComponent={() => {
-                return (
-                    <View
-                        style={{
-                        height: "0.1%",
-                        width: widthPercentageToDP(2),
-                        }}
-                    />
-                );
-            }}
-            />
-            </View>
-            
-            
-
-           
-               
-           </View>
-           
-            
+              
+            </View>           
             
         </View>
     )
-
-
 }
+
+
+const classnames = 
+[
+  {
+    "externalView": "flex-1",
+    "image": "absolute",
+    "object_name": "flex-row",
+    "componentView": "border-l-2 flex-row"
+
+  }
+]
+
+const styles = StyleSheet.create({
+
+
+    externalView:{
+        backgroundColor: 'rgba(255,229,204,0.7)',
+        width:widthPercentageToDP(100),
+        height:widthPercentageToDP(100)
+    },
+    image: {
+        width:widthPercentageToDP(100),
+        height:widthPercentageToDP(50)
+    },
+    object_name_view:{
+        alignItems:'center',
+        backgroundColor: 'rgba(255,229,204,0.7)'
+    },
+    object_name_text:{
+        fontSize:widthPercentageToDP(5),
+        paddingLeft:widthPercentageToDP(1),
+        color:'black',
+        width:widthPercentageToDP(80)
+    },
+    componentView:{
+        alignSelf:'center',
+        alignItems:'center',
+        width:widthPercentageToDP(80),
+        height:widthPercentageToDP(12),
+        gap:widthPercentageToDP(3)
+    },
+    spaceView:{
+        width:widthPercentageToDP(100),
+        height:widthPercentageToDP(1)
+    },
+    componentViewText:{
+        fontSize:widthPercentageToDP(4)
+    },
+    taskText:{
+        fontSize:widthPercentageToDP(6),
+        paddingLeft:widthPercentageToDP(3),
+        width:widthPercentageToDP(80)
+    },
+    flatlistcontainer:{
+        alignItems:'center',
+        justifyContent:'center',
+        height:widthPercentageToDP(95)
+    },
+    itemseparator:{
+        height: "0.1%",
+        width: widthPercentageToDP(2),
+    }
+})
 
 export default  UserObjectScreen

@@ -1,6 +1,5 @@
 import { useNavigation } from "@react-navigation/core"
-import { View, Text, TouchableOpacity, Image } from "react-native"
-import {ArrowRightCircleIcon} from "react-native-heroicons/solid"
+import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native"
 import { widthPercentageToDP } from "react-native-responsive-screen"
 
 //arrow-right-circle
@@ -60,23 +59,55 @@ export default function TaskCard(props){
             global.user_description = description;
             navigate('Заявка')
         }}>
-            <View style={{ width:widthPercentageToDP(100),height:widthPercentageToDP(15),alignItems:'center',paddingHorizontal:widthPercentageToDP(3)}} 
-            className="flex-row border-t-2">
-                <View className="flex-row">
-                <Image source={{uri: object_image}} 
-                className="rounded"
-                 style={{width:widthPercentageToDP(15),height:widthPercentageToDP(10)}}/>
-                <Text style={{marginHorizontal:widthPercentageToDP(1),fontSize:widthPercentageToDP(5),width:widthPercentageToDP(60)}}>
-                {object_name}
-                </Text>
+
+            <View style={styles.externalView} className={classnames[0].externalView}>
+
+                <View className={classnames[0].imageView}>
+
+                    <Image source={{uri: object_image}} className={classnames[0].image} style={styles.image}/>
+
+                    <Text style={styles.text}>
+                        {object_name}
+                    </Text>
+
                 </View>
                 
                 <Text style={{fontSize:widthPercentageToDP(3)}}>
                     {task_stage_name}
                 </Text>
+                
             </View>
+        
         </TouchableOpacity>
     )
 
 
 }
+
+const classnames = 
+[
+  {
+    "externalView": "flex-row border-t-2",
+    "imageView": "flex-row",
+    "image": "rounded"
+
+  }
+]
+
+const styles = StyleSheet.create({
+
+
+    externalView:{
+        width:widthPercentageToDP(100),
+        height:widthPercentageToDP(15),
+        alignItems:'center',
+        paddingHorizontal:widthPercentageToDP(3)
+    },
+    image: {
+        width:widthPercentageToDP(15),
+        height:widthPercentageToDP(10)
+    },
+    text:{
+        marginHorizontal:widthPercentageToDP(1),fontSize:widthPercentageToDP(5),width:widthPercentageToDP(60)
+    }
+})
