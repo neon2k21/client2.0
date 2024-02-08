@@ -52,69 +52,101 @@ export default function UserMainScreen() {
    
 
   return (
-    <SafeAreaView  style={{paddingTop:widthPercentageToDP(10)}}>
+    <SafeAreaView  style={styles.externalView}>
       {/* Шапка профиля */}
-      <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(15),alignItems:'center', backgroundColor: 'rgba(144,144,144,0.4)'}}>
+      <View style={styles.prodileView}>
        
-            <Text style={{marginHorizontal:widthPercentageToDP(10),fontSize:widthPercentageToDP(5)}}>
-             {global.fio}
-            </Text>
+        <Text style={styles.profileText}>
+          {global.fio}
+        </Text>
+      
       </View>
 
-     
-
-            {/* карусель объектов */}
-      <View  style={{width:widthPercentageToDP(100)}}>
-        <View className="flex-row" >
-          <Text className="text-2xl" style={{paddingLeft:widthPercentageToDP(3),width:widthPercentageToDP(85)}}>
-            Мои Объекты
-          </Text>
-          
+      <View  style={styles.flalistView}>
+       
+        <Text className="text-2xl" style={styles.myobjecttext}>
+          Мои Объекты
+        </Text>
         
-        </View>
-        <View style={{height:widthPercentageToDP(51)}}>
-        <FlatList
-          data={object_data}
-          horizontal={true}        
-          renderItem={({item})=> (
-            <ObjectCard inn = {item.inn} address = {item.address} id = {item.id} name={item.name} image={item.image}/>
-          )}
-          ItemSeparatorComponent={() => {
-            return (
-                <View
-                    style={{
-                    height: "10%",
-                    width: widthPercentageToDP(2),
-                    }}
-                />
-            );
-        }}
-          />
+        <View style={styles.flalistView}>
+          <FlatList
+            data={object_data}
+            horizontal={true}        
+            renderItem={({item})=> (
+              <ObjectCard inn = {item.inn} address = {item.address} id = {item.id} name={item.name} image={item.image}/>
+            )}
+            ItemSeparatorComponent={() => {
+              return (<View style={styles.itemseparator}/>);}}
+            />
         </View>
           
-    </View>
+      </View>
 
-    <Text style={{paddingTop:widthPercentageToDP(3),paddingLeft:widthPercentageToDP(3),fontSize:widthPercentageToDP(5)}}>
+    <Text style={styles.aboutcompany}>
       О компании
     </Text>
 
-    <View style={{height:widthPercentageToDP(20),width:widthPercentageToDP(40), backgroundColor:'black'}}/>
+    <View style={styles.viewforlogo}/>
 
     <Text>
-    Компания «Монтаж охранно-пожарной
-    сигнализации» с 2006 года успешно занимается
-проектированием, монтажом, пуско-наладкой,
-техническим и сервисным обслуживанием:
-автоматических систем охранно-пожарной
-сигнализации,
-автоматических установок пожаротушения,
-систем оповещения при пожаре.
-Кратчайшие сроки
-Разработка рабочих проектов
+        Компания «Монтаж охранно-пожарной
+        сигнализации» с 2006 года успешно занимается
+    проектированием, монтажом, пуско-наладкой,
+    техническим и сервисным обслуживанием:
+    автоматических систем охранно-пожарной
+    сигнализации,
+    автоматических установок пожаротушения,
+    систем оповещения при пожаре.
+    Кратчайшие сроки
+    Разработка рабочих проектов
     </Text>
 
-      <StatusBar style="auto" />
+    <StatusBar style="auto" />
     </SafeAreaView>
   );
 }
 
+
+
+const styles = StyleSheet.create({
+
+
+    externalView:{
+        paddingTop:widthPercentageToDP(10)
+    },
+    prodileView: {
+      width:widthPercentageToDP(100),
+      height:widthPercentageToDP(15),
+      alignItems:'center',
+      backgroundColor: 'rgba(144,144,144,0.4)'
+    },
+    profileText:{
+      marginHorizontal:widthPercentageToDP(10),
+      fontSize:widthPercentageToDP(5)
+    },
+    flalistView:{
+      height:widthPercentageToDP(51)
+    },
+    myobjecttext:{
+      paddingLeft:widthPercentageToDP(3),
+      width:widthPercentageToDP(85)
+    },
+    flatlist:{
+      width:widthPercentageToDP(100)
+    },
+
+    itemseparator:{
+      height: "10%",
+      width: widthPercentageToDP(2)
+    },
+    aboutcompany:{
+      paddingTop:widthPercentageToDP(3),
+      paddingLeft:widthPercentageToDP(3),
+      fontSize:widthPercentageToDP(5)
+    },
+    viewforlogo:{
+      height:widthPercentageToDP(20),
+      width:widthPercentageToDP(40),
+      backgroundColor:'black'
+    }
+})
