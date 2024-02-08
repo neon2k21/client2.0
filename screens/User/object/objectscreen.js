@@ -1,6 +1,6 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useCallback, useState } from "react";
-import { FlatList, SafeAreaView,Text, View, Image, TouchableOpacity } from "react-native"
+import { FlatList, SafeAreaView,Text, View, Image, TouchableOpacity, StyleSheet } from "react-native"
 import { ip_address } from "../../../config";
 import TaskCard from "../../../components/User/card_of_task";
 import { widthPercentageToDP } from "react-native-responsive-screen";

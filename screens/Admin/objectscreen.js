@@ -1,6 +1,6 @@
-import { useRoute } from "@react-navigation/native";
-import { useEffect, useState } from "react";
-import { FlatList, SafeAreaView,Text, View, Image, TouchableOpacity } from "react-native"
+import { useFocusEffect, useRoute } from "@react-navigation/native";
+import { useCallback, useState } from "react";
+import { FlatList, SafeAreaView,Text, View, Image, TouchableOpacity, StyleSheet, ScrollView } from "react-native"
 import { ip_address } from "../../config";
 import TaskCard from "../../components/Admin/card_of_task";
 import { widthPercentageToDP } from "react-native-responsive-screen";
@@ -12,10 +12,12 @@ const AdminObjectScreen=()=>{
 
     const [data,setData] = useState([])
 
+    useFocusEffect(
+        useCallback(() => {
+            getTaskForUser()
+        }, [])
+      );
 
-    useEffect(()=>{
-        getTaskForUser()
-    },[])
     
 
     const getTaskForUser = () =>{
@@ -121,31 +123,34 @@ const AdminObjectScreen=()=>{
                     </Text>
 
                     </View>
-                    
-                    <FlatList
-                    data={data}
-                    vertical={true}
-                    className="w-full"
-                    contentContainerStyle={styles.flatlistcontainer}
-                    renderItem={({item})=> (
 
-                        <TaskCard 
-                        object_name = {item.object_name} 
-                        object_image = {item.object_image}
-                        object_address = {item.object_address}
-                        date_of_deadline = {item.date_of_deadline}
-                        user_fio = {item.user_fio}
-                        user_phone = {item.user_phone}
-                        task_stage_id = {item.task_stage_id}
-                        task_stage_name = {item.task_stage}
-                        type_of_work = {item.type_of_work_id}
-                        work_category = {item.work_category_name}
-                        task_id = {item.task_id}
-                        description = {item.description}
+                    <SafeAreaView style={{height:widthPercentageToDP(70)}}>
+                        <FlatList
+                        data={data}
+                        vertical={true}
+                        className="w-full"
+                        contentContainerStyle={styles.flatlistcontainer}
+                        renderItem={({item})=> (
+
+                            <TaskCard 
+                            object_name = {item.object_name} 
+                            object_image = {item.object_image}
+                            object_address = {item.object_address}
+                            date_of_deadline = {item.date_of_deadline}
+                            user_fio = {item.user_fio}
+                            user_phone = {item.user_phone}
+                            task_stage_id = {item.task_stage_id}
+                            task_stage_name = {item.task_stage}
+                            type_of_work = {item.type_of_work_id}
+                            work_category = {item.work_category_name}
+                            task_id = {item.task_id}
+                            description = {item.description}
+                            />
+                        )}
+                        ItemSeparatorComponent={() => {return (<View style={styles.itemseparator}/>);}}
                         />
-                    )}
-                    ItemSeparatorComponent={() => {return (<View style={styles.itemseparator}/>);}}
-                    />
+                    </SafeAreaView>
+                   
                 </View>
            
            </View>           
@@ -211,7 +216,6 @@ const styles = StyleSheet.create({
     flatlistcontainer:{
         alignItems:'center',
         justifyContent:'center',
-        height:widthPercentageToDP(95)
     },
     itemseparator:{
         height: "0.1%",

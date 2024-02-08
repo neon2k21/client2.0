@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { FlatList, Image, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, SafeAreaView, Text, TouchableOpacity, View, StyleSheet, ScrollView } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import ObjectCard from '../../components/Admin/card_of_object';
 import { ip_address } from '../../config';
@@ -36,9 +36,7 @@ export default function AdminMainScreen() {
         fetch(ip_address+'/getmaster', requestOptions)
           .then( response => response.json())
           .then( result => {
-            console.error(result)
-            
-            setMasters_data(result)
+              setMasters_data(result)
 
         })
           .catch(error => console.log('error', error));
@@ -84,7 +82,7 @@ export default function AdminMainScreen() {
 
      
       {/* Карусель мастеров */}
-      <View style={styles.flatlist}>
+      <View>
 
         <View className={classnames[0].masterFlatlist}>
           
@@ -96,6 +94,7 @@ export default function AdminMainScreen() {
       
         <View style={styles.masterView}>
 
+          <ScrollView>
           <FlatList
             data={masters_data}
             horizontal={true}        
@@ -104,6 +103,8 @@ export default function AdminMainScreen() {
             )}
             ItemSeparatorComponent={() => {return (<View style={styles.itemseparator}/>);}}
             />
+          </ScrollView>
+          
           
         </View>
           
@@ -123,12 +124,11 @@ export default function AdminMainScreen() {
         
         </View>
           
-        <View>
-          <FlatList
+        <ScrollView style={{height:widthPercentageToDP(120)}}>
+        <FlatList
               data={object_data}
               vertical={true}   
               numColumns={2}     
-              style={styles.flatlist}
               renderItem={({item})=> (
     
                 <ObjectCard 
@@ -144,9 +144,11 @@ export default function AdminMainScreen() {
               
              
               />
+        </ScrollView>
+          
           </View>
           
-      </View>
+    
 
    
 

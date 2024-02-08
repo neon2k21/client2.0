@@ -87,308 +87,396 @@ const TaskInfo = () => {
 
   if( global.user_task_stage_id!= 3 && global.user_task_stage_id!= 5 && global.user_task_stage_id != 6){
     return(
-        <View className="flex-1" style={{backgroundColor: 'rgba(255,229,204,0.7)',width:widthPercentageToDP(100),height:widthPercentageToDP(100)}}>
+        <View className="flex-1" style={styles.externalView}>
 
-           <View  style={{paddingVertical:widthPercentageToDP(40)}}>
-           <Image className="absolute" source={{uri: global.user_object_image}} style={{ width:widthPercentageToDP(100),height:widthPercentageToDP(50)}}/>
-           <View className="flex-row" style={{alignItems:'center',backgroundColor: 'rgba(255,229,204,0.7)'}}>
-           <Text  style={{fontSize:widthPercentageToDP(5), paddingLeft:widthPercentageToDP(1),color:'black',width:widthPercentageToDP(80)}}>
-                {global.user_object_name}
-           </Text>
-           <TrashIcon size={widthPercentageToDP(15)} color={'black'} style={{}} onPress={()=>{cancelTask();navigate('dd')}}/>
+            <View  style={{paddingVertical:widthPercentageToDP(40)}}>
+                
+                <Image className="absolute" source={{uri: global.user_object_image}} style={styles.image}/>
+                
+                <View className="flex-row" style={styles.object_name_view}>
+                    
+                    <Text  style={styles.object_name_text}>
+                        {global.user_object_name}
+                    </Text>
+                    
+                    <TrashIcon size={widthPercentageToDP(15)} color={'black'} style={{}} onPress={()=>{cancelTask();navigate('dd')}}/>
 
-           
-           </View>
+                </View>
 
-           <View style={{alignSelf:'center',alignItems:'center',
-            width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-            gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
-                <MapPinIcon size={widthPercentageToDP(7)} color={'black'}/>
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    {global.user_object_address}
-                </Text>
-           </View>
+                <View style={styles.componentView} className={classnames[0].componentView}>
 
-           <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(1)}}/>
+                    <MapPinIcon size={widthPercentageToDP(7)} color={'black'}/>
+                        
+                        <Text style={styles.componentViewText}>
+                            {global.user_object_address}
+                        </Text>
+                
+                </View>
+
+                <View style={styles.spaceView}/>
+
+                <View style={styles.componentView} className={classnames[0].componentView}>
+
+                    <UserCircleIcon size={widthPercentageToDP(7)} color={'black'}/> 
+                    
+                    <Text style={styles.componentViewText}>
+                        {global.user_user_fio}
+                    </Text>
+                
+                </View>
+
+                <View style={styles.spaceView}/>
+
+                <View style={styles.componentView} className={classnames[0].componentView}>
+
+                    <PhoneIcon size={widthPercentageToDP(7)} color={'black'}/>
+                    
+                    <Text style={styles.componentViewText}>
+                        {global.user_user_phone}
+                    </Text>
+                
+                </View>
+
+                <View style={styles.componentView} className={classnames[0].componentView}>
+
+                    <Text style={styles.componentViewText}>
+                        Тип работ
+                    </Text> 
+                    
+                    <Text style={styles.componentViewText}>
+                        {global.user_type_of_work}
+                    </Text>
+                
+                </View>
+
+                <View style={styles.spaceView}/>
+
+                <View style={styles.componentView} className={classnames[0].componentView}>
+
+                    <Text style={styles.componentViewText}>
+                        Вид обрудования
+                    </Text> 
+                    
+                    <Text style={styles.componentViewText}>
+                        {global.user_work_category}
+                    </Text>
+                
+                </View>
+
+                <View style={styles.spaceView}/>
+
+                <View style={styles.componentView} className={classnames[0].componentView}>
+
+                    <Text style={styles.componentViewText}>
+                    Дедлайн
+                    </Text> 
+    
+                    <Text style={styles.componentViewText}>
+                        {global.user_date_of_deadline}
+                    </Text>
+    
+                </View>
+
+                <View style={styles.spaceView}/>
+
+            
+                <View style={styles.componentView} className={classnames[0].componentView}>
+
+                    <Text style={styles.componentViewText}>
+                        Комментарий
+                    </Text> 
+                
+                    <TextInput
+                    style={styles.textinput}
+                    className="border-2 rounded-2xl"
+                    onChangeText={setDesc}
+                    value={desc}/>
+                
+                </View>
+
+                <View style={styles.spaceView}/>    
 
 
-           <View style={{alignSelf:'center',alignItems:'center', 
-           width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-           gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
-                <UserCircleIcon size={widthPercentageToDP(7)} color={'black'}/> 
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    {global.user_user_fio}
-                </Text>
-           </View>
+                <View style={styles.componentView} className={classnames[0].componentView}>
 
-           <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(1)}}/>
+                    <Text style={styles.componentViewText}>
+                        Статус заявки
+                    </Text> 
+                
+                    <Text style={styles.componentViewText}>
+                        { global.user_task_stage_name}
+                    </Text>
+            
+                </View>
 
-            <View style={{alignSelf:'center',alignItems:'center', 
-            width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-            gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
-                <PhoneIcon size={widthPercentageToDP(7)} color={'black'}/>
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    {global.user_user_phone}
-                </Text>
-            </View>
-
-            <View style={{alignSelf:'center',alignItems:'center', 
-           width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-           gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    Тип работ
-                </Text> 
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    {global.user_type_of_work}
-                </Text>
-           </View>
-
-           <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(1)}}/>
-           <View style={{alignSelf:'center',alignItems:'center', 
-           width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-           gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    Вид обрудования
-                </Text> 
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    {global.user_work_category}
-                </Text>
-           </View>
-
-           <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(1)}}/>
-
-
-           <View style={{alignSelf:'center',alignItems:'center', 
-           width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-           gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                   Дедлайн
-                </Text> 
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    {global.user_date_of_deadline}
-                </Text>
-           </View>
-
-           <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(1)}}/>
-           
-           <View style={{alignSelf:'center',alignItems:'center', 
-           width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-           gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    Комментарий
-                </Text> 
-                <TextInput
-                style={{paddingHorizontal:widthPercentageToDP(3), color:'black', borderColor:'black',height:widthPercentageToDP(20),width:widthPercentageToDP(57)}}
-                className="border-2 rounded-2xl"
-                onChangeText={setDesc}
-                value={desc}/>
-           </View>
-
-           <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(1)}}/>
-
-           <View style={{alignSelf:'center',alignItems:'center', 
-           width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-           gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    Статус заявки
-                </Text> 
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    { global.user_task_stage_name}
-                </Text>
-           </View>
-
-           <TouchableOpacity  style={{paddingTop:widthPercentageToDP(4),borderColor:'black',height:widthPercentageToDP(13), width:widthPercentageToDP(20), alignItems:'center',alignSelf:'center'}}
-            className="border-2 rounded-2xl" onPress={()=>{ updateTask(); navigate('dd')}}>
-               <Text style={{alignContent:'center',color:'black'}}>
+                <TouchableOpacity  style={styles.touchable} className="border-2 rounded-2xl" onPress={()=>{ updateTask(); navigate('dd')}}>
+                    
+                    <Text style={styles.t}>
                         Готово
                     </Text>
-            </TouchableOpacity>
-
-
-
-           
-           
-           </View>           
+                
+                </TouchableOpacity>
+            
+            </View>           
+        
         </View>
     )
    }
    else {
     return(
-        <View className="flex-1" style={{backgroundColor: 'rgba(255,229,204,0.7)',width:widthPercentageToDP(100),height:widthPercentageToDP(100)}}>
+        <View className="flex-1" style={styles.externalView}>
 
-           <View  style={{paddingVertical:widthPercentageToDP(40)}}>
-           <Image className="absolute" source={{uri: global.user_object_image}} style={{ width:widthPercentageToDP(100),height:widthPercentageToDP(50)}}/>
-           <View className="flex-row" style={{alignItems:'center',backgroundColor: 'rgba(255,229,204,0.7)'}}>
-           <Text  style={{fontSize:widthPercentageToDP(5), paddingLeft:widthPercentageToDP(1),color:'black',width:widthPercentageToDP(80)}}>
-                {global.user_object_name}
-           </Text>
-           
-           </View>
+            <View  style={{paddingVertical:widthPercentageToDP(40)}}>
+            
+                <Image className="absolute" source={{uri: global.user_object_image}} style={styles.image}/>
+            
+                <View className="flex-row" style={styles.object_name_view}>
+            
+                    <Text  style={styles.object_name_text}>
+                        {global.user_object_name}
+                    </Text>
+            
+                </View>
 
-           <View style={{alignSelf:'center',alignItems:'center',
-            width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-            gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
-                <MapPinIcon size={widthPercentageToDP(7)} color={'black'}/>
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    {global.user_object_address}
-                </Text>
-           </View>
+                <View style={styles.componentView} className={classnames[0].componentView}>
 
-           <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(1)}}/>
+                    <MapPinIcon size={widthPercentageToDP(7)} color={'black'}/>
+                
+                    <Text style={styles.componentViewText}>
+                        {global.user_object_address}
+                    </Text>
+            
+                </View>
 
+                <View style={styles.spaceView}/>
 
-           <View style={{alignSelf:'center',alignItems:'center', 
-           width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-           gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
-                <UserCircleIcon size={widthPercentageToDP(7)} color={'black'}/> 
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    {global.user_user_fio}
-                </Text>
-           </View>
+                <View style={styles.componentView} className={classnames[0].componentView}>
 
-           <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(1)}}/>
+                    <UserCircleIcon size={widthPercentageToDP(7)} color={'black'}/> 
+    
+                    <Text style={styles.componentViewText}>
+                        {global.user_user_fio}
+                    </Text>
+    
+                </View>
 
-            <View style={{alignSelf:'center',alignItems:'center', 
-            width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-            gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
-                <PhoneIcon size={widthPercentageToDP(7)} color={'black'}/>
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    {global.user_user_phone}
-                </Text>
-            </View>
+                <View style={styles.spaceView}/>
 
-            <View style={{alignSelf:'center',alignItems:'center', 
-           width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-           gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    Тип работ
-                </Text> 
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    {global.user_type_of_work}
-                </Text>
-           </View>
+                <View style={styles.componentView} className={classnames[0].componentView}>
 
-           <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(1)}}/>
-           <View style={{alignSelf:'center',alignItems:'center', 
-           width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-           gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    Вид обрудования
-                </Text> 
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    {global.user_work_category}
-                </Text>
-           </View>
+                    <PhoneIcon size={widthPercentageToDP(7)} color={'black'}/>
+ 
+                    <Text style={styles.componentViewText}>
+                        {global.user_user_phone}
+                    </Text>
+ 
+                </View>
 
-           <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(1)}}/>
+                <View style={styles.componentView} className={classnames[0].componentView}>
+
+                    <Text style={styles.componentViewText}>
+                        Тип работ
+                    </Text> 
+                 
+                    <Text style={styles.componentViewText}>
+                        {global.user_type_of_work}
+                    </Text>
+                
+                </View>
+
+                <View style={styles.spaceView}/>
+
+                <View style={styles.componentView} className={classnames[0].componentView}>
+
+                    <Text style={styles.componentViewText}>
+                        Вид обрудования
+                    </Text> 
+                    <Text style={styles.componentViewText}>
+                        {global.user_work_category}
+                    </Text>
+                </View>
+
+                <View style={styles.spaceView}/>
 
 
-           <View style={{alignSelf:'center',alignItems:'center', 
-           width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-           gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                   Дедлайн
-                </Text> 
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    {global.user_date_of_deadline}
-                </Text>
-           </View>
 
-           <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(1)}}/>
-           
-           <View style={{alignSelf:'center',alignItems:'center', 
-           width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-           gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    Комментарий
-                </Text> 
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    {global.user_description}
-                </Text>
-           </View>
+                <View style={styles.componentView} className={classnames[0].componentView}>
 
-           <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(1)}}/>
+                    <Text style={styles.componentViewText}>
+                    Дедлайн
+                    </Text> 
+                    
+                    <Text style={styles.componentViewText}>
+                        {global.user_date_of_deadline}
+                    </Text>
+                
+                </View>
 
-           <View style={{alignSelf:'center',alignItems:'center', 
-           width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-           gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    Статус заявки
-                </Text> 
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    {global.user_task_stage_name}
-                </Text>
-           </View>
+                <View style={styles.spaceView}/>
 
-           <TouchableOpacity  style={{paddingTop:widthPercentageToDP(4),borderColor:'black',height:widthPercentageToDP(13), width:widthPercentageToDP(20), alignItems:'center',alignSelf:'center'}}
-            className="border-2 rounded-2xl" onPress={()=>{navigate('dd')}}>
-               <Text style={{alignContent:'center',color:'black'}}>
+            
+                <View style={styles.componentView} className={classnames[0].componentView}>
+
+                    <Text style={styles.componentViewText}>
+                        Комментарий
+                    </Text> 
+                   
+                    <Text style={styles.componentViewText}>
+                        {global.user_description}
+                    </Text>
+            
+                </View>
+
+                <View style={styles.spaceView}/>
+
+
+                <View style={styles.componentView} className={classnames[0].componentView}>
+
+                    <Text style={styles.componentViewText}>
+                        Статус заявки
+                    </Text> 
+                 
+                    <Text style={styles.componentViewText}>
+                        {global.user_task_stage_name}
+                    </Text>
+                
+                </View>
+
+                <TouchableOpacity  style={styles.touchable} className="border-2 rounded-2xl" onPress={()=>{navigate('dd')}}>
+                
+                    <Text style={{alignContent:'center',color:'black'}}>
                         Назад
                     </Text>
-            </TouchableOpacity>
-
-
-
-           
-           
-           </View>           
+                
+                </TouchableOpacity>
+            
+            </View>           
+        
         </View>
     )
    }
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    label: {
+      fontSize: 20,
+      marginBottom: 10,
+    },
+    question: {
+      fontSize: 18,
+      marginBottom: 10,
+    },
+    dropdown: {
+      height: widthPercentageToDP(10),
+      width: widthPercentageToDP(60),
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
+      paddingHorizontal: 20,
+      marginTop: 20,
+    },
+    button: {
+      backgroundColor: 'blue',
+      padding: 10,
+      borderRadius: 5,
+      width: 100,
+    },
+    buttonText: {
+      color: 'white',
+      fontSize: 18,
+      textAlign: 'center',
+    },
+    externalView:{
+      backgroundColor: 'rgba(255,229,204,0.7)',
+      width:widthPercentageToDP(100),
+      height:widthPercentageToDP(100)
   },
-  label: {
-    fontSize: 20,
-    marginBottom: 10,
+  image: {
+      width:widthPercentageToDP(100),
+      height:widthPercentageToDP(50)
   },
-  question: {
-    fontSize: 18,
-    marginBottom: 10,
+  object_name_view:{
+      alignItems:'center',
+      backgroundColor: 'rgba(255,229,204,0.7)'
   },
-  dropdown: {
-    height: widthPercentageToDP(10),
-    width: widthPercentageToDP(60),
+  object_name_text:{
+      fontSize:widthPercentageToDP(5),
+      paddingLeft:widthPercentageToDP(1),
+      color:'black',
+      width:widthPercentageToDP(80)
   },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    paddingHorizontal: 20,
-    marginTop: 20,
+  componentView:{
+      alignSelf:'center',
+      alignItems:'center',
+      width:widthPercentageToDP(80),
+      height:widthPercentageToDP(12),
+      gap:widthPercentageToDP(3)
   },
-  button: {
-    backgroundColor: 'blue',
-    padding: 10,
-    borderRadius: 5,
-    width: 100,
+  spaceView:{
+      width:widthPercentageToDP(100),
+      height:widthPercentageToDP(1)
   },
-  buttonText: {
-    color: 'white',
-    fontSize: 18,
-    textAlign: 'center',
+  componentViewText:{
+      fontSize:widthPercentageToDP(4)
   },
-});
+  taskText:{
+      fontSize:widthPercentageToDP(6),
+      paddingLeft:widthPercentageToDP(3),
+      width:widthPercentageToDP(80)
+  },
+  flatlistcontainer:{
+      alignItems:'center',
+      justifyContent:'center',
+      height:widthPercentageToDP(95)
+  },
+  itemseparator:{
+      height: "0.1%",
+      width: widthPercentageToDP(2),
+  },
+  touchable:{
+      paddingTop:widthPercentageToDP(4),
+      borderColor:'black',
+      height:widthPercentageToDP(13),
+      width:widthPercentageToDP(20),
+      alignItems:'center',
+      alignSelf:'center'
+  },
+  pickerText:{
+    fontSize:widthPercentageToDP(4),
+    paddingLeft:widthPercentageToDP(3),
+    width:widthPercentageToDP(40)
+  },
+  zapolntext:{
+    fontSize:widthPercentageToDP(6),
+    paddingLeft:widthPercentageToDP(3),
+    width:widthPercentageToDP(80)
+  },
+  textinput:{
+    paddingHorizontal:widthPercentageToDP(3),
+    color:'black', 
+    borderColor:'black',
+    height:widthPercentageToDP(20),
+    width:widthPercentageToDP(57)
+  }
+  });
+  
+  const classnames = 
+  [
+    {
+      "externalView": "flex-1",
+      "image": "absolute",
+      "object_name": "flex-row",
+      "componentView": "border-l-2 flex-row",
+      "touchable": "border-2 rounded-2xl"
+  
+    }
+  ]
 
 export default TaskInfo;

@@ -24,12 +24,12 @@ const AddTask = () => {
 
     const {navigate} = useNavigation()
   
-  const [selectedValues, setSelectedValues] = useState({});
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  
-  const [picker1Data, setPicker1Data] = useState(1)
-  const [picker2Data, setPicker2Data] = useState(1)//vid oborud
-  const [commentary, setCommentary] = useState("")  
+    const [selectedValues, setSelectedValues] = useState({});
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    
+    const [picker1Data, setPicker1Data] = useState(1)
+    const [picker2Data, setPicker2Data] = useState(1)//vid oborud
+    const [commentary, setCommentary] = useState("")  
 
 
   useEffect(() => {
@@ -73,98 +73,109 @@ const AddTask = () => {
 
   return (
     
-    <View className="flex-1" style={{backgroundColor: 'rgba(255,229,204,0.7)',width:widthPercentageToDP(100),height:widthPercentageToDP(100)}}>
-
-    <View  style={{paddingVertical:widthPercentageToDP(40)}}>
-    <Image className="absolute" source={{uri: global.object_image}} style={{ width:widthPercentageToDP(100),height:widthPercentageToDP(50)}}/>
-    <View className="flex-row" style={{alignItems:'center',backgroundColor: 'rgba(255,229,204,0.7)'}}>
-    <Text  style={{fontSize:widthPercentageToDP(5), paddingLeft:widthPercentageToDP(1),color:'black',width:widthPercentageToDP(80)}}>
-         {global.object_name}
-    </Text>
-    </View>
-
-    <View style={{alignSelf:'center',alignItems:'center',
-     width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-     gap:widthPercentageToDP(3)}}
-     className="border-l-2 flex-row">
-         <MapPinIcon size={widthPercentageToDP(7)} color={'black'}/>
-         <Text style={{fontSize:widthPercentageToDP(4)}}>
-             {global.object_address}
-         </Text>
-    </View>
-
-    <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(1)}}/>
-
-    <View style={{alignSelf:'center',alignItems:'center', 
-    width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-    gap:widthPercentageToDP(3)}}
-     className="border-l-2 flex-row">
-         <Text style={{fontSize:widthPercentageToDP(4)}}>
-             ИНН
-         </Text> 
-         <Text style={{fontSize:widthPercentageToDP(4)}}>
-             {global.object_inn}
-         </Text>
-    </View>
-
-    <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(3)}}/>
-
-    <View style={{alignSelf:'center',alignItems:'center', 
-           width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-           gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
-                <UserCircleIcon size={widthPercentageToDP(7)} color={'black'}/> 
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    {global.fio}
-                </Text>
-           </View>
-
-           <View style={{width:widthPercentageToDP(100),height:widthPercentageToDP(1)}}/>
-
-            <View style={{alignSelf:'center',alignItems:'center', 
-            width:widthPercentageToDP(80),height:widthPercentageToDP(12),
-            gap:widthPercentageToDP(3)}}
-            className="border-l-2 flex-row">
-                <PhoneIcon size={widthPercentageToDP(7)} color={'black'}/>
-                <Text style={{fontSize:widthPercentageToDP(4)}}>
-                    {global.phone}
-                </Text>
-            </View>
-
-     <View>
-         <View className="flex-row">
-         <Text style={{fontSize:widthPercentageToDP(6),paddingLeft:widthPercentageToDP(3),width:widthPercentageToDP(80)}}>
-             Заполните поля:
-         </Text>
+    <View className="flex-1" style={styles.externalView}>
       
-         </View>
+      <View  style={{paddingVertical:widthPercentageToDP(40)}}>
+        
+        <Image className="absolute" source={{uri: global.object_image}} style={styles.image}/>
+        
+        <View className="flex-row" style={styles.object_name_view}>
+          
+          <Text  style={styles.object_name_text}>
+            {global.object_name}
+          </Text>
+        
+        </View>
 
-         <View>
-         <View className="flex-row">
-         <Text style={{fontSize:widthPercentageToDP(4),paddingLeft:widthPercentageToDP(3),width:widthPercentageToDP(40)}}>
-        Тип работ: 
-         </Text>
-         <Picker
+        <View style={styles.componentView} className={classnames[0].componentView}>
+
+          <MapPinIcon size={widthPercentageToDP(7)} color={'black'}/>
+         
+            <Text style={styles.componentViewText}>
+              {global.object_address}
+            </Text>
+    
+        </View>
+
+        <View style={styles.spaceView}/>
+
+        <View style={styles.componentView} className={classnames[0].componentView}>
+
+          <Text style={styles.componentViewText}>
+            ИНН
+          </Text> 
+        
+          <Text style={styles.componentViewText}>
+            {global.object_inn}
+          </Text>
+        </View>
+
+        <View style={styles.spaceView}/>
+
+        <View style={styles.componentView} className={classnames[0].componentView}>
+
+          <UserCircleIcon size={widthPercentageToDP(7)} color={'black'}/> 
+            
+          <Text style={styles.componentViewText}>
+            {global.fio}
+          </Text>
+        
+        </View>
+
+        <View style={styles.spaceView}/>
+
+        <View style={styles.componentView} className={classnames[0].componentView}>
+
+          <PhoneIcon size={widthPercentageToDP(7)} color={'black'}/>
+          
+          <Text style={styles.componentViewText}>
+            {global.phone}
+          </Text>
+        
+        </View>
+
+        <View>
+            
+          <View className="flex-row">
+            
+            <Text style={styles.zapolntext}>
+              Заполните поля:
+            </Text>
+      
+          </View>
+
+          <View>
+              
+            <View className="flex-row">
+                
+              <Text style={styles.pickerText}>
+                Тип работ: 
+              </Text>
+                
+              <Picker
         selectedValue={selectedValues[questionData[1].id]}
         style={styles.dropdown}
         onValueChange={(itemValue, itemIndex) => {handlePickerChange(itemValue, questionData[1].id);setPicker1Data(itemIndex+1)}}>
         {questionData[1].options.map((option, index) => (
           <Picker.Item label={option} value={option} key={index} />
         ))}
-      </Picker>
-      </View>
-       
-
-         </View>
-
-
+              </Picker>
+              
+            </View>
+            
+          </View>
          
-         <View>
-         <View className="flex-row">
-         <Text style={{fontSize:widthPercentageToDP(4),paddingLeft:widthPercentageToDP(3),width:widthPercentageToDP(40)}}>
-         Вид оборудования: 
-         </Text>
-         <Picker
+          <View>
+         
+            <View className="flex-row">
+         
+              <Text style={styles.pickerText}>
+                
+                Вид оборудования: 
+              
+              </Text>
+         
+              <Picker
         selectedValue={selectedValues[questionData[0].id]}
         style={styles.dropdown}
         onValueChange={(itemValue, itemIndex) => {handlePickerChange(itemValue, questionData[0].id); setPicker2Data(itemIndex+1)}}
@@ -172,51 +183,44 @@ const AddTask = () => {
         {questionData[0].options.map((option, index) => (
           <Picker.Item label={option} value={option} key={index} />
         ))}
-      </Picker>
-      </View>
+              </Picker>
+      
+            </View>
        
+          </View>
 
-         </View>
-        
-        
+          <View style={{alignContent:'center'}}>
+          
+            <View className="flex-row" >
+            
+              <Text style={styles.pickerText}>
+                Комментарий (опционально): 
+              </Text>
+            
+              <TextInput
+              style={{paddingHorizontal:widthPercentageToDP(3), color:'black', borderColor:'black',height:widthPercentageToDP(20),width:widthPercentageToDP(57)}}
+              className="border-2 rounded-2xl"
+              onChangeText={setCommentary}
+              value={commentary}
+              />
+          
+            </View>
+      
+          </View>
 
-        <View style={{alignContent:'center'}}>
-         <View className="flex-row" >
-         <Text style={{fontSize:widthPercentageToDP(4),paddingLeft:widthPercentageToDP(3),width:widthPercentageToDP(40)}}>
-            Комментарий (опционально): 
-         </Text>
-         <TextInput
-            style={{paddingHorizontal:widthPercentageToDP(3), color:'black', borderColor:'black',height:widthPercentageToDP(20),width:widthPercentageToDP(57)}}
-            className="border-2 rounded-2xl"
-            onChangeText={setCommentary}
-            value={commentary}
-            />
+          <TouchableOpacity  style={styles.touchable} className="border-2 rounded-2xl" onPress={()=>{ createTask(); navigate('dd')}}>
+          
+            <Text style={{alignContent:'center',color:'black'}}>
+              Готово
+            </Text>
+          
+          </TouchableOpacity>
+
+        </View>
+        
       </View>
-       
-
-         </View>
-
-         <TouchableOpacity  style={{paddingTop:widthPercentageToDP(4),borderColor:'black',height:widthPercentageToDP(13), width:widthPercentageToDP(20), alignItems:'center',alignSelf:'center'}}
-            className="border-2 rounded-2xl" onPress={()=>{ console.log('read data', picker1Data,picker2Data,commentary );createTask(); navigate('dd')}}>
-               <Text style={{alignContent:'center',color:'black'}}>
-                        Готово
-                    </Text>
-            </TouchableOpacity>
-
-        
-
-
-     </View>
      
-     
-
-    
-        
     </View>
-    
-     
-     
- </View>
       
       
   );
@@ -258,6 +262,85 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
   },
+  externalView:{
+    backgroundColor: 'rgba(255,229,204,0.7)',
+    width:widthPercentageToDP(100),
+    height:widthPercentageToDP(100)
+},
+image: {
+    width:widthPercentageToDP(100),
+    height:widthPercentageToDP(50)
+},
+object_name_view:{
+    alignItems:'center',
+    backgroundColor: 'rgba(255,229,204,0.7)'
+},
+object_name_text:{
+    fontSize:widthPercentageToDP(5),
+    paddingLeft:widthPercentageToDP(1),
+    color:'black',
+    width:widthPercentageToDP(80)
+},
+componentView:{
+    alignSelf:'center',
+    alignItems:'center',
+    width:widthPercentageToDP(80),
+    height:widthPercentageToDP(12),
+    gap:widthPercentageToDP(3)
+},
+spaceView:{
+    width:widthPercentageToDP(100),
+    height:widthPercentageToDP(1)
+},
+componentViewText:{
+    fontSize:widthPercentageToDP(4)
+},
+taskText:{
+    fontSize:widthPercentageToDP(6),
+    paddingLeft:widthPercentageToDP(3),
+    width:widthPercentageToDP(80)
+},
+flatlistcontainer:{
+    alignItems:'center',
+    justifyContent:'center',
+    height:widthPercentageToDP(95)
+},
+itemseparator:{
+    height: "0.1%",
+    width: widthPercentageToDP(2),
+},
+touchable:{
+    paddingTop:widthPercentageToDP(4),
+    borderColor:'black',
+    height:widthPercentageToDP(13),
+    width:widthPercentageToDP(20),
+    alignItems:'center',
+    alignSelf:'center'
+},
+pickerText:{
+  fontSize:widthPercentageToDP(4),
+  paddingLeft:widthPercentageToDP(3),
+  width:widthPercentageToDP(40)
+},
+zapolntext:{
+  fontSize:widthPercentageToDP(6),
+  paddingLeft:widthPercentageToDP(3),
+  width:widthPercentageToDP(80)
+}
 });
+
+const classnames = 
+[
+  {
+    "externalView": "flex-1",
+    "image": "absolute",
+    "object_name": "flex-row",
+    "componentView": "border-l-2 flex-row",
+    "touchable": "border-2 rounded-2xl"
+
+  }
+]
+
+
 
 export default AddTask;

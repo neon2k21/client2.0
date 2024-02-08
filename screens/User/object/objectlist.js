@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { View, Text,FlatList, TouchableOpacity } from "react-native";
+import { useCallback, useEffect, useState } from "react";
+import { View, Text,FlatList, TouchableOpacity, StyleSheet } from "react-native";
 import { ip_address } from "../../../config";
 import { widthPercentageToDP } from "react-native-responsive-screen";
 import { PlusCircleIcon } from "react-native-heroicons/solid";
-import { useNavigation } from "@react-navigation/core";
+import { useFocusEffect, useNavigation } from "@react-navigation/core";
 import ObjectCard from "../../../components/User/card_of_object";
 
 
@@ -11,12 +11,15 @@ import ObjectCard from "../../../components/User/card_of_object";
 
 
 export default function ObjectList(){
-    const {navigate} = useNavigation()
-    const [object_data,setObject_data] = useState([])
-    useEffect(()=>{
-        getObjectsForUser()
-    },[])
-
+    
+  const {navigate} = useNavigation()
+  const [object_data,setObject_data] = useState([])
+  
+  useFocusEffect(
+    useCallback(() => {
+      getObjectsForUser()
+    }, [])
+  );
 
     const getObjectsForUser = () =>{
         var myHeaders = new Headers();
@@ -43,36 +46,47 @@ export default function ObjectList(){
           .catch(error => console.log('error', error));
 
     }
-    <TouchableOpacity onPress={()=>{navigate('Создание заявки')}} className = "absolute" style={{right:widthPercentageToDP(5), bottom:widthPercentageToDP(6)}}>
-              <PlusCircleIcon color={'black'} size ={widthPercentageToDP(17)}/>
-    </TouchableOpacity>
+    
     return(
-        <View>
-            <FlatList
-          data={object_data}
-          vertical={true}
-          className="w-full bg-red-500"
-          contentContainerStyle={{alignItems:'center', justifyContent:'center'}}
-          renderItem={({item})=> (
-            
-            <ObjectCard name={item.name} image={item.image} address ={item.object_address} inn={item.object_inn} category={item.object_category}/>
-          )}
-          ItemSeparatorComponent={() => {
-            return (
-                <View
-                    style={{
-                    height: "0.1%",
-                    width: widthPercentageToDP(2),
-                    }}
-                />
-            );
-        }}
+      <View>
+        
+        <FlatList
+        data={object_data}
+        vertical={true}
+        className="w-full bg-red-500"
+        contentContainerStyle={styles.flatlistconatiner}
+        renderItem={({item})=> (   
+          <ObjectCard name={item.name} image={item.image} address ={item.object_address} inn={item.object_inn} category={item.object_category}/>
+        )}
+        ItemSeparatorComponent={() => {return (<View style={styles.itemseparator}/>);}}
         />
-        <TouchableOpacity onPress={()=>{navigate('Создание заявки')}} className = "absolute" style={{right:widthPercentageToDP(5), bottom:widthPercentageToDP(6)}}>
-            <PlusCircleIcon color={'black'} size ={widthPercentageToDP(17)}/>
+        
+        <TouchableOpacity onPress={()=>{navigate('Создание заявки')}} className = "absolute" style={styles.toucable}>
+          
+          <PlusCircleIcon color={'black'} size ={widthPercentageToDP(17)}/>
+        
         </TouchableOpacity>
-        </View>
+      </View>
         
     )
 
 }
+
+
+const styles = StyleSheet.create({
+
+
+  flatlistconatiner:{
+    alignItems:'center',
+    justifyContent:'center'
+  },
+
+  itemseparator:{
+      height: "0.1%",
+      width: widthPercentageToDP(2),
+  },
+  toucable:{
+    right:widthPercentageToDP(5), 
+    bottom:widthPercentageToDP(6)
+  }
+})
