@@ -386,7 +386,7 @@ const AdminTaskInfo = () => {
         </View>
     )
    }
-   if( global.admin_task_stage_id == 3 &&  global.admin_task_stage_id == 5 &&  global.admin_task_stage_id == 6 ) {
+   if( global.admin_task_stage_id == 3 ||  global.admin_task_stage_id == 5 ||  global.admin_task_stage_id == 6 ) {
     return(
         <View className="flex-1" style={styles.externalView}>
            
@@ -400,7 +400,7 @@ const AdminTaskInfo = () => {
                         {global.admin_object_name}
                     </Text>
                     
-                    <TrashIcon size={widthPercentageToDP(15)} color={'black'} onPress={()=>{cancelTask();navigate('dd')}}/>
+                    <TrashIcon size={widthPercentageToDP(15)} color={'transparent'} />
                     
                 </View>
 

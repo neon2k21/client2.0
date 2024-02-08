@@ -84,6 +84,9 @@ const AddTask = () => {
           <Text  style={styles.object_name_text}>
             {global.object_name}
           </Text>
+
+          <CogIcon size={widthPercentageToDP(15)} color={'transparent'}/>
+
         
         </View>
 

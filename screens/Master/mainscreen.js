@@ -212,7 +212,7 @@ export default function MasterMainScreen() {
 
         </View>
           
-        <View>
+        <SafeAreaView style={{height:widthPercentageToDP(170),backgroundColor:'red'}}>
           <FlatList
             data={task_data}
             //extraData={task_data}
@@ -234,7 +234,7 @@ export default function MasterMainScreen() {
                           description={item.description}/>)}
             />
         
-        </View>
+        </SafeAreaView>
           
       </View>
 

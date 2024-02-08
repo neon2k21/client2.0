@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/core";
-import { TouchableOpacity,Text, StyleSheet,Modal,View,FlatList,Pressable, ScrollView } from "react-native";
+import { TouchableOpacity,Text, StyleSheet,Modal,View,FlatList,Pressable, ScrollView, SafeAreaView } from "react-native";
 import { widthPercentageToDP } from "react-native-responsive-screen";
 import TaskCard from "../User/card_of_task";
 import { useState } from "react";
@@ -78,7 +78,7 @@ export default function Admin_Master_card(props){
                                 <Text style={styles.text_above_flatlist}>
                                     Заявки
                                 </Text>
-                                <ScrollView contentContainerStyle={styles.flatlist}>
+                                <SafeAreaView style={{height:widthPercentageToDP(50)}}>
                                     <FlatList
                                     data={tasks}
                                     vertical={true}
@@ -103,7 +103,7 @@ export default function Admin_Master_card(props){
                                     )}
                                     ItemSeparatorComponent={() => {return (<View style={styles.flatlist_item_sep}/>); }}
                                     />
-                                </ScrollView>
+                                </SafeAreaView>
                                 
                         </View>
 

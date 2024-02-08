@@ -85,7 +85,7 @@ const UserObjectScreen=()=>{
                         {global.object_name}
                 </Text>
                 
-                <CogIcon size={widthPercentageToDP(15)} color={'black'} onPress={()=>{getTaskForUser()}}/>
+                <CogIcon size={widthPercentageToDP(15)} color={'transparent'}/>
             
             </View>
 
@@ -128,13 +128,12 @@ const UserObjectScreen=()=>{
                         </TouchableOpacity>
 
                     </View>
-                    
+                    <SafeAreaView style={{height:widthPercentageToDP(90)}}>
                     <FlatList
                     data={data}
                     extraData={data}
                     vertical={true}
                     className="w-full"
-                    contentContainerStyle={styles.flatlistcontainer}
                     renderItem={({item})=> (
 
                         <TaskCard 
@@ -154,6 +153,8 @@ const UserObjectScreen=()=>{
                     )}
                     ItemSeparatorComponent={() => {return (<View style={styles.itemseparator}/>);}}
                     />
+                    </SafeAreaView>
+                    
 
                 </View>
               

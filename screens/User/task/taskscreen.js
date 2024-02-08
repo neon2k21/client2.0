@@ -235,6 +235,8 @@ const TaskInfo = () => {
                     <Text  style={styles.object_name_text}>
                         {global.user_object_name}
                     </Text>
+                    <CogIcon size={widthPercentageToDP(15)} color={'transparent'}/>
+
             
                 </View>
 

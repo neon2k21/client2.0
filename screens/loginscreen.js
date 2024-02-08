@@ -80,8 +80,8 @@ export default function LoginScreen(){
         myHeaders.append("Content-Type", "application/json");
         
         var raw = JSON.stringify({
-          "login": 'admin',
-          "password": 'admin'
+          "login": 'user1',
+          "password": 'user1'
         });
         
         var requestOptions = {
