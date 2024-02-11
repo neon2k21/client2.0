@@ -220,6 +220,7 @@ export default function LoginScreen(){
               </Text>
 
               <TextInput
+              secureTextEntry={true}
               style={styles.textinputPassword}
               onChangeText={setPassword}
               value={password}/>

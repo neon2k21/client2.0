@@ -94,7 +94,7 @@ useFocusEffect(
       
         <View style={styles.masterView}>
 
-          <ScrollView>
+          
           <FlatList
             data={masters_data}
             horizontal={true}        
@@ -103,7 +103,7 @@ useFocusEffect(
             )}
             ItemSeparatorComponent={() => {return (<View style={styles.itemseparator}/>);}}
             />
-          </ScrollView>
+          
           
           
         </View>
@@ -123,7 +123,7 @@ useFocusEffect(
           </Text> 
         
           
-        <ScrollView style={{height:widthPercentageToDP(130), position:'absolute', left:15,top:320,paddingBottom:20}}>
+        <View style={{height:widthPercentageToDP(130), position:'absolute', left:15,top:320,paddingBottom:20}}>
         <FlatList
               data={object_data}
               vertical={true}   
@@ -148,7 +148,7 @@ useFocusEffect(
                 return (<View style={styles.itemseparator}/>);}}
               
               />
-        </ScrollView>
+        </View>
           
           </View>
           
