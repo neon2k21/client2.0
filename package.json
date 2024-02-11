@@ -21,6 +21,7 @@
     "nativewind": "^2.0.11",
     "react": "18.2.0",
     "react-native": "0.73.2",
+    "react-native-element-dropdown": "^2.10.1",
     "react-native-heroicons": "^4.0.0",
     "react-native-responsive-screen": "^1.4.2",
     "react-native-svg": "^14.1.0",

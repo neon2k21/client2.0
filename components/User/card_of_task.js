@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/core"
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native"
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native"
 import { widthPercentageToDP } from "react-native-responsive-screen"
 
 //arrow-right-circle
@@ -7,33 +7,11 @@ import { widthPercentageToDP } from "react-native-responsive-screen"
 
 export default function TaskCard(props){
     const {navigate} = useNavigation()
-     {/*
-    "date_of_creation": "2024-02-07", 
-    "date_of_deadline": "2024-02-12", 
-    "description": "", 
-    "object_address": "ул. Гагарина, 15, Северодвинск, Архангельская обл., 164501", 
-    "object_category": "Школа", 
-    "object_category_user": 2, 
-    "object_contact": 4, 
-    "object_id": 2, 
-    "object_image": "http://sevschool12.edu.ru/wp-content/uploads/2020/05/YkiXX5aTbdc-300x197.jpg", 
-    "object_inn": "2902040703", 
-    "object_name": "МАОУ СОШ № 12", 
-    "task_id": 4, 
-    "task_stage": "Выполняется", 
-    "task_stage_id": 2, 
-    "type_of_work_id": "Монтаж", 
-    "user_fio": "Оглобля Константин Андреевич", 
-    "user_id": 4, 
-    "user_phone": "+79867662958", 
-    "work_category_id": 2, 
-    "work_category_name": "Пожарная сигнализация", 
-    "worker": 2
-    */}
     const { object_name, 
         object_image, 
         object_address, 
-        date_of_deadline, 
+        date_of_deadline,
+        date_of_creation, 
         user_fio, 
         user_phone, 
         task_stage_id,
@@ -42,6 +20,47 @@ export default function TaskCard(props){
         work_category,
         task_id,
         description} = props
+    let image
+    let secondPart
+    let firstPart
+    let statusImage
+    if(work_category=="Видеонаблюдение"){
+        image = require('../../assets/images/camera.png')
+        secondPart="видеонаблюдения"
+        styles.image={position:'absolute', width:30, height:29, left:10}
+    }else{
+        image=require('../../assets/images/signal.png')
+        secondPart="пожарной сигнализации"
+        styles.image={position:'absolute', width:20, height:25, left:10}
+    }
+    if(type_of_work=="Монтаж"){
+        firstPart="Монтаж "
+    }else if(type_of_work=="Ремонт"){
+        firstPart="Ремонт "
+    }else{
+        firstPart="Обслуживание "
+    }
+    if(task_stage_name=="Отмена"){
+        statusImage = require('../../assets/images/statusBad.png')
+    }
+    if(task_stage_name=="Выполняется"){
+        statusImage = require('../../assets/images/statusWork.png')
+    }
+    if(task_stage_name=="Новая заявка"){
+        statusImage = require('../../assets/images/statusNew.png')
+        styles.text_name.color='rgb(140,14,3)'
+    }
+    if(task_stage_name=="Готово к закрытию"){
+        statusImage = require('../../assets/images/statusWait.png')
+    }
+    if(task_stage_name=="Выполнено"){
+        statusImage = require('../../assets/images/statusPrinyato.png')
+    }
+    if(task_stage_name=="Просрочено"){
+        statusImage = require('../../assets/images/statusFire.png')
+    }
+    let endName = firstPart+secondPart
+        
     return(
         <TouchableOpacity 
         onPress={()=>{
@@ -49,6 +68,7 @@ export default function TaskCard(props){
             global.user_object_image = object_image;
             global.user_object_address = object_address;
             global.user_date_of_deadline = date_of_deadline;
+            global.user_date_of_creation = date_of_creation;
             global.user_user_fio = user_fio;
             global.user_user_phone = user_phone;
             global.user_task_stage_id = task_stage_id;
@@ -59,26 +79,15 @@ export default function TaskCard(props){
             global.user_description = description;
             navigate('Заявка')
         }}>
-
             <View style={styles.externalView} className={classnames[0].externalView}>
-
-                <View className={classnames[0].imageView}>
-
-                    <Image source={{uri: object_image}} className={classnames[0].image} style={styles.image}/>
-
-                    <Text style={styles.text}>
-                        {object_name}
-                    </Text>
-
-                </View>
-                
-                <Text style={{fontSize:widthPercentageToDP(3)}}>
-                    {task_stage_name}
-                </Text>
-                
+                <Image source={image} className={classnames[0].image} style={styles.image}/>
+                <Text style={styles.text_name}>
+                    {endName}
+                </Text>               
+                <Image source={statusImage} style={{position:'absolute',left:widthPercentageToDP(85),width:25, height:25}}/>
             </View>
-        
         </TouchableOpacity>
+            
     )
 
 
@@ -88,26 +97,33 @@ const classnames =
 [
   {
     "externalView": "flex-row border-t-2",
-    "imageView": "flex-row",
     "image": "rounded"
 
   }
 ]
 
+
 const styles = StyleSheet.create({
 
-
     externalView:{
-        width:widthPercentageToDP(100),
-        height:widthPercentageToDP(15),
+        width:widthPercentageToDP(94),
+        height:42,
         alignItems:'center',
-        paddingHorizontal:widthPercentageToDP(3)
     },
     image: {
-        width:widthPercentageToDP(15),
-        height:widthPercentageToDP(10)
+        width:40,
+        height:29,
+        position:'absolute',
+        left:5
     },
-    text:{
-        marginHorizontal:widthPercentageToDP(1),fontSize:widthPercentageToDP(5),width:widthPercentageToDP(60)
+    text_name:{
+        position:'absolute',
+        left:75,
+        fontSize:13,
+        fontFamily:'Bold',
+        width:250
+    },
+    text_stage:{
+        fontSize:widthPercentageToDP(3)
     }
 })

@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { FlatList, Image, SafeAreaView, Text, TouchableOpacity, View, StyleSheet, ScrollView } from 'react-native';
+import { FlatList, Image,  Text, TouchableOpacity, View, StyleSheet, ScrollView } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import ObjectCard from '../../components/Admin/card_of_object';
 import { ip_address } from '../../config';
-import { useEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/core';
+import { useCallback, useEffect, useState } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/core';
 import { FunnelIcon } from 'react-native-heroicons/outline';
 import Admin_Master_card from '../../components/Admin/master_card';
 
@@ -15,12 +15,14 @@ export default function AdminMainScreen() {
   const [object_data,setObject_data] = useState([]);
   const [masters_data,setMasters_data] = useState([]);
     
-
-  useEffect(()=>{
+useFocusEffect(
+  useCallback(()=>{
     getAllObjects()
     getAllMasters()
     
   },[])
+)
+  
 
 
   const getAllMasters = () =>{
@@ -52,10 +54,10 @@ export default function AdminMainScreen() {
           redirect: 'follow'
         };
         
-        fetch(ip_address+'/object', requestOptions)
+        fetch(ip_address+'/admin_object', requestOptions)
           .then( response => response.json())
           .then( result => {
-            console.log(result[0])
+            console.error(result[0])
             
             setObject_data(result)
 
@@ -68,29 +70,29 @@ export default function AdminMainScreen() {
     
 
   return (
-    <SafeAreaView  style={styles.externalView}>
+    <View  style={styles.externalView}>
 
 
         {/* Шапка профиля */}
-      <View style={styles.prodileView}>
-       
+        <View style={styles.prodileView}>
+      <Image source={require('../../assets/images/headerUserMain.png')} style={styles.header}></Image>
+            <Image source={require('../../assets/images/ovalFIO.png')} style={styles.ovalFIO}></Image>
+            <Image source={require('../../assets/images/emojiUser.png')} style={styles.emojiUser}></Image>
         <Text style={styles.profileText}>
           {global.fio}
         </Text>
-
+      
       </View>
 
-     
+     <Text  style={styles.masterText}>
+            Мастера
+          </Text>
       {/* Карусель мастеров */}
       <View>
 
-        <View className={classnames[0].masterFlatlist}>
           
-          <Text className={classnames[0].masterText} style={styles.masterText}>
-            Мастера
-          </Text>
+          
         
-        </View>
       
         <View style={styles.masterView}>
 
@@ -99,7 +101,7 @@ export default function AdminMainScreen() {
             data={masters_data}
             horizontal={true}        
             renderItem={({item})=> (
-              <Admin_Master_card id = {item.id} name={item.fio} phone={item.phone}/>
+              <Admin_Master_card id = {item.id} name={item.fio} phone={item.phone}  />
             )}
             ItemSeparatorComponent={() => {return (<View style={styles.itemseparator}/>);}}
             />
@@ -116,15 +118,14 @@ export default function AdminMainScreen() {
             {/* карусель объектов */}
       <View  style={styles.flatlist}>
         
-        <View className={classnames[0].masterFlatlist}>
+        
           
-          <Text className={classnames[0].masterText} style={styles.masterText}>
+          <Text  style={styles.objectText}>
             Объекты
           </Text> 
         
-        </View>
           
-        <ScrollView style={{height:widthPercentageToDP(120)}}>
+        <ScrollView style={{height:widthPercentageToDP(130), position:'absolute', left:15,top:320}}>
         <FlatList
               data={object_data}
               vertical={true}   
@@ -139,10 +140,14 @@ export default function AdminMainScreen() {
                 category={item.object_category }
                 inn={item.object_inn }
                 owner={item.user_fio }
-                phone={item.user_phone}/>
+                phone={item.user_phone}
+                task_count={item.tasks_count}
+                />
               )}
               
-             
+              ItemSeparatorComponent={() => {
+                return (<View style={styles.itemseparator}/>);}}
+              
               />
         </ScrollView>
           
@@ -153,7 +158,7 @@ export default function AdminMainScreen() {
    
 
       <StatusBar style="auto" />
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -171,7 +176,9 @@ const styles = StyleSheet.create({
 
 
     externalView:{
-        paddingTop:widthPercentageToDP(10)
+      backgroundColor:'#F9F1E5',
+      width:'100%',
+      height:'100%'
     },
     prodileView: {
       width:widthPercentageToDP(100),
@@ -187,14 +194,60 @@ const styles = StyleSheet.create({
       width:widthPercentageToDP(100)
     },
     masterText:{
-      paddingLeft:widthPercentageToDP(3),
-      width:widthPercentageToDP(85)
+     position:'absolute',
+     fontFamily:'Black',
+     fontSize:15,
+     left:15,
+     top:136,
+     textTransform:'lowercase'
+    },
+    objectText:{
+      position:'absolute',
+     fontFamily:'Black',
+     fontSize:15,
+     left:15,
+     top:298,
+     textTransform:'lowercase'
     },
     masterView:{
-      height:widthPercentageToDP(51)
+      left:15,
+      position:'absolute',
+      top:170
     },
     itemseparator:{
-      height: "10%",
+      height: "2%",
       width: widthPercentageToDP(2),
-    }
+    },
+    ovalFIO:{
+      width:35,
+      height:35,
+      position:'absolute',
+      marginTop:55,
+      marginStart:15,
+
+    },
+    emojiUser:{
+      width:25,
+      height:25,
+      position:'absolute',
+      marginTop:61,
+      marginStart:20
+    },
+    header:{
+      position:'absolute',
+width:widthPercentageToDP(100)
+    },
+    prodileView: {
+      position:'absolute'
+    },
+    profileText:{
+      width:200,
+      marginTop:55,
+      marginStart:60,
+      fontSize:15,
+      fontFamily:'Bold',
+      position:'absolute',
+      color:'rgb(4,4,4)',
+
+    },
 })

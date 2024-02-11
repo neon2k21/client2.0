@@ -31,17 +31,17 @@ export default function ObjectCard(props){
 
                 <Image source={{uri: image}} className={classnames[0].image}/>
 
-                <View className={classnames[0].grayView} style={styles.grayView}>
+                <View className={classnames[0].redView} style={styles.redView}/>
+                <View className={classnames[0].grayView} style={styles.grayView}/>
 
-                    <View  style={styles.ingraview}>
 
                         <Text style={styles.text}>
                             {name}
                         </Text>
                     
-                    </View>
+
                 
-                </View>
+                
             
             </View>
         </TouchableOpacity>
@@ -56,8 +56,8 @@ const classnames =
   {
     "externalView": "rounded-2xl",
     "image": "rounded-2xl w-full h-full",
-    "grayView": "rounded-b-2xl w-full absolute flex-row",
-
+    "grayView": "rounded-2xl w-full h-full absolute flex-row",
+    "redView": "rounded-2xl w-full h-full absolute flex-row",
   }
 ]
 
@@ -65,26 +65,28 @@ const styles = StyleSheet.create(
     {
         touchableopacity:
         {
-            width:widthPercentageToDP(90),
-            height:widthPercentageToDP(50),
-            paddingLeft:widthPercentageToDP(3)
+            width:360,
+            height:171,
+            marginStart:15
         },
         grayView:
         {
             alignItems:'center',
-            backgroundColor: 'rgba(144,144,144,0.7)',
-            bottom:-widthPercentageToDP(0.2),
-            height:widthPercentageToDP(20)
+            backgroundColor: 'rgba(0, 0, 0, 0.2)',
         },
-        ingraview:
-        {
-            width:widthPercentageToDP(45)
+        redView:{
+            backgroundColor: 'rgba(242, 93, 39, 0.5)',
         },
+
         text:{
-            left:widthPercentageToDP(5),
-            color:'white',
-            fontSize:widthPercentageToDP(5),
-            width:widthPercentageToDP(80)
+            width:320,
+            color:'rgb(255,255,255)',
+            position:'absolute',
+            fontFamily:'Bold',
+            fontSize:24,
+            marginStart:20,
+            marginTop:115
+
         }
     }
 )

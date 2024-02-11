@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { FlatList, Image, SafeAreaView, Text, TouchableOpacity, View, Modal, Pressable, StyleSheet } from 'react-native';
+import { FlatList, Image, View, Text, TouchableOpacity, Modal, Pressable, StyleSheet } from 'react-native';
 import { widthPercentageToDP } from 'react-native-responsive-screen';
 import { ip_address } from '../../config';
 import { useEffect, useState, useCallback } from 'react';
@@ -38,7 +38,6 @@ import {useFocusEffect} from '@react-navigation/core';
 
 export default function MasterMainScreen() {
 
-  const [modalVisible, setModalVisible] = useState(false);
   const [task_data,setTask_data] = useState([]);
   const [object_data,setObject_data] = useState([]);
 
@@ -111,118 +110,44 @@ export default function MasterMainScreen() {
       }
     
   return (
-    <SafeAreaView  style={styles.externalView}>
+    <View  style={styles.externalView}>
 
-      <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {setModalVisible(!modalVisible);}}> 
-          
-        <View className="flex-1 justifyContent-center" >
-          
-          <View style={styles.modal}>
-            
-            <Text className={classnames[0].modaltext} style={styles.modaltext}>
-              Фильтры:
-            </Text>
-            
-            <Text className={classnames[0].modaltext} style={styles.modaltext}>
-              Наименование объекта:
-            </Text>
-
-            <Picker
-                  style={styles.dropdown}
-                  selectedValue={picker1}
-                  onValueChange={(itemValue) => {setPicker1(itemValue);}}>
-                    
-                    <Picker.Item label="" value={0} />      
-                    <Picker.Item label="МАОУ СОШ № 12" value={2} />
-                    <Picker.Item label="МАОУ СОШ № 5" value={3} />
-                    <Picker.Item label="МАОУ СОШ № 30" value={4} />
-                    <Picker.Item label="МАОУ СОШ № 20" value={5} />
-                    <Picker.Item label="МАОУ СОШ № 11" value={6} />
-                    <Picker.Item label="МАОУ СГ № 14" value={7} />
-                    <Picker.Item label="МАОУ СОШ № 6" value={8} />
-                    <Picker.Item label="МАОУ ЛИЦЕЙ № 17 " value={9} />
-                    <Picker.Item label="МАОУ `СОШ № 3`" value={10} />
-                    <Picker.Item label="МАОУ СОШ № 25" value={11} />
-                    <Picker.Item label="ГБУЗ АРХАНГЕЛЬСКОЙ ОБЛАСТИ СГКБ № 2 СМП" value={12} />
-                    <Picker.Item label="ГБУЗ АРХАНГЕЛЬСКОЙ ОБЛАСТИ СЕВЕРОДВИНСКИЙ РОДИЛЬНЫЙ ДОМ" value={13} />
-                    <Picker.Item label="ГБУЗ АРХАНГЕЛЬСКОЙ ОБЛАСТИ ПЕРВАЯ ГКБ ИМ. Е.Е. ВОЛОСЕВИЧ" value={14} />
-
-
-            </Picker>
-
-            <Text className={classnames[0].modaltext} style={styles.modaltext}>
-              Статус заявки:
-            </Text>
-              
-            <Picker
-                  style={styles.dropdown}
-                  selectedValue={picker2}
-                  onValueChange={(itemValue) => {setPicker2(itemValue);}}>
-                    
-                      <Picker.Item label="Новая заявка" value={1} />
-                      <Picker.Item label="Выполняется" value={2} />
-                      <Picker.Item label="Отмена" value={3} />
-                      <Picker.Item label="Готово к закрытию" value={4} />
-                      <Picker.Item label="Выполнено" value={5} />
-                      <Picker.Item label="Просрочено" value={6} />
-
-            </Picker>
-            
-            <Pressable style={styles.pressable} onPress={() => {setModalVisible(!modalVisible); useFilters();}}>
-                
-              <Text style={styles.textPressable}>
-                Закрыть
-              </Text>
-              
-            </Pressable>
-            
-          </View>
-        
-        </View>
       
-      </Modal>
 
       {/* Шапка профиля */}
       <View style={styles.prodileView}>
-       
+      <Image source={require('../../assets/images/headerUserMain.png')} style={styles.header}></Image>
+            <Image source={require('../../assets/images/ovalFIO.png')} style={styles.ovalFIO}></Image>
+            <Image source={require('../../assets/images/emojiCool.png')} style={styles.emojiUser}></Image>
         <Text style={styles.profileText}>
           {global.fio}
         </Text>
       
       </View>
-
-            {/* карусель объектов */}
-      <View  style={styles.flatlist}>
-        
-        <View className="flex-row" >
-          
-          <Text className="text-2xl" style={styles.myobjecttext}>
-            Объекты
+<Text style={styles.myobjecttext}>
+            заявки
           </Text>
-
-          <TouchableOpacity onPress={()=> setModalVisible(true)}>
-            
-            <FunnelIcon size={widthPercentageToDP(8)} color={'black'}/>  
+            {/* карусель объектов */}
           
-          </TouchableOpacity>
-
-        </View>
           
-        <SafeAreaView style={{height:widthPercentageToDP(170),backgroundColor:'red'}}>
+
+          
+
+          
+        <View style={{height:widthPercentageToDP(170), position:'absolute', top:160, width:widthPercentageToDP(100), left:15}}>
           <FlatList
             data={task_data}
             //extraData={task_data}
             vertical={true}   
             numColumns={2}     
+            ItemSeparatorComponent={() => {
+              return (<View style={styles.itemseparator}/>);}}
             renderItem={({item})=> (
     
                 <TaskCard object_name={item.object_name}
                           object_image={item.object_image}
                           object_address={item.object_address}
+                          date_of_creation={item.date_of_creation}
                           date_of_deadline={item.date_of_deadline}
                           user_fio={item.user_fio}
                           user_phone={item.user_phone}
@@ -231,16 +156,21 @@ export default function MasterMainScreen() {
                           type_of_work={item.type_of_work_name}
                           work_category={item.work_category_name}
                           task_id={item.task_id}
-                          description={item.description}/>)}
+                          description={item.description}
+                          />
+                          )
+                        }
+                       
+                        
+              
             />
         
-        </SafeAreaView>
+        </View>
           
-      </View>
-
+        
       <StatusBar style="auto" />
     
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -320,32 +250,58 @@ const styles = StyleSheet.create({
  
  },
   externalView:{
-    paddingTop:widthPercentageToDP(10)
+    width:'100%',
+      height:'100%',
+      backgroundColor:'rgb(249, 241, 229)'
 },
 prodileView: {
-  width:widthPercentageToDP(100),
-  height:widthPercentageToDP(15),
-  alignItems:'center',
-  backgroundColor: 'rgba(144,144,144,0.4)'
+  position:'absolute'
 },
 profileText:{
-  marginHorizontal:widthPercentageToDP(10),
-  fontSize:widthPercentageToDP(5)
+  width:200,
+      marginTop:55,
+      marginStart:60,
+      fontSize:15,
+      fontFamily:'Bold',
+      position:'absolute',
+      color:'rgb(4,4,4)',
 },
 flalistView:{
   height:widthPercentageToDP(51)
 },
 myobjecttext:{
-  paddingLeft:widthPercentageToDP(3),
-  width:widthPercentageToDP(85)
+  fontFamily:'Black',
+  fontSize:15,
+  position:'absolute',
+  left:15,
+  top:129
+},
+ovalFIO:{
+  width:35,
+  height:35,
+  position:'absolute',
+  marginTop:55,
+  marginStart:15,
+
+},
+emojiUser:{
+  width:25,
+  height:25,
+  position:'absolute',
+  marginTop:61,
+  marginStart:20
+},
+header:{
+  position:'absolute',
+width:widthPercentageToDP(100)
 },
 flatlist:{
   width:widthPercentageToDP(100)
 },
 
 itemseparator:{
-  height: "10%",
-  width: widthPercentageToDP(2)
+  height: "6%",
+  width: 10
 },
 aboutcompany:{
   paddingTop:widthPercentageToDP(3),
@@ -356,6 +312,13 @@ viewforlogo:{
   height:widthPercentageToDP(20),
   width:widthPercentageToDP(40),
   backgroundColor:'black'
-}
+},
+buttonFilter:{
+  position:'absolute',
+  width:20,
+  height:20,
+  top:127,
+  left:widthPercentageToDP(91)
+},
 });
 

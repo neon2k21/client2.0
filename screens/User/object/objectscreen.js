@@ -1,11 +1,15 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useCallback, useState } from "react";
-import { FlatList, SafeAreaView,Text, View, Image, TouchableOpacity, StyleSheet } from "react-native"
+import { FlatList, View,Text,Image, TouchableOpacity, StyleSheet } from "react-native"
 import { ip_address } from "../../../config";
 import TaskCard from "../../../components/User/card_of_task";
 import { widthPercentageToDP } from "react-native-responsive-screen";
 import { CogIcon,MapPinIcon, ClockIcon,PlusCircleIcon } from "react-native-heroicons/solid";
 import {useFocusEffect} from "@react-navigation/native";
+
+
+
+
 
 
 const UserObjectScreen=()=>{
@@ -17,7 +21,7 @@ const UserObjectScreen=()=>{
         useCallback(() => {
             getTaskForUser()
         }, [])
-    );
+      );
     
    
     
@@ -40,137 +44,111 @@ const UserObjectScreen=()=>{
         fetch(ip_address+'/getUserObjecttask', requestOptions)
           .then( response => response.json())
           .then( result => {
-            console.log(result[0])
+            console.log(result.length)
             setData(result)
   
         })
           .catch(error => console.log('error', error));
     }
 
-    {/*
-    "date_of_creation": "2024-02-07", 
-    "date_of_deadline": "2024-02-12", 
-    "description": "", 
-    "object_address": "ул. Гагарина, 15, Северодвинск, Архангельская обл., 164501", 
-    "object_category": "Школа", 
-    "object_category_master": 2, 
-    "object_contact": 4, 
-    "object_id": 2, 
-    "object_image": "http://sevschool12.edu.ru/wp-content/uploads/2020/05/YkiXX5aTbdc-300x197.jpg", 
-    "object_inn": "2902040703", 
-    "object_name": "МАОУ СОШ № 12", 
-    "task_id": 4, 
-    "task_stage": "Выполняется", 
-    "task_stage_id": 2, 
-    "type_of_work_id": "Монтаж", 
-    "user_fio": "Оглобля Константин Андреевич", 
-    "user_id": 4, 
-    "user_phone": "+79867662958", 
-    "work_category_id": 2, 
-    "work_category_name": "Пожарная сигнализация", 
-    "worker": 2
-    */}
+   
     
-
     return(
-        <View className={classnames[0].externalView} style={styles.externalView}>
-
-           <View  style={{paddingVertical:widthPercentageToDP(40)}}>
-           
-            <Image className={classnames[0].image} source={{uri: global.object_image}} style={styles.image}/>
-           
-            <View className={classnames[0].object_name} style={styles.object_name_view}>
+        <View className="flex-1" style={styles.externalView}>
+            <Image className="absolute" source={{uri: global.object_image}} style={styles.image}/>
+            <Image  source={require('../../../assets/images/gradientObject.png')} style={styles.image}/>
+            <Text  style={styles.object_name_text}>
+                 {global.object_name}
+            </Text>
             
-                <Text  style={styles.object_name_text}>
-                        {global.object_name}
-                </Text>
+                    
                 
-                <CogIcon size={widthPercentageToDP(15)} color={'transparent'}/>
             
-            </View>
 
-           <View style={styles.componentView} className={classnames[0].componentView}>
+            <TouchableOpacity style={{position:'absolute'}}onPress={()=>{navigate('ее')}}>
+                    <Image style={styles.buttonBack}source={require('../../../assets/images/buttonBack.png')}></Image>
+                </TouchableOpacity>
+
+
+
                 
-                <MapPinIcon size={widthPercentageToDP(7)} color={'black'}/>
+
+
                 
-                <Text style={styles.componentViewText}>
-                    {global.object_address}
-                </Text>
-           
-           </View>
 
-           <View style={styles.spaceView}/>
+        
 
-           <View style={styles.componentView} className={classnames[0].componentView}>
-                
-                <Text style={styles.componentViewText}>
-                    ИНН
-                </Text> 
-                
-                <Text style={styles.componentViewText}>
-                    {global.object_inn}
-                </Text>
-           
-           </View>
 
-           <View style={styles.spaceView}/>
-
-                <View>
                     
-                    <View className={classnames[0].object_name}>
                     
-                        <Text style={styles.taskText}>
-                            Заявки
-                        </Text>
-                        
-                        <TouchableOpacity onPress={()=>{navigate('Создание заявки')}}>
-                            <PlusCircleIcon size={widthPercentageToDP(9)} color={'black'}/>
+                    <Text style={styles.taskText}>
+                        Заявки
+                    </Text>
+
+
+                    <TouchableOpacity onPress={()=>{navigate('Создание заявки')}}style={{position:'absolute'}}>
+                            <Image source={require('../../../assets/images/buttonPlus.png')} style={{position:'absolute',width:20,height:20,left:widthPercentageToDP(91), top:385}}/>
                         </TouchableOpacity>
+                    <View style={{height:440, top:418}}>
+                        <FlatList
+                        data={data}
+                        vertical={true}
+                        className="w-full"
+                        contentContainerStyle={styles.flatlistcontainer}
+                        renderItem={({item})=> (
 
-                    </View>
-                    <SafeAreaView style={{height:widthPercentageToDP(90)}}>
-                    <FlatList
-                    data={data}
-                    extraData={data}
-                    vertical={true}
-                    className="w-full"
-                    renderItem={({item})=> (
-
-                        <TaskCard 
-                        object_name = {item.object_name} 
-                        object_image = {item.object_image}
-                        object_address = {item.object_address}
-                        date_of_deadline = {item.date_of_deadline}
-                        user_fio = {item.user_fio}
-                        user_phone = {item.user_phone}
-                        task_stage_id = {item.task_stage_id}
-                        task_stage_name = {item.task_stage}
-                        type_of_work = {item.type_of_work}
-                        work_category = {item.work_category}
-                        task_id = {item.task_id}
-                        description = {item.description}
+                            <TaskCard 
+                            object_name = {item.object_name} 
+                            object_image = {item.object_image}
+                            object_address = {item.object_address}
+                            date_of_deadline = {item.date_of_deadline}
+                            date_of_creation = {item.date_of_creation}
+                            user_fio = {item.user_fio}
+                            user_phone = {item.user_phone}
+                            task_stage_id = {item.task_stage_id}
+                            task_stage_name = {item.task_stage}
+                            type_of_work = {item.type_of_work_id}
+                            work_category = {item.work_category_name}
+                            task_id = {item.task_id}
+                            description = {item.description}
+                            />
+                        )}
+                        ItemSeparatorComponent={() => {return (<View style={styles.itemseparator}/>);}}
                         />
-                    )}
-                    ItemSeparatorComponent={() => {return (<View style={styles.itemseparator}/>);}}
-                    />
-                    </SafeAreaView>
+                    </View>
+                   
+                    <View style={styles.place} >
                     
-
+                    <Image source={require('../../../assets/images/mapIcon.png')} style={styles.mapIcon}/>
+                    
+                    <Text style={styles.componentText}>
+                        {global.object_address}
+                    </Text>
+                
                 </View>
-              
-            </View>           
-            
+                <View style={styles.inn} >
+                    
+                    <Text style={styles.innTitle}>
+                        ИНН
+                    </Text> 
+                    
+                    <Text style={styles.componentText}>
+                        {global.object_inn}
+                    </Text>
+                
+                </View>
+        
         </View>
     )
-}
 
+
+}
 
 const classnames = 
 [
   {
     "externalView": "flex-1",
     "image": "absolute",
-    "object_name": "flex-row",
     "componentView": "border-l-2 flex-row"
 
   }
@@ -180,52 +158,123 @@ const styles = StyleSheet.create({
 
 
     externalView:{
-        backgroundColor: 'rgba(255,229,204,0.7)',
+        backgroundColor: 'rgb(249,241,229)',
         width:widthPercentageToDP(100),
         height:widthPercentageToDP(100)
     },
     image: {
+        position:'absolute',
         width:widthPercentageToDP(100),
-        height:widthPercentageToDP(50)
+        height:248
     },
-    object_name_view:{
-        alignItems:'center',
-        backgroundColor: 'rgba(255,229,204,0.7)'
-    },
+
     object_name_text:{
-        fontSize:widthPercentageToDP(5),
-        paddingLeft:widthPercentageToDP(1),
-        color:'black',
-        width:widthPercentageToDP(80)
+        position:'absolute',
+        fontFamily:'Black',
+        fontSize:32,
+        marginTop:209,
+        marginStart:15
     },
-    componentView:{
-        alignSelf:'center',
-        alignItems:'center',
-        width:widthPercentageToDP(80),
-        height:widthPercentageToDP(12),
-        gap:widthPercentageToDP(3)
-    },
+    
     spaceView:{
         width:widthPercentageToDP(100),
-        height:widthPercentageToDP(1)
+        height:20
     },
-    componentViewText:{
-        fontSize:widthPercentageToDP(4)
-    },
+   
     taskText:{
-        fontSize:widthPercentageToDP(6),
-        paddingLeft:widthPercentageToDP(3),
-        width:widthPercentageToDP(80)
+        position:'absolute',
+        fontSize:15,
+        fontFamily:'Black',
+        marginTop:385,
+        marginLeft:15
     },
     flatlistcontainer:{
         alignItems:'center',
         justifyContent:'center',
-        height:widthPercentageToDP(95)
     },
     itemseparator:{
-        height: "0.1%",
+        height: -1,
         width: widthPercentageToDP(2),
-    }
+    },
+    place:{
+        position:'absolute',
+        justifyContent:'center',
+        borderLeftColor:'rgb(140,14,3)',
+        borderLeftWidth:2,
+        marginTop:282,
+        marginStart:15,
+        height:34
+    },
+    mapIcon:{
+        width:16,
+        height:20,
+        marginStart:3,
+        position:'absolute',
+        marginTop:7
+    },
+    componentText:{
+        fontFamily:'SemiBold',
+        fontSize:14,
+        width:340,
+        position:'absolute',
+        left:40
+    },
+    inn:{
+        position:'absolute',
+        justifyContent:'center',
+        borderLeftColor:'rgb(140,14,3)',
+        borderLeftWidth:2,
+        marginTop:336,
+        marginStart:15,
+        height:17
+    },
+    innTitle:{
+        position:'absolute',
+        marginStart:3,
+        marginTop:2,
+        fontFamily:'Bold',
+        fontSize:12,
+        color:'rgb(140,14,3)'
+    },
+    person:{
+        position:'absolute',
+        justifyContent:'center',
+        borderLeftColor:'rgb(140,14,3)',
+        borderLeftWidth:2,
+        marginTop:373,
+        marginStart:15,
+        height:52
+    },
+    personIcon:{
+        marginStart:3,
+        position:'absolute',
+        width:15,
+        height:16
+    },
+    personText:{
+        fontFamily:'SemiBold',
+        fontSize:14,
+        width:340,
+        position:'absolute',
+        left:40,
+        top:9,
+    },
+    phoneText:{
+        fontFamily:'SemiBold',
+        fontSize:12,
+        width:340,
+        position:'absolute',
+        left:40,
+        top:28,
+    },
+    buttonBack:{
+        width: 75,
+        height:75,
+        left:-5,
+        top:29,
+      },
+
 })
 
-export default  UserObjectScreen
+export default UserObjectScreen
+

@@ -1,6 +1,6 @@
-import { useFocusEffect, useRoute } from "@react-navigation/native";
+import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
 import { useCallback, useState } from "react";
-import { FlatList, SafeAreaView,Text, View, Image, TouchableOpacity, StyleSheet, ScrollView } from "react-native"
+import { FlatList, View,Text,  Image, TouchableOpacity, StyleSheet, ScrollView } from "react-native"
 import { ip_address } from "../../config";
 import TaskCard from "../../components/Admin/card_of_task";
 import { widthPercentageToDP } from "react-native-responsive-screen";
@@ -9,6 +9,8 @@ import { CogIcon,MapPinIcon,UserCircleIcon, PhoneIcon } from "react-native-heroi
 
 
 const AdminObjectScreen=()=>{
+
+    const {navigate} = useNavigation()
 
     const [data,setData] = useState([])
 
@@ -49,58 +51,39 @@ const AdminObjectScreen=()=>{
     
     return(
         <View className="flex-1" style={styles.externalView}>
-
-            <View  style={{paddingVertical:widthPercentageToDP(40)}}>
-                
-                <Image className="absolute" source={{uri: global.object_image}} style={styles.image}/>
-           
-                <View className="flex-row" style={styles.object_name_view}>
-                
-                    <Text  style={styles.object_name_text}>
-                        {global.object_name}
-                    </Text>
+            <Image className="absolute" source={{uri: global.object_image}} style={styles.image}/>
+            <Image  source={require('../../assets/images/gradientObject.png')} style={styles.image}/>
+            <Text  style={styles.object_name_text}>
+                 {global.object_name}
+            </Text>
             
-                    <CogIcon size={widthPercentageToDP(15)} color={'transparent'} style={{}}/>
+                    
                 
-                </View>
-
-                <View style={styles.componentView} className={classnames[0].componentView}>
-                    
-                    <MapPinIcon size={widthPercentageToDP(7)} color={'black'}/>
-                    
-                    <Text style={styles.componentViewText}>
-                        {global.object_address}
-                    </Text>
+            
+                <TouchableOpacity style={{position:'absolute'}} onPress={()=>navigate('ee')}>
+                    <Image style={styles.buttonBack} source={require('../../assets/images/buttonBack.png')} onPress={()=>{navigate('ee')}}/>
+                </TouchableOpacity>
                 
-                </View>
 
-                <View style={styles.spaceView}/>
 
-                <View style={styles.componentView} className={classnames[0].componentView}>
-                    
-                    <Text style={styles.componentViewText}>
-                        ИНН
-                    </Text> 
-                    
-                    <Text style={styles.componentViewText}>
-                        {global.object_inn}
-                    </Text>
+
                 
-                </View>
 
-                <View style={styles.spaceView}/>
 
-                <View style={styles.componentView} className={classnames[0].componentView}>
-                
-                    <UserCircleIcon size={widthPercentageToDP(7)} color={'black'}/> 
+                <View style={styles.person}>
+                <Image source={require('../../assets/images/personIcon.png')} style={styles.personIcon}/>
+
                     
-                    <Text style={{fontSize:widthPercentageToDP(4)}}>
+                    <Text style={styles.personText}>
                         {global.object_owner}
                     </Text>
+                    <Text style={styles.phoneText}>
+                        {global.object_phone}
+                    </Text>
                 
                 </View>
 
-                <View style={styles.spaceView}/>
+                {/* <View style={styles.spaceView}/>
 
                 <View style={styles.componentView} className={classnames[0].componentView}>
                     
@@ -110,21 +93,20 @@ const AdminObjectScreen=()=>{
                         {global.object_phone}
                     </Text>
                 
-                </View>
+                </View> */}
 
-                <View style={styles.spaceView}/>
 
-                <View>
                     
-                    <View className={classnames[0].object_name}>
                     
                     <Text style={styles.taskText}>
                         Заявки
                     </Text>
 
-                    </View>
 
-                    <SafeAreaView style={{height:widthPercentageToDP(70)}}>
+                    {/* <TouchableOpacity onPress={()=>{navigate('Создание заявки')}}>
+                            <PlusCircleIcon size={widthPercentageToDP(9)} color={'black'}/>
+                        </TouchableOpacity> */}
+                    <View style={{height:widthPercentageToDP(83), top:488}}>
                         <FlatList
                         data={data}
                         vertical={true}
@@ -145,15 +127,33 @@ const AdminObjectScreen=()=>{
                             work_category = {item.work_category_name}
                             task_id = {item.task_id}
                             description = {item.description}
+                            date_of_creation = {item.date_of_creation}
                             />
                         )}
                         ItemSeparatorComponent={() => {return (<View style={styles.itemseparator}/>);}}
                         />
-                    </SafeAreaView>
+                    </View>
                    
+                    <View style={styles.place} >
+                    
+                    <Image source={require('../../assets/images/mapIcon.png')} style={styles.mapIcon}/>
+                    
+                    <Text style={styles.componentText}>
+                        {global.object_address}
+                    </Text>
+                
                 </View>
-           
-           </View>           
+                <View style={styles.inn} >
+                    
+                    <Text style={styles.innTitle}>
+                        ИНН
+                    </Text> 
+                    
+                    <Text style={styles.componentText}>
+                        {global.object_inn}
+                    </Text>
+                
+                </View>
         
         </View>
     )
@@ -166,7 +166,6 @@ const classnames =
   {
     "externalView": "flex-1",
     "image": "absolute",
-    "object_name": "flex-row",
     "componentView": "border-l-2 flex-row"
 
   }
@@ -176,51 +175,123 @@ const styles = StyleSheet.create({
 
 
     externalView:{
-        backgroundColor: 'rgba(255,229,204,0.7)',
+        backgroundColor: 'rgb(249,241,229)',
         width:widthPercentageToDP(100),
         height:widthPercentageToDP(100)
     },
     image: {
+        position:'absolute',
         width:widthPercentageToDP(100),
-        height:widthPercentageToDP(50)
+        height:248
     },
-    object_name_view:{
-        alignItems:'center',
-        backgroundColor: 'rgba(255,229,204,0.7)'
-    },
+
     object_name_text:{
-        fontSize:widthPercentageToDP(5),
-        paddingLeft:widthPercentageToDP(1),
-        color:'black',
-        width:widthPercentageToDP(80)
+        position:'absolute',
+        fontFamily:'Black',
+        fontSize:32,
+        marginTop:209,
+        marginStart:15
     },
-    componentView:{
-        alignSelf:'center',
-        alignItems:'center',
-        width:widthPercentageToDP(80),
-        height:widthPercentageToDP(12),
-        gap:widthPercentageToDP(3)
-    },
+    
     spaceView:{
         width:widthPercentageToDP(100),
-        height:widthPercentageToDP(1)
+        height:20
     },
-    componentViewText:{
-        fontSize:widthPercentageToDP(4)
-    },
+   
     taskText:{
-        fontSize:widthPercentageToDP(6),
-        paddingLeft:widthPercentageToDP(3),
-        width:widthPercentageToDP(80)
+        position:'absolute',
+        fontSize:15,
+        fontFamily:'Black',
+        marginTop:455,
+        marginLeft:15
     },
     flatlistcontainer:{
         alignItems:'center',
         justifyContent:'center',
     },
     itemseparator:{
-        height: "0.1%",
+        height: -1,
         width: widthPercentageToDP(2),
-    }
+    },
+    place:{
+        position:'absolute',
+        justifyContent:'center',
+        borderLeftColor:'rgb(140,14,3)',
+        borderLeftWidth:2,
+        marginTop:282,
+        marginStart:15,
+        height:34
+    },
+    mapIcon:{
+        width:16,
+        height:20,
+        marginStart:3,
+        position:'absolute',
+        marginTop:7
+    },
+    componentText:{
+        fontFamily:'SemiBold',
+        fontSize:14,
+        width:340,
+        position:'absolute',
+        left:40
+    },
+    inn:{
+        position:'absolute',
+        justifyContent:'center',
+        borderLeftColor:'rgb(140,14,3)',
+        borderLeftWidth:2,
+        marginTop:336,
+        marginStart:15,
+        height:17
+    },
+    innTitle:{
+        position:'absolute',
+        marginStart:3,
+        marginTop:2,
+        fontFamily:'Bold',
+        fontSize:12,
+        color:'rgb(140,14,3)'
+    },
+    person:{
+        position:'absolute',
+        justifyContent:'center',
+        borderLeftColor:'rgb(140,14,3)',
+        borderLeftWidth:2,
+        marginTop:373,
+        marginStart:15,
+        height:52
+    },
+    personIcon:{
+        marginStart:3,
+        position:'absolute',
+        width:15,
+        height:16
+    },
+    personText:{
+        fontFamily:'SemiBold',
+        fontSize:14,
+        width:340,
+        position:'absolute',
+        left:40,
+        top:9,
+    },
+    phoneText:{
+        fontFamily:'SemiBold',
+        fontSize:12,
+        width:340,
+        position:'absolute',
+        left:40,
+        top:28,
+    },
+    buttonBack:{
+        width: 75,
+        height:75,
+        left:-5,
+        top:29,
+        
+      },
+
 })
 
 export default AdminObjectScreen

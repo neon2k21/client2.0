@@ -51,9 +51,9 @@ function UserMainScreenNavigator(){
   return(
     
     <MainScreen_Stack.Navigator>
-        <MainScreen_Stack.Screen name="ee" options={{headerShown: false}} component={UserMainScreen}/>
-        <MainScreen_Stack.Screen name="Список объектов"  component={ObjectList}/>
-        <MainScreen_Stack.Screen name="Карточка объекта" component={UserObjectScreenNavigator}/>
+        <MainScreen_Stack.Screen name="ее" options={{headerShown: false}} component={UserMainScreen}/>
+        <MainScreen_Stack.Screen name="Список объектов"  options={{headerShown: false}} component={ObjectList}/>
+        <MainScreen_Stack.Screen name="Карточка объекта" options={{headerShown: false}} component={UserObjectScreenNavigator}/>
 
   </MainScreen_Stack.Navigator>
   )
@@ -65,7 +65,7 @@ function UserMainScreenNavigator(){
     
     <MainScreen_Stack.Navigator>
         <MainScreen_Stack.Screen name="ee" options={{headerShown: false}} component={MasterMainScreen}/>
-        <MainScreen_Stack.Screen name="Карточка объекта" component={MasterObjectScreen}/>
+        <MainScreen_Stack.Screen name="Карточка объекта" options={{headerShown: false}} component={MasterObjectScreen}/>
 
   </MainScreen_Stack.Navigator>
   )
@@ -77,8 +77,8 @@ function UserMainScreenNavigator(){
     
     <MainScreen_Stack.Navigator>
         <MainScreen_Stack.Screen name="ee" options={{headerShown: false}} component={AdminMainScreen}/>
-        <MainScreen_Stack.Screen name="Список объектов"  component={ObjectList}/>
-        <MainScreen_Stack.Screen name="Карточка объекта" component={AdminTaskScreenNavigator}/>
+        <MainScreen_Stack.Screen name="Список объектов" options={{headerShown: false}} component={ObjectList}/>
+        <MainScreen_Stack.Screen name="Карточка объекта" options={{headerShown: false}} component={AdminTaskScreenNavigator}/>
     </MainScreen_Stack.Navigator>
   )
  }

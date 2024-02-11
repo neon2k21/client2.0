@@ -1,49 +1,122 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet,Image, TextInput } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { widthPercentageToDP } from 'react-native-responsive-screen';
 import { CogIcon,MapPinIcon, PlusCircleIcon,UserCircleIcon, PhoneIcon } from "react-native-heroicons/solid";
 import { useNavigation } from '@react-navigation/core';
 import { ip_address } from '../../../config';
+import { Dropdown } from 'react-native-element-dropdown';
 
-const questionData = [
-  {
-    id: 1,
-    question: "1.Класификация деятельности",
-    options: ["Видеонаблюдение", "Пожарная сигнализация"]
-  },
-  {
-    id: 2,
-    question: "2.Вид работ",
-    options: ["Обслуживание", "Монтаж", "Ремонт"]
-  },
-];
+
+
 
 const AddTask = () => {
 
-    const {navigate} = useNavigation()
+  const data_type = [
   
-    const [selectedValues, setSelectedValues] = useState({});
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    {value:1,label:"Видеонаблюдение"},
+    {value:2, label:"Cигнализация"}
+  
+  ]
+  
+  const data_work = [
     
+    {value:1, label:"Обслуживание"},
+    {value:2, label:"Монтаж"},
+    {value:3, label:"Ремонт"}
+  
+    
+  ]
+
+  const {navigate} = useNavigation()
+      
     const [picker1Data, setPicker1Data] = useState(1)
     const [picker2Data, setPicker2Data] = useState(1)//vid oborud
     const [commentary, setCommentary] = useState("")  
 
 
-  useEffect(() => {
+  const DropdownTypeComponent = (props) => {
     
-  }, []);
+    const {sub} = props
 
+    const renderItem = item => {
+      return (
+        <View style={styles.item}>
+          <Text style={styles.textItem}>{item.label}</Text>
+          
+        </View>
+      );
+    };
 
-
-  const handlePickerChange = (itemValue, questionId) => {
-    setSelectedValues({ ...selectedValues, [questionId]: itemValue });
+    return (
+      <Dropdown
+        style={{ width:widthPercentageToDP(41)
+        }}
+        placeholderStyle={styles.componentViewText}
+        selectedTextStyle={styles.componentViewText}
+        inputSearchStyle={styles.inputSearchStyle}
+        iconStyle={{backgroundColor:'#fff'}}
+        data={data_type}
+        
+        maxHeight={400}
+        labelField="label"
+        valueField="value"
+        placeholder={sub}
+        value={picker2Data}
+        onChange={item => {
+          setPicker2Data(item.value);
+      
+        }}
+       
+        renderItem={renderItem}
+      />
+    );
   };
+
+  const DropdownWorkComponent = (props) => {
+    
+    const {sub} = props
+
+    const renderItem = item => {
+      return (
+        <View style={styles.item}>
+          <Text style={styles.textItem}>{item.label}</Text>
+          
+        </View>
+      );
+    };
+
+    return (
+      <Dropdown
+        style={{ width:widthPercentageToDP(41)
+        }}
+        placeholderStyle={styles.componentViewText}
+        selectedTextStyle={styles.componentViewText}
+        inputSearchStyle={styles.inputSearchStyle}
+        iconStyle={{backgroundColor:'#fff'}}
+        data={data_work}
+        
+        maxHeight={300}
+        labelField="label"
+        valueField="value"
+        placeholder={sub}
+        value={picker1Data}
+        onChange={item => {
+          setPicker1Data(item.value);
+        }}
+       
+        renderItem={renderItem}
+      />
+    );
+  };
+
+    
+
+
 
   const createTask =  () => {
     try {
+      console.error(picker1Data,picker2Data)
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
        
@@ -70,267 +143,439 @@ const AddTask = () => {
       console.error(error);
     }
   };
+  
+
 
   return (
     
+   
     <View className="flex-1" style={styles.externalView}>
-      
-      <View  style={{paddingVertical:widthPercentageToDP(40)}}>
-        
-        <Image className="absolute" source={{uri: global.object_image}} style={styles.image}/>
-        
-        <View className="flex-row" style={styles.object_name_view}>
-          
-          <Text  style={styles.object_name_text}>
-            {global.object_name}
-          </Text>
-
-          <CogIcon size={widthPercentageToDP(15)} color={'transparent'}/>
-
-        
-        </View>
-
-        <View style={styles.componentView} className={classnames[0].componentView}>
-
-          <MapPinIcon size={widthPercentageToDP(7)} color={'black'}/>
-         
-            <Text style={styles.componentViewText}>
-              {global.object_address}
-            </Text>
-    
-        </View>
-
-        <View style={styles.spaceView}/>
-
-        <View style={styles.componentView} className={classnames[0].componentView}>
-
-          <Text style={styles.componentViewText}>
-            ИНН
-          </Text> 
-        
-          <Text style={styles.componentViewText}>
-            {global.object_inn}
-          </Text>
-        </View>
-
-        <View style={styles.spaceView}/>
-
-        <View style={styles.componentView} className={classnames[0].componentView}>
-
-          <UserCircleIcon size={widthPercentageToDP(7)} color={'black'}/> 
-            
-          <Text style={styles.componentViewText}>
-            {global.fio}
-          </Text>
-        
-        </View>
-
-        <View style={styles.spaceView}/>
-
-        <View style={styles.componentView} className={classnames[0].componentView}>
-
-          <PhoneIcon size={widthPercentageToDP(7)} color={'black'}/>
-          
-          <Text style={styles.componentViewText}>
-            {global.phone}
-          </Text>
-        
-        </View>
-
-        <View>
-            
-          <View className="flex-row">
-            
-            <Text style={styles.zapolntext}>
-              Заполните поля:
-            </Text>
-      
-          </View>
-
-          <View>
-              
-            <View className="flex-row">
-                
-              <Text style={styles.pickerText}>
-                Тип работ: 
-              </Text>
-                
-              <Picker
-        selectedValue={selectedValues[questionData[1].id]}
-        style={styles.dropdown}
-        onValueChange={(itemValue, itemIndex) => {handlePickerChange(itemValue, questionData[1].id);setPicker1Data(itemIndex+1)}}>
-        {questionData[1].options.map((option, index) => (
-          <Picker.Item label={option} value={option} key={index} />
-        ))}
-              </Picker>
-              
-            </View>
-            
-          </View>
-         
-          <View>
-         
-            <View className="flex-row">
-         
-              <Text style={styles.pickerText}>
-                
-                Вид оборудования: 
-              
-              </Text>
-         
-              <Picker
-        selectedValue={selectedValues[questionData[0].id]}
-        style={styles.dropdown}
-        onValueChange={(itemValue, itemIndex) => {handlePickerChange(itemValue, questionData[0].id); setPicker2Data(itemIndex+1)}}
-      >
-        {questionData[0].options.map((option, index) => (
-          <Picker.Item label={option} value={option} key={index} />
-        ))}
-              </Picker>
-      
-            </View>
+    <Text style={styles.componentTimeStartText}>
+                       дата поступления
+                       </Text> 
+                       <View style={styles.componentTimeStartView} >
+   
+                       <Text style={styles.componentViewText}>
+                           {global.user_date_of_creation}
+                       </Text>
        
-          </View>
-
-          <View style={{alignContent:'center'}}>
-          
-            <View className="flex-row" >
-            
-              <Text style={styles.pickerText}>
-                Комментарий (опционально): 
-              </Text>
-            
-              <TextInput
-              style={{paddingHorizontal:widthPercentageToDP(3), color:'black', borderColor:'black',height:widthPercentageToDP(20),width:widthPercentageToDP(57)}}
-              className="border-2 rounded-2xl"
-              onChangeText={setCommentary}
-              value={commentary}
-              />
-          
-            </View>
-      
-          </View>
-
-          <TouchableOpacity  style={styles.touchable} className="border-2 rounded-2xl" onPress={()=>{ createTask(); navigate('dd')}}>
-          
-            <Text style={{alignContent:'center',color:'black'}}>
-              Готово
-            </Text>
-          
-          </TouchableOpacity>
-
-        </View>
-        
-      </View>
-     
-    </View>
-      
+                   </View>
+              
+                   
+                   <Image source={{uri: global.user_object_image}} style={styles.image}/>
+                   
+                   <Text  style={styles.object_name_text}>
+                           {global.user_object_name}
+                       </Text>
+                   <Image source={require('../../../assets/images/statusNew.png')} style={styles.imageIcon}></Image>  
+                       <Text  style={styles.type_of_work_text}>
+                           создание заявки
+                       </Text>
+                   
+                   
+                       <Text style={styles.componentTypeText}>
+                           Тип работ
+                       </Text> 
+                       <View style={styles.componentTypeView} >
+                       <DropdownWorkComponent/>
+                   
+                   </View>
+   
+   
+   
+                       <Text style={styles.componentWorkText}>
+                           классификация деятельности
+                       </Text> 
+                       <View style={styles.componentWorkView}>
+   
+                       <DropdownTypeComponent/>
+                   
+                   </View>
+   
+   
+   
+                       <Text style={styles.componentTimeEndText}>
+                       срок выполнения
+                       </Text> 
+                       <View style={styles.componentTimeEndView} >
+   
+                       <Text style={styles.componentViewText}>
+                           {global.user_date_of_deadline}
+                       </Text>
+       
+                   </View>
+   
+               <Text style={styles.componentUserInfoText}>контактное лицо</Text>
+               
+               <View style={styles.componentUserInfoView}>
+                   <Image source={require('../../../assets/images/emojiUser.png')} style={styles.emojiUser}/>
+                   <Text style={styles.componentPhoneText}>
+                       {global.user_user_phone}
+                   </Text> 
+                   
+                   <Text style={styles.componentFIOtext}>
+                       {global.user_user_fio}
+                   </Text>
+                       
+                   <View style={styles.componentCommentView}>
+                       <Text style={styles.componentCommentText}>
+                           Комментарий
+                       </Text> 
+                       <TextInput
+                    defaultValue='Введите комментарий'
+                    style={styles.textinput}
+                    onChangeText={setCommentary}
+                    value={commentary}
+                    multiline = {true}
+                    />
+                       
+                   
+                   </View>
+               </View>
+   
+               <TouchableOpacity style={{position:'absolute'}}onPress={()=>{navigate('dd')}}>
+                       <Image style={styles.buttonBack}source={require('../../../assets/images/buttonBack.png')}></Image>
+                   </TouchableOpacity>
+                       <Text style={styles.componentStatusText}>
+                           Статус заявки
+                       </Text> 
+                                   <View style={styles.componentStatusView}>
+   
+                       <Text style={styles.componentViewText}>
+                           { global.user_task_stage_name}
+                       </Text>
+               
+                   </View>
+                   <TouchableOpacity  style={styles.touchable} onPress={()=>{ createTask(); navigate('dd')}}>
+                       
+                       <Text style={styles.t}>
+                           создать
+                       </Text>
+                   
+                   </TouchableOpacity>
+   
+                   
+           
+           </View>
       
   );
 };
 
 const styles = StyleSheet.create({
+
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    label: {
+      fontSize: 20,
+      marginBottom: 10,
+    },
+    question: {
+      fontSize: 18,
+      marginBottom: 10,
+    },
+    dropdown: {
+      height: widthPercentageToDP(10),
+      width: widthPercentageToDP(60),
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
+      paddingHorizontal: 20,
+      marginTop: 20,
+    },
+    button: {
+      backgroundColor: 'blue',
+      padding: 10,
+      borderRadius: 5,
+      width: 100,
+    },
+    buttonText: {
+      color: 'white',
+      fontSize: 18,
+      textAlign: 'center',
+    },
+    externalView:{
+        backgroundColor: 'rgb(249,241,229)',
+        width:widthPercentageToDP(100),
+        height:widthPercentageToDP(100)
   },
-  label: {
-    fontSize: 20,
-    marginBottom: 10,
+  imageIcon:{position:'absolute', width:64, height:64, left:15, top:100},
+  image: {
+      width:widthPercentageToDP(100),
+      height:90,
+      position:'absolute'
   },
-  question: {
-    fontSize: 18,
-    marginBottom: 10,
+
+  type_of_work_text:{
+    position:'absolute',
+    width:150,
+    fontSize:30,
+    fontFamily:'Black',
+    top:179,
+    left:15,
+    lineHeight:33,
+    letterSpacing:-1
   },
-  dropdown: {
-    height: widthPercentageToDP(10),
-    width: widthPercentageToDP(60),
+  object_name_text:{
+    position:'absolute',
+    top:262,
+    left:15,
+    fontFamily:'Bold',
+    fontSize:14,
+    textTransform:'lowercase'
   },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    paddingHorizontal: 20,
-    marginTop: 20,
+  componentTypeView:{
+      position:'absolute',
+      backgroundColor:'#F25D27',
+      width:widthPercentageToDP(45),
+      height:44,
+      top:393,
+      left:15,
+      borderRadius:5,
+      justifyContent:'center',
+      alignItems:'center'
   },
-  button: {
-    backgroundColor: 'blue',
-    padding: 10,
-    borderRadius: 5,
-    width: 100,
+  componentWorkView:{
+    position:'absolute',
+      backgroundColor:'#F25D27',
+      width:widthPercentageToDP(45),
+      height:44,
+      top:393,
+      left:widthPercentageToDP(51),
+      borderRadius:5,
+      justifyContent:'center',
+      alignItems:'center'
   },
-  buttonText: {
-    color: 'white',
-    fontSize: 18,
-    textAlign: 'center',
+  componentStatusView:{
+    position:'absolute',
+      backgroundColor:'#F25D27',
+      width:widthPercentageToDP(93),
+      height:44,
+      top:462,
+      left:15,
+      borderRadius:5,
+      justifyContent:'center',
+      alignItems:'center'
   },
-  externalView:{
-    backgroundColor: 'rgba(255,229,204,0.7)',
-    width:widthPercentageToDP(100),
-    height:widthPercentageToDP(100)
+  componentStatusText:{
+    position:'absolute',
+      top:447,
+      left:15,
+      textTransform:'lowercase',
+      fontFamily:'Black',
+      fontSize:10
+  },
+  componentTimeEndView:{
+    position:'absolute',
+      backgroundColor:'#F25D27',
+      width:widthPercentageToDP(45),
+      height:44,
+      top:324,
+      left:widthPercentageToDP(51),
+      borderRadius:5,
+      justifyContent:'center',
+      alignItems:'center',
+      borderWidth:2,
+      borderColor:"#8C0E03"
+  },
+  componentTimeStartView:{
+    position:'absolute',
+      backgroundColor:'#F25D27',
+      width:widthPercentageToDP(45),
+      height:44,
+      top:324,
+      left:15,
+      borderRadius:5,
+      justifyContent:'center',
+      alignItems:'center',
+  },
+  componentUserInfoView:{
+    position:'absolute',
+      backgroundColor:'#F25D27',
+      width:widthPercentageToDP(93),
+      height:213,
+      top:533,
+      left:15,
+      borderRadius:5,
+      justifyContent:'center',
+      alignItems:'center'
+  },
+  componentViewText:{
+    textTransform:'lowercase',
+    color:'#fff',
+    fontFamily:'Black',
+    fontSize:16,
+  },
+  emojiUser:{
+    position:'absolute',
+    width:35,
+    height:35,
+    top:8,
+    left:10
+  },
+  componentFIOtext:{
+    top:8,
+    left:60,
+    position:'absolute',
+    fontFamily:'Black',
+    fontSize:16,
+    color:'#fff'
+  },
+  componentPhoneText:{
+    position:'absolute',
+    left:60,
+    top:28,
+    fontFamily:'SemiBold',
+    fontSize:12,
+    color:'#fff'
+  },
+  componentCommentView:{
+    position:'absolute',
+    backgroundColor:'#792f14',
+    borderRadius:5,
+    width:widthPercentageToDP(88),
+    height:150,
+    top:53,
+    left:10
+  },
+  componentCommentText:{
+    position:'absolute',
+    fontFamily:'Black',
+    fontSize:10,
+    top:5,
+    left:5,
+    textTransform:'lowercase',
+    color:'#fff'
+  },
+
+  componentTypeText:{
+      position:'absolute',
+      top:378,
+      left:15,
+      textTransform:'lowercase',
+      fontFamily:'Black',
+      fontSize:10
+  },
+  componentWorkText:{
+    position:'absolute',
+      top:378,
+      left:widthPercentageToDP(51),
+      textTransform:'lowercase',
+      fontFamily:'Black',
+      fontSize:10
+  },
+  componentTimeEndText:{
+    position:'absolute',
+      top:307,
+      left:widthPercentageToDP(51),
+      textTransform:'lowercase',
+      fontFamily:'Black',
+      fontSize:10,
+      color:'#8C0E03'
+  },
+  componentTimeStartText:{
+    position:'absolute',
+      top:307,
+      left:15,
+      textTransform:'lowercase',
+      fontFamily:'Black',
+      fontSize:10,
+  },
+  componentUserInfoText:{
+    position:'absolute',
+      top:516,
+      left:15,
+      textTransform:'lowercase',
+      fontFamily:'Black',
+      fontSize:10
+  },
+  taskText:{
+      fontSize:widthPercentageToDP(6),
+      paddingLeft:widthPercentageToDP(3),
+      width:widthPercentageToDP(80)
+  },
+  flatlistcontainer:{
+      alignItems:'center',
+      justifyContent:'center',
+      height:widthPercentageToDP(95)
+  },
+  itemseparator:{
+      height: "0.1%",
+      width: widthPercentageToDP(2),
+  },
+  touchable:{
+      position:'absolute',
+      width:widthPercentageToDP(61),
+      height:35,
+      left:widthPercentageToDP(36),
+      top:771,
+      backgroundColor:'#8C0E03',
+        borderBottomLeftRadius:5,
+        borderTopEndRadius:5,
+        borderEndEndRadius:5,
+        borderStartStartRadius:5,
+        justifyContent:'center',
+        alignItems:'center'
+  },
+  touchableDel:{
+    position:'absolute',
+    width:widthPercentageToDP(30),
+    height:35,
+    left:15,
+    top:771,
+      borderBottomLeftRadius:5,
+      borderTopEndRadius:5,
+      borderEndEndRadius:5,
+      borderStartStartRadius:5,
+      justifyContent:'center',
+      alignItems:'center',
+      borderWidth:2,
+      borderColor:'#8C0E03'
 },
-image: {
-    width:widthPercentageToDP(100),
-    height:widthPercentageToDP(50)
-},
-object_name_view:{
-    alignItems:'center',
-    backgroundColor: 'rgba(255,229,204,0.7)'
-},
-object_name_text:{
-    fontSize:widthPercentageToDP(5),
-    paddingLeft:widthPercentageToDP(1),
-    color:'black',
-    width:widthPercentageToDP(80)
-},
-componentView:{
-    alignSelf:'center',
-    alignItems:'center',
-    width:widthPercentageToDP(80),
-    height:widthPercentageToDP(12),
-    gap:widthPercentageToDP(3)
-},
-spaceView:{
-    width:widthPercentageToDP(100),
-    height:widthPercentageToDP(1)
-},
-componentViewText:{
-    fontSize:widthPercentageToDP(4)
-},
-taskText:{
+  pickerText:{
+    fontSize:widthPercentageToDP(4),
+    paddingLeft:widthPercentageToDP(3),
+    width:widthPercentageToDP(40)
+  },
+  zapolntext:{
     fontSize:widthPercentageToDP(6),
     paddingLeft:widthPercentageToDP(3),
     width:widthPercentageToDP(80)
-},
-flatlistcontainer:{
-    alignItems:'center',
-    justifyContent:'center',
-    height:widthPercentageToDP(95)
-},
-itemseparator:{
-    height: "0.1%",
-    width: widthPercentageToDP(2),
-},
-touchable:{
-    paddingTop:widthPercentageToDP(4),
-    borderColor:'black',
-    height:widthPercentageToDP(13),
-    width:widthPercentageToDP(20),
-    alignItems:'center',
-    alignSelf:'center'
-},
-pickerText:{
-  fontSize:widthPercentageToDP(4),
-  paddingLeft:widthPercentageToDP(3),
-  width:widthPercentageToDP(40)
-},
-zapolntext:{
-  fontSize:widthPercentageToDP(6),
-  paddingLeft:widthPercentageToDP(3),
-  width:widthPercentageToDP(80)
-}
-});
+  },
+  textinput:{
+    position:'absolute',
+    left:10,
+    top:27,
+    color:'#fff',     
+    fontFamily:'Medium',
+    width:widthPercentageToDP(82),
+    fontSize:14,
+    height:widthPercentageToDP(26),
+    borderRadius:5,
+  },
+  t:{
+    fontFamily:'Black',
+    fontSize:15,
+    textTransform:'uppercase',
+    color:'#fff'
+  },
+  tDel:{
+    fontFamily:'Black',
+    fontSize:15,
+    textTransform:'lowercase',
+    color:'#8C0E03'
+  },
+  buttonBack:{
+    width: 75,
+    height:75,
+    left:-5,
+    top:29,
+  },
+  });
 
 const classnames = 
 [

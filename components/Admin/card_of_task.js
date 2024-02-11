@@ -7,7 +7,8 @@ import { widthPercentageToDP } from "react-native-responsive-screen"
 
 export default function TaskCard(props){
     const {navigate} = useNavigation()
-    const { object_name, 
+    const { 
+        object_name, 
         object_image, 
         object_address, 
         date_of_deadline, 
@@ -18,7 +19,48 @@ export default function TaskCard(props){
         type_of_work,
         work_category,
         task_id,
-        description} = props
+        description,
+        date_of_creation} = props
+    let image
+    let secondPart
+    let firstPart
+    let statusImage
+    if(work_category=="Видеонаблюдение"){
+        image = require('../../assets/images/camera.png')
+        secondPart="видеонаблюдения"
+        styles.image={position:'absolute', width:30, height:29, left:10}
+    }else{
+        image=require('../../assets/images/signal.png')
+        secondPart="пожарной сигнализации"
+        styles.image={position:'absolute', width:20, height:25, left:10}
+    }
+    if(type_of_work=="Монтаж"){
+        firstPart="Монтаж "
+    }else if(type_of_work=="Ремонт"){
+        firstPart="Ремонт "
+    }else{
+        firstPart="Обслуживание "
+    }
+    if(task_stage_name=="Отмена"){
+        statusImage = require('../../assets/images/statusBad.png')
+    }
+    if(task_stage_name=="Выполняется"){
+        statusImage = require('../../assets/images/statusWork.png')
+    }
+    if(task_stage_name=="Новая заявка"){
+        statusImage = require('../../assets/images/statusNew.png')
+        styles.text_name.color='rgb(140,14,3)'
+    }
+    if(task_stage_name=="Готово к закрытию"){
+        statusImage = require('../../assets/images/statusWait.png')
+    }
+    if(task_stage_name=="Выполнено"){
+        statusImage = require('../../assets/images/statusPrinyato.png')
+    }
+    if(task_stage_name=="Просрочено"){
+        statusImage = require('../../assets/images/statusFire.png')
+    }
+    let endName = firstPart+secondPart
         
     return(
         <TouchableOpacity onPress={()=>{
@@ -34,16 +76,15 @@ export default function TaskCard(props){
             global.admin_work_category = work_category;
             global.admin_task_id = task_id;
             global.admin_description = description;
+            global.admin_date_of_creation = date_of_creation;
             navigate('Заявка')
         }}>
             <View style={styles.externalView} className={classnames[0].externalView}>
-                <Image source={{uri: object_image}} className={classnames[0].image} style={styles.image}/>
+                <Image source={image} className={classnames[0].image} style={styles.image}/>
                 <Text style={styles.text_name}>
-                    {object_name}
+                    {endName}
                 </Text>               
-                <Text style={styles.text_stage}>
-                    {task_stage_name}
-                </Text>
+                <Image source={statusImage} style={{position:'absolute',left:widthPercentageToDP(85),width:25, height:25}}/>
             </View>
         </TouchableOpacity>
             
@@ -65,19 +106,22 @@ const classnames =
 const styles = StyleSheet.create({
 
     externalView:{
-        width:widthPercentageToDP(100),
-        height:widthPercentageToDP(15),
+        width:widthPercentageToDP(94),
+        height:42,
         alignItems:'center',
-        paddingHorizontal:widthPercentageToDP(3)
     },
     image: {
-        width:widthPercentageToDP(15),
-        height:widthPercentageToDP(10)
+        width:40,
+        height:29,
+        position:'absolute',
+        left:5
     },
     text_name:{
-        marginHorizontal:widthPercentageToDP(1),
-        fontSize:widthPercentageToDP(5),
-        width:widthPercentageToDP(60)
+        position:'absolute',
+        left:75,
+        fontSize:13,
+        fontFamily:'Bold',
+        width:250
     },
     text_stage:{
         fontSize:widthPercentageToDP(3)
