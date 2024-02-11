@@ -61,8 +61,7 @@ export default function UserMainScreen() {
         fetch(ip_address+'/get_object', requestOptions)
           .then( response => response.json())
           .then( result => {
-            console.log(result[0])
-            
+           
             setObject_data(result)
 
         })

@@ -56,9 +56,7 @@ useFocusEffect(
         
         fetch(ip_address+'/admin_object', requestOptions)
           .then( response => response.json())
-          .then( result => {
-            console.error(result[0])
-            
+          .then( result => {           
             setObject_data(result)
 
         })
@@ -125,11 +123,12 @@ useFocusEffect(
           </Text> 
         
           
-        <ScrollView style={{height:widthPercentageToDP(130), position:'absolute', left:15,top:320}}>
+        <ScrollView style={{height:widthPercentageToDP(130), position:'absolute', left:15,top:320,paddingBottom:20}}>
         <FlatList
               data={object_data}
               vertical={true}   
-              numColumns={2}     
+              numColumns={2}
+              contentContainerStyle={{paddingBottom:200}}     
               renderItem={({item})=> (
     
                 <ObjectCard 

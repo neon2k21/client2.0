@@ -6,11 +6,23 @@ import { CogIcon,MapPinIcon, PlusCircleIcon,UserCircleIcon, PhoneIcon } from "re
 import { useNavigation } from '@react-navigation/core';
 import { ip_address } from '../../../config';
 import { Dropdown } from 'react-native-element-dropdown';
+import { format, addDays, isWeekend, differenceInDays, parse } from 'date-fns';
+
 
 
 
 
 const AddTask = () => {
+
+  const today = new Date();
+  const formattedToday = format(today, 'yyyy-MM-dd');
+
+   let deadline = addDays(today, 3);
+   while (isWeekend(deadline)) {
+       deadline = addDays(deadline, 1);
+   }
+
+   const formattedDeadline = format(deadline, 'yyyy-MM-dd');
 
   const data_type = [
   
@@ -156,16 +168,16 @@ const AddTask = () => {
                        <View style={styles.componentTimeStartView} >
    
                        <Text style={styles.componentViewText}>
-                           {global.user_date_of_creation}
+                           {formattedToday}
                        </Text>
        
                    </View>
               
                    
-                   <Image source={{uri: global.user_object_image}} style={styles.image}/>
+                   <Image source={{uri:global.object_image}} style={styles.image}/>
                    
                    <Text  style={styles.object_name_text}>
-                           {global.user_object_name}
+                           { global.object_name}
                        </Text>
                    <Image source={require('../../../assets/images/statusNew.png')} style={styles.imageIcon}></Image>  
                        <Text  style={styles.type_of_work_text}>
@@ -200,7 +212,7 @@ const AddTask = () => {
                        <View style={styles.componentTimeEndView} >
    
                        <Text style={styles.componentViewText}>
-                           {global.user_date_of_deadline}
+                           {formattedDeadline}
                        </Text>
        
                    </View>

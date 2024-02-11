@@ -10,40 +10,11 @@ import { Picker } from '@react-native-picker/picker';
 import {useFocusEffect} from '@react-navigation/core';
 
 
-{/*
-          "date_of_creation": "2024-02-06", 
-          "date_of_deadline": "2024-02-09", 
-          "description": "Аагег", 
-          "object_address": "Морской пр-кт, 49, Северодвинск, Архангельская обл., 164213", 
-          "object_category": "Больница", 
-          "object_category_master": 3, 
-          "object_contact": 5, 
-          "object_id": 12, 
-          "object_image": "https://avatars.mds.yandex.net/get-altay/1352335/2a00000162f89946dbbce258b18fd107769a/XXXL", 
-          "object_inn": "2902016429", 
-          "object_name": "ГБУЗ АРХАНГЕЛЬСКОЙ ОБЛАСТИ СГКБ № 2 СМП", 
-          "task_id": 3, 
-          "task_stage": "Выполняется", 
-          "task_stage_id": 2, 
-          "type_of_work_id": 1, 
-          "type_of_work_name": "Обслуживание", 
-          "user_fio": "Константинов Артемий Константинович", 
-          "user_id": 5, 
-          "user_phone": "+79217265574", 
-          "work_category_id": 1, 
-          "work_category_name": "Видеонаблюдение", 
-          "worker": 3}
-          
-          */}
+
 
 export default function MasterMainScreen() {
 
   const [task_data,setTask_data] = useState([]);
-  const [object_data,setObject_data] = useState([]);
-
-  const [picker1,setPicker1] = useState(0);//nameObject
-  const [picker2,setPicker2] = useState(1);//stageObject
-
 
   useFocusEffect(
     useCallback(() => {
@@ -72,7 +43,6 @@ export default function MasterMainScreen() {
     fetch(ip_address+'/getMastertask', requestOptions)
       .then( response => response.json())
       .then( result => {
-        console.log(result[0])
         setTask_data(result)
 
     })
@@ -81,40 +51,12 @@ export default function MasterMainScreen() {
   }
 
 
-  const useFilters = () => {
-    
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-      
-      var raw = JSON.stringify({
-        "id_object": picker1,
-        "id_stage": picker2,
-
-      });
-      var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-      };
-      
-      fetch(ip_address+'/getMastertaskByStageAndObject', requestOptions)
-        .then( response => response.json())
-        .then( result => {
-          console.log(result)
-          setTask_data(result)
-
-  
-      })
-        .catch(error => console.log('error', error));
-      }
+ 
     
   return (
     <View  style={styles.externalView}>
 
       
-
-      {/* Шапка профиля */}
       <View style={styles.prodileView}>
       <Image source={require('../../assets/images/headerUserMain.png')} style={styles.header}></Image>
             <Image source={require('../../assets/images/ovalFIO.png')} style={styles.ovalFIO}></Image>
@@ -124,22 +66,23 @@ export default function MasterMainScreen() {
         </Text>
       
       </View>
-<Text style={styles.myobjecttext}>
+            <Text style={styles.myobjecttext}>
             заявки
           </Text>
-            {/* карусель объектов */}
+
           
           
 
           
 
           
-        <View style={{height:widthPercentageToDP(170), position:'absolute', top:160, width:widthPercentageToDP(100), left:15}}>
+        <View style={{height:widthPercentageToDP(165),  top:160, width:widthPercentageToDP(100), left:15, position:'absolute'}}>
           <FlatList
             data={task_data}
-            //extraData={task_data}
-            vertical={true}   
-            numColumns={2}     
+            vertical={true}
+            numColumns={2}
+            contentContainerStyle={{paddingBottom:200}}     
+   
             ItemSeparatorComponent={() => {
               return (<View style={styles.itemseparator}/>);}}
             renderItem={({item})=> (
@@ -267,7 +210,7 @@ profileText:{
       color:'rgb(4,4,4)',
 },
 flalistView:{
-  height:widthPercentageToDP(51)
+  height:widthPercentageToDP(5)
 },
 myobjecttext:{
   fontFamily:'Black',

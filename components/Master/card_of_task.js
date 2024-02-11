@@ -123,8 +123,8 @@ const styles = StyleSheet.create({
         right:widthPercentageToDP(3),
         left:widthPercentageToDP(-1),
         top:widthPercentageToDP(2),
-marginHorizontal:widthPercentageToDP(1),
-borderRadius:5,
+        marginHorizontal:widthPercentageToDP(1),
+        borderRadius:5,
     },
   
     image: {

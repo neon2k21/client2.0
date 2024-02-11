@@ -138,18 +138,7 @@ const MasterObjectScreen=()=>{
                            <Text  style={styles.type_of_work_text}>
                                {endName}
                            </Text>
-                       
-       
-       
-       
-                       
-                       
-       
-                  
-       
-                    
-       
-                       
+                                          
        
                            <Text style={styles.componentTypeText}>
                                Тип работ
@@ -197,21 +186,8 @@ const MasterObjectScreen=()=>{
                            </Text> 
                                        <View style={styles.componentStatusView}>
        
-                           {/* <Text style={styles.componentViewText}>
-                               { global.master_task_stage_name}
-                           </Text> */}
+                           
                            <DropdownSubjectComponent/>
-                           {/* <Picker
-                style={styles.dropdown}
-                itemStyle={styles.componentViewText}
-                selectedValue={stage}
-                onValueChange={(itemValue) => {setStage(itemValue);}}>
-                        
-                    <Picker.Item label="Новая заявка" value={1} />
-                    <Picker.Item label="Выполняется" value={2} />
-                    <Picker.Item label="Готово к закрытию" value={4} />
-
-                    </Picker> */}
                    
                        </View>
                        <TouchableOpacity  style={styles.touchable} onPress={()=>{ updateTask(); navigate('ee')}}>
@@ -253,18 +229,7 @@ const MasterObjectScreen=()=>{
     return(
         
         <View className="flex-1" style={styles.externalView}>
-        {/* <Text style={styles.componentTimeStartText}>
-                           дата поступления
-                           </Text> 
-                           <View style={styles.componentTimeStartView} >
-       
-                           <Text style={styles.componentViewText}>
-                               {global.user_date_of_creation}
-                           </Text>
-           
-                       </View> */}
-                  
-                       
+                                         
                        <Image source={{uri: global.master_object_image}} style={styles.image}/>
                        
                        <Text  style={styles.object_name_text}>
@@ -274,19 +239,7 @@ const MasterObjectScreen=()=>{
                            <Text  style={styles.type_of_work_text}>
                                {endName}
                            </Text>
-                       
-       
-       
-       
-                       
-                       
-       
-                  
-       
-                    
-       
-                       
-       
+ 
                            <Text style={styles.componentTypeText}>
                                Тип работ
                            </Text> 

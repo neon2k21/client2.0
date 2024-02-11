@@ -44,7 +44,7 @@ const UserObjectScreen=()=>{
         fetch(ip_address+'/getUserObjecttask', requestOptions)
           .then( response => response.json())
           .then( result => {
-            console.log(result.length)
+            console.log(result[0])
             setData(result)
   
         })
@@ -69,24 +69,14 @@ const UserObjectScreen=()=>{
                     <Image style={styles.buttonBack}source={require('../../../assets/images/buttonBack.png')}></Image>
                 </TouchableOpacity>
 
-
-
-                
-
-
-                
-
-        
-
-
-                    
                     
                     <Text style={styles.taskText}>
                         Заявки
                     </Text>
 
 
-                    <TouchableOpacity onPress={()=>{navigate('Создание заявки')}}style={{position:'absolute'}}>
+                    <TouchableOpacity onPress={()=>{navigate('Создание заявки')
+                                                                                }} style={{position:'absolute'}}>
                             <Image source={require('../../../assets/images/buttonPlus.png')} style={{position:'absolute',width:20,height:20,left:widthPercentageToDP(91), top:385}}/>
                         </TouchableOpacity>
                     <View style={{height:440, top:418}}>
